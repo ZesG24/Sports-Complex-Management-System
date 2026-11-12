@@ -15,6 +15,8 @@
 .user-role-badge.badge-owner{background:#fef3c7;color:#92400e}
 .user-role-badge.badge-admin{background:#ede9fe;color:#5b21b6}
 .user-role-badge.badge-user{background:#e4f6e8;color:#158f68}
+.register-link{background:var(--green);color:#fff!important;font-weight:700;font-size:.84rem;padding:6px 15px;border-radius:999px;text-decoration:none;transition:background .2s;display:inline-flex;align-items:center}
+.register-link:hover{background:#0d7654;color:#fff!important}
 .btn-logout{border:0;background:transparent;color:var(--muted);font-size:.78rem;font-weight:600;padding:4px 8px;border-radius:6px;transition:all .2s ease;cursor:pointer}
 .btn-logout:hover{color:#dc2626;background:#fee2e2}
  

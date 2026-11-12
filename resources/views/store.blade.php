@@ -35,6 +35,7 @@
                                 </div>
                             @else
                                 <a class="login-link" href="{{ route('login') }}">Đăng nhập</a>
+                                <a class="register-link" href="{{ route('register') }}">Đăng ký</a>
                             @endauth
                             <button class="store-cart-button" type="button"><span class="store-cart-icon">♧</span><span>Giỏ hàng</span><b id="cartCount">0</b></button>
                         </div>

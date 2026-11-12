@@ -294,6 +294,10 @@
                 </button>
             </form>
 
+            <div class="text-center mt-4" style="font-size: 0.85rem; color: var(--muted);">
+                Chưa có tài khoản? <a href="{{ route('register') }}" style="color: var(--green); font-weight: 700; text-decoration: none;">Đăng ký ngay</a>
+            </div>
+
             <div class="text-center">
                 <a href="{{ route('home') }}" class="back-home-link">
                     <span>←</span> Quay lại Trang chủ

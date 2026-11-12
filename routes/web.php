@@ -10,6 +10,12 @@ Route::get('/', function () {
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
     Route::post('/login', [AuthController::class, 'login']);
+
+    Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
+    Route::post('/register', [AuthController::class, 'register']);
+    Route::get('/register/verify-otp', [AuthController::class, 'showVerifyOtpForm'])->name('register.verify-otp');
+    Route::post('/register/verify-otp', [AuthController::class, 'verifyOtp'])->name('register.verify-otp.submit');
+    Route::post('/register/resend-otp', [AuthController::class, 'resendOtp'])->name('register.resend-otp');
 });
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');

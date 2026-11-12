@@ -45,7 +45,7 @@
                                 </div>
                             @else
                                 <a class="login-link" href="{{ route('login') }}">Đăng nhập</a>
-                                <a class="register-link" href="#">Đăng ký</a>
+                                <a class="register-link" href="{{ route('register') }}">Đăng ký</a>
                             @endauth
                         </div>
                     </div>
