@@ -28,8 +28,23 @@
                             <li class="nav-item"><a class="nav-link" href="{{ route('store') }}">Cửa hàng</a></li>
                         </ul>
                         <div class="d-flex align-items-center gap-3 mt-3 mt-lg-0">
-                            <a class="login-link" href="#">Đăng nhập</a>
-                            <a class="register-link" href="#">Đăng ký</a>
+                            @auth
+                                <div class="user-greeting-pill">
+                                    <span class="user-avatar-circle">{{ strtoupper(substr(Auth::user()->TenDangNhap, 0, 1)) }}</span>
+                                    <span class="user-info-text">
+                                        <span>Xin chào,</span>
+                                        <strong class="user-name">{{ Auth::user()->TenDangNhap }}</strong>
+                                        <span class="user-role-badge badge-{{ Auth::user()->LoaiTK }}">{{ Auth::user()->LoaiTK === 'owner' ? 'Chủ sân' : (Auth::user()->LoaiTK === 'admin' ? 'Admin' : 'Khách hàng') }}</span>
+                                    </span>
+                                    <form action="{{ route('logout') }}" method="POST" class="d-inline m-0">
+                                        @csrf
+                                        <button type="submit" class="btn-logout" title="Đăng xuất">Đăng xuất</button>
+                                    </form>
+                                </div>
+                            @else
+                                <a class="login-link" href="{{ route('login') }}">Đăng nhập</a>
+                                <a class="register-link" href="#">Đăng ký</a>
+                            @endauth
                         </div>
                     </div>
                 </div>

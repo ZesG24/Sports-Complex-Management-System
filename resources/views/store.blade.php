@@ -19,7 +19,25 @@
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#storeNavigation" aria-controls="storeNavigation" aria-expanded="false" aria-label="Mở menu"><span class="navbar-toggler-icon"></span></button>
                     <div class="collapse navbar-collapse" id="storeNavigation">
                         <ul class="navbar-nav mx-auto gap-lg-3"><li class="nav-item"><a class="nav-link" href="{{ url('/') }}">Trang chủ</a></li><li class="nav-item"><a class="nav-link" href="{{ route('booking') }}">Đặt sân</a></li><li class="nav-item"><a class="nav-link active" href="{{ route('store') }}">Cửa hàng</a></li></ul>
-                        <div class="d-flex align-items-center gap-3 mt-3 mt-lg-0"><a class="login-link" href="#">Đăng nhập</a><button class="store-cart-button" type="button"><span class="store-cart-icon">♧</span><span>Giỏ hàng</span><b id="cartCount">0</b></button></div>
+                        <div class="d-flex align-items-center gap-3 mt-3 mt-lg-0">
+                            @auth
+                                <div class="user-greeting-pill">
+                                    <span class="user-avatar-circle">{{ strtoupper(substr(Auth::user()->TenDangNhap, 0, 1)) }}</span>
+                                    <span class="user-info-text">
+                                        <span>Xin chào,</span>
+                                        <strong class="user-name">{{ Auth::user()->TenDangNhap }}</strong>
+                                        <span class="user-role-badge badge-{{ Auth::user()->LoaiTK }}">{{ Auth::user()->LoaiTK === 'owner' ? 'Chủ sân' : (Auth::user()->LoaiTK === 'admin' ? 'Admin' : 'Khách hàng') }}</span>
+                                    </span>
+                                    <form action="{{ route('logout') }}" method="POST" class="d-inline m-0">
+                                        @csrf
+                                        <button type="submit" class="btn-logout" title="Đăng xuất">Đăng xuất</button>
+                                    </form>
+                                </div>
+                            @else
+                                <a class="login-link" href="{{ route('login') }}">Đăng nhập</a>
+                            @endauth
+                            <button class="store-cart-button" type="button"><span class="store-cart-icon">♧</span><span>Giỏ hàng</span><b id="cartCount">0</b></button>
+                        </div>
                     </div>
                 </div>
             </nav>

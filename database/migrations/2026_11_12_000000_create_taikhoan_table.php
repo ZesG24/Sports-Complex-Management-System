@@ -12,7 +12,7 @@ return new class extends Migration
             $table->id('MaTK');
             $table->string('TenDangNhap')->unique();
             $table->string('MatKhau');
-            $table->string('LoaiTK')->default('khachhang'); // 'admin', 'khachhang', 'nhanvien'
+            $table->string('LoaiTK')->default('user'); // 'owner', 'admin', 'user'
             $table->rememberToken();
             $table->timestamps();
         });
