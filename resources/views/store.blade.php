@@ -26,7 +26,7 @@
                                     <span class="user-info-text">
                                         <span>Xin chào,</span>
                                         <strong class="user-name">{{ Auth::user()->TenDangNhap }}</strong>
-                                        <span class="user-role-badge badge-{{ Auth::user()->LoaiTK }}">{{ Auth::user()->LoaiTK === 'owner' ? 'Chủ sân' : (Auth::user()->LoaiTK === 'admin' ? 'Admin' : 'Khách hàng') }}</span>
+                                        <span class="user-role-badge badge-{{ Auth::user()->LoaiTK }}">{{ Auth::user()->ten_hang_thanh_vien }}</span>
                                     </span>
                                     <form action="{{ route('logout') }}" method="POST" class="d-inline m-0">
                                         @csrf

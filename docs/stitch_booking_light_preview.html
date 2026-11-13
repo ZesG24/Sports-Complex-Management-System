@@ -1,0 +1,762 @@
+﻿<!DOCTYPE html>
+
+<html class="light" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Äáº·t SĂ¢n Thá»ƒ Thao Äa NÄƒng | Thá»ƒ thao Anh Vinh</title>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts: Plus Jakarta Sans -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS Play CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config verbatim -->
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "surface-bright": "#effdf6",
+            "on-tertiary-fixed": "#002114",
+            "surface-dim": "#cfddd7",
+            "inverse-on-surface": "#e6f4ed",
+            "on-surface-variant": "#3e4943",
+            "on-background": "#121e1a",
+            "tertiary-fixed-dim": "#7ed8af",
+            "on-error-container": "#93000a",
+            "tertiary-fixed": "#9af5ca",
+            "surface-container": "#e3f1ea",
+            "surface-variant": "#d8e6df",
+            "outline-variant": "#bdcac1",
+            "on-tertiary": "#ffffff",
+            "primary-fixed": "#8df7c9",
+            "on-secondary-fixed-variant": "#3e4c00",
+            "tertiary-container": "#248360",
+            "background": "#effdf6",
+            "secondary-fixed": "#d3ef69",
+            "primary": "#00694b",
+            "on-primary-container": "#f5fff7",
+            "surface-tint": "#006c4d",
+            "on-primary-fixed-variant": "#005139",
+            "primary-fixed-dim": "#70daae",
+            "primary-container": "#00855f",
+            "on-surface": "#121e1a",
+            "surface-container-highest": "#d8e6df",
+            "inverse-surface": "#27332f",
+            "on-error": "#ffffff",
+            "on-primary": "#ffffff",
+            "inverse-primary": "#70daae",
+            "error-container": "#ffdad6",
+            "on-tertiary-container": "#f5fff7",
+            "surface-container-high": "#ddebe5",
+            "surface": "#effdf6",
+            "on-secondary-container": "#596c00",
+            "on-secondary": "#ffffff",
+            "on-secondary-fixed": "#171e00",
+            "tertiary": "#00694a",
+            "surface-container-low": "#e9f7f0",
+            "error": "#ba1a1a",
+            "on-primary-fixed": "#002115",
+            "secondary-fixed-dim": "#b7d250",
+            "secondary": "#546500",
+            "secondary-container": "#d3ef69",
+            "surface-container-lowest": "#ffffff",
+            "outline": "#6e7a72",
+            "on-tertiary-fixed-variant": "#005138"
+          },
+          "borderRadius": {
+            "DEFAULT": "1rem",
+            "lg": "2rem",
+            "xl": "3rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-sm": "0.5rem",
+            "gutter-mobile": "1rem",
+            "margin": "3rem",
+            "space-xs": "0.25rem",
+            "space-md": "1rem",
+            "space-xl": "2.5rem",
+            "gutter": "1.5rem",
+            "margin-mobile": "1.25rem",
+            "space-lg": "1.5rem"
+          },
+          "fontFamily": {
+            "headline-sm": ["Plus Jakarta Sans"],
+            "body-sm": ["Plus Jakarta Sans"],
+            "body-md": ["Plus Jakarta Sans"],
+            "display-hero-mobile": ["Plus Jakarta Sans"],
+            "headline-md": ["Plus Jakarta Sans"],
+            "headline-lg-mobile": ["Plus Jakarta Sans"],
+            "label-lg": ["Plus Jakarta Sans"],
+            "display-hero": ["Plus Jakarta Sans"],
+            "body-lg": ["Plus Jakarta Sans"],
+            "headline-lg": ["Plus Jakarta Sans"],
+            "label-md": ["Plus Jakarta Sans"],
+            "label-sm": ["Plus Jakarta Sans"]
+          },
+          "fontSize": {
+            "headline-sm": ["20px", { "lineHeight": "28px", "letterSpacing": "-0.005em", "fontWeight": "600" }],
+            "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+            "display-hero-mobile": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+            "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+            "headline-lg-mobile": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+            "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+            "display-hero": ["56px", { "lineHeight": "64px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+            "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+            "headline-lg": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.015em", "fontWeight": "700" }],
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+            "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "700" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-family: 'Material Symbols Outlined';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 20px;
+      line-height: 1;
+      letter-spacing: normal;
+      text-transform: none;
+      display: inline-block;
+      white-space: nowrap;
+      word-wrap: normal;
+      direction: ltr;
+      -webkit-font-smoothing: antialiased;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body class="bg-[#f7f9f4] text-on-surface antialiased font-body-md min-h-screen flex flex-col selection:bg-secondary-container selection:text-on-secondary-container">
+<!-- ================= 1. HEADER (TopNavBar Shared Component Execution) ================= -->
+<header class="sticky top-0 z-50 w-full bg-surface-container-lowest/95 backdrop-blur-md border-b border-outline-variant/30 shadow-sm transition-all duration-200">
+<div class="max-w-7xl mx-auto flex items-center justify-between px-space-xl py-space-md">
+<!-- Brand Logo Cluster -->
+<div class="flex items-center gap-space-md">
+<a class="flex items-center gap-space-sm group" href="#">
+<div class="w-11 h-11 rounded-xl bg-secondary-container flex items-center justify-center text-on-secondary-fixed font-black text-xl tracking-tight shadow-sm group-hover:scale-105 transition-transform duration-200">
+            AV
+          </div>
+<div class="flex flex-col">
+<span class="text-headline-sm font-headline-sm font-bold text-primary tracking-tight leading-tight">Thá»ƒ thao Anh Vinh</span>
+<span class="text-[10px] font-bold tracking-widest text-outline uppercase">KHU PHá»¨C Há»¢P THá»‚ THAO</span>
+</div>
+</a>
+</div>
+<!-- Navigation Links (Exact Shared Component Names) -->
+<nav class="hidden lg:flex items-center gap-8">
+<a class="text-primary font-label-lg text-label-lg border-b-2 border-primary pb-space-xs transition-colors flex items-center gap-1.5 font-bold" href="#">
+<span>Äáº·t SĂ¢n</span>
+</a>
+<a class="text-on-surface-variant font-label-lg text-label-lg hover:text-primary transition-colors pb-space-xs" href="#">
+<span>Lá»‹ch TrĂ¬nh</span>
+</a>
+<a class="text-on-surface-variant font-label-lg text-label-lg hover:text-primary transition-colors pb-space-xs" href="#">
+<span>Giáº£i Äáº¥u</span>
+</a>
+<a class="text-on-surface-variant font-label-lg text-label-lg hover:text-primary transition-colors pb-space-xs" href="#">
+<span>Dá»‹ch Vá»¥</span>
+</a>
+<a class="text-on-surface-variant font-label-lg text-label-lg hover:text-primary transition-colors pb-space-xs" href="#">
+<span>Tin Tá»©c</span>
+</a>
+</nav>
+<!-- Trailing Action Cluster -->
+<div class="flex items-center gap-space-md">
+<!-- Notification with Badge -->
+<button class="relative w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-surface-container transition-all" title="ThĂ´ng bĂ¡o">
+<span class="material-symbols-outlined text-[22px]">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 rounded-full bg-error ring-2 ring-surface-container-lowest"></span>
+</button>
+<!-- Help Button -->
+<button class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-surface-container transition-all" title="Há»— trá»£ &amp; Trá»£ giĂºp">
+<span class="material-symbols-outlined text-[22px]">help</span>
+</button>
+<!-- User Profile Pill -->
+<div class="flex items-center gap-space-sm pl-space-sm pr-space-md py-1.5 bg-surface-container-lowest border border-outline-variant/50 rounded-full shadow-sm hover:border-primary/40 transition-all">
+<div class="relative w-8 h-8 rounded-full overflow-hidden ring-1 ring-outline-variant/40">
+<img class="w-full h-full object-cover" data-alt="ChĂ¢n dung cáº­n cáº£nh má»™t ngÆ°á»i Ä‘Ă n Ă´ng Viá»‡t Nam tráº» tuá»•i nÄƒng Ä‘á»™ng vá»›i ná»¥ cÆ°á»i thĂ¢n thiá»‡n trong trang phá»¥c thá»ƒ thao hiá»‡n Ä‘áº¡i, Ă¡nh sĂ¡ng ban ngĂ y áº¥m Ă¡p vĂ  tá»± nhiĂªn trĂªn ná»n sĂ¢n thá»ƒ thao hiá»‡n Ä‘áº¡i cao cáº¥p mang thÆ°Æ¡ng hiá»‡u Anh Vinh vá»›i tĂ´ng mĂ u xanh ngá»c vĂ  xanh lĂ¡ máº¡ tÆ°Æ¡i sĂ¡ng." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDefy4wKPnXHBf8uwvyL-xBsB0NiNksbDulwYZ8pYFsO4jSzhrDMN0KyKCiK_ShbpTZ3h2XtVBKKwzG6ey4dg37VF5keYtXmZZC_AB1qpLZvp37sTSw8vx6fKcLcG3ZTHM7ETNQ0bnDPiMPo60i_pWO4JVP9GGYfx93_zY-Wav-oNkKaXUsWY5UchYovUcAah6Stg3wWDib9TzypvbfHnyrRzkoGvcIdnGsayzPT94r-VSsqjR6QmeP8LR4ctu-KzAUVyOfxbvMnw"/>
+</div>
+<div class="flex flex-col text-left">
+<div class="flex items-center gap-1.5">
+<span class="text-label-sm font-label-sm font-bold text-on-surface">Anh QuĂ¢n</span>
+<span class="bg-secondary-container text-on-secondary-fixed text-[10px] font-extrabold px-1.5 py-0.5 rounded-full uppercase tracking-wider">VIP 2</span>
+</div>
+<span class="text-[11px] text-outline leading-none font-medium">0908 â€¢â€¢â€¢ 888</span>
+</div>
+<button class="ml-2 text-outline hover:text-error transition-colors p-1" title="ÄÄƒng xuáº¥t">
+<span class="material-symbols-outlined text-[18px]">logout</span>
+</button>
+</div>
+</div>
+</div>
+</header>
+<!-- ================= 2. HERO & FILTER TOOLBAR ================= -->
+<main class="flex-grow max-w-7xl w-full mx-auto px-space-xl py-space-lg">
+<!-- Breadcrumb & Headline -->
+<section class="mb-space-lg">
+<div class="flex items-center gap-2 text-body-sm font-body-sm text-outline mb-2">
+<a class="hover:text-primary transition-colors flex items-center gap-1" href="#">
+<span class="material-symbols-outlined text-[16px]">home</span> Trang chá»§
+        </a>
+<span class="text-outline-variant">/</span>
+<span class="text-primary font-medium">Äáº·t sĂ¢n thá»ƒ thao</span>
+</div>
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<h1 class="text-headline-lg font-headline-lg font-extrabold text-on-surface tracking-tight">
+            Chá»n sĂ¢n. <span class="text-primary font-extrabold">LĂªn lá»‹ch chÆ¡i</span> nhiá»u mĂ´n linh hoáº¡t.
+          </h1>
+<p class="text-body-md font-body-md text-on-surface-variant mt-1.5 max-w-3xl">
+            Äáº·t cĂ¹ng lĂºc nhiá»u sĂ¢n thuá»™c bĂ³ng Ä‘Ă¡, cáº§u lĂ´ng, pickleball, bĂ³ng rá»• vá»›i cĂ¡c khung giá» khĂ¡c nhau trong duy nháº¥t 1 phiáº¿u Ä‘áº·t tiá»‡n lá»£i.
+          </p>
+</div>
+<div class="flex items-center gap-2 self-start md:self-auto bg-surface-container-lowest border border-outline-variant/40 rounded-full px-3.5 py-1.5 shadow-sm text-label-md font-label-md text-primary font-bold">
+<span class="w-2.5 h-2.5 rounded-full bg-primary animate-pulse"></span>
+          Äang má»Ÿ Ä‘áº·t sĂ¢n: 24/7 trá»±c tuyáº¿n
+        </div>
+</div>
+</section>
+<!-- Interactive Filter Toolbar Card -->
+<section class="bg-surface-container-lowest border border-outline-variant/40 rounded-2xl p-space-md shadow-sm mb-space-xl">
+<div class="flex flex-col xl:flex-row xl:items-center justify-between gap-4">
+<!-- Left: Date Picker Pill -->
+<div class="flex flex-wrap items-center gap-3">
+<div class="relative">
+<button class="flex items-center gap-2.5 bg-[#f0f4f1] hover:bg-surface-container border border-outline-variant/40 px-4 py-2.5 rounded-full text-label-lg font-label-lg text-on-surface font-semibold transition-all">
+<span class="material-symbols-outlined text-primary text-[20px]">calendar_today</span>
+<span>HĂ´m nay (Thá»© Báº£y, 24/05/2025)</span>
+<span class="material-symbols-outlined text-[18px] text-outline">expand_more</span>
+</button>
+</div>
+<div class="h-6 w-[1px] bg-outline-variant/40 hidden sm:block"></div>
+<!-- Pill Tabs Sports -->
+<div class="flex items-center gap-2 overflow-x-auto pb-1 sm:pb-0 scrollbar-none">
+<!-- All (Active) -->
+<button class="bg-primary text-on-primary px-4 py-2 rounded-full text-label-lg font-label-lg font-bold shadow-sm transition-all flex items-center gap-1.5">
+<span>Táº¥t cáº£</span>
+<span class="bg-primary-container text-on-primary text-xs px-1.5 py-0.2 rounded-full">16</span>
+</button>
+<!-- Football -->
+<button class="bg-[#f0f4f1] hover:bg-surface-container hover:border-primary/40 border border-transparent text-on-surface px-4 py-2 rounded-full text-label-lg font-label-lg font-medium transition-all flex items-center gap-1.5">
+<span>â½ BĂ³ng Ä‘Ă¡</span>
+<span class="text-outline text-xs">(5)</span>
+</button>
+<!-- Badminton -->
+<button class="bg-[#f0f4f1] hover:bg-surface-container hover:border-primary/40 border border-transparent text-on-surface px-4 py-2 rounded-full text-label-lg font-label-lg font-medium transition-all flex items-center gap-1.5">
+<span>đŸ¸ Cáº§u lĂ´ng</span>
+<span class="text-outline text-xs">(6)</span>
+</button>
+<!-- Pickleball -->
+<button class="bg-[#f0f4f1] hover:bg-surface-container hover:border-primary/40 border border-transparent text-on-surface px-4 py-2 rounded-full text-label-lg font-label-lg font-medium transition-all flex items-center gap-1.5">
+<span>đŸ¾ Pickleball</span>
+<span class="text-outline text-xs">(3)</span>
+</button>
+<!-- Basketball -->
+<button class="bg-[#f0f4f1] hover:bg-surface-container hover:border-primary/40 border border-transparent text-on-surface px-4 py-2 rounded-full text-label-lg font-label-lg font-medium transition-all flex items-center gap-1.5">
+<span>đŸ€ BĂ³ng rá»•</span>
+<span class="text-outline text-xs">(2)</span>
+</button>
+</div>
+</div>
+<!-- Right: Fast Search & Advanced Filters -->
+<div class="flex items-center gap-2.5">
+<div class="relative flex-grow sm:w-64">
+<span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-outline text-[18px]">search</span>
+<input class="w-full bg-[#f0f4f1] border-none text-body-sm font-body-sm pl-10 pr-3.5 py-2 rounded-full focus:ring-2 focus:ring-primary text-on-surface placeholder-outline focus:bg-surface-container-lowest" placeholder="TĂ¬m tĂªn sĂ¢n, sá»‘ sĂ¢n..." type="text"/>
+</div>
+<button class="flex items-center gap-1.5 px-3.5 py-2 rounded-full border border-outline-variant/50 text-label-lg font-label-lg text-on-surface-variant hover:text-primary hover:border-primary transition-all">
+<span class="material-symbols-outlined text-[18px]">tune</span>
+<span class="font-medium">Bá»™ lá»c</span>
+</button>
+</div>
+</div>
+</section>
+<!-- ================= 3. TWO-COLUMN BOOKING WORKSPACE ================= -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start">
+<!-- ================= LEFT COLUMN: AVAILABLE COURTS LIST (8 COLS) ================= -->
+<section class="lg:col-span-8 space-y-space-md">
+<!-- List Header Bar -->
+<div class="flex items-center justify-between bg-surface-container-lowest px-space-md py-3 rounded-xl border border-outline-variant/30">
+<div class="flex items-center gap-2">
+<span class="text-headline-sm font-headline-sm text-on-surface font-bold">Danh sĂ¡ch sĂ¢n Ä‘ang sáºµn sĂ ng</span>
+<span class="bg-surface-container text-primary font-bold text-label-sm px-2.5 py-0.5 rounded-full">16 sĂ¢n trá»‘ng</span>
+</div>
+<div class="flex items-center gap-2 text-label-md font-label-md text-outline">
+<span>Sáº¯p xáº¿p:</span>
+<button class="text-on-surface font-bold hover:text-primary flex items-center gap-1">
+              ÄĂ¡nh giĂ¡ cao nháº¥t
+              <span class="material-symbols-outlined text-[16px]">arrow_drop_down</span>
+</button>
+</div>
+</div>
+<!-- ================= CARD 1: BĂ“NG ÄĂ (ÄĂƒ THĂM) ================= -->
+<article class="bg-surface-container-lowest rounded-2xl border-2 border-primary/20 p-space-md shadow-sm relative overflow-hidden transition-all duration-200 hover:shadow-md">
+<!-- Selection Ribbon -->
+<div class="absolute top-0 right-0 bg-primary/10 text-primary font-label-sm font-bold text-[11px] px-3.5 py-1 rounded-bl-xl flex items-center gap-1 border-b border-l border-primary/20">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+            ÄĂƒ THĂM VĂ€O PHIáº¾U
+          </div>
+<div class="flex flex-col md:flex-row gap-space-md">
+<!-- Left Thumbnail -->
+<div class="relative w-full md:w-56 h-48 md:h-auto rounded-xl overflow-hidden flex-shrink-0 group">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="Khung cáº£nh tuyá»‡t Ä‘áº¹p cá»§a sĂ¢n bĂ³ng Ä‘Ă¡ cá» nhĂ¢n táº¡o cao cáº¥p Ä‘áº¡t tiĂªu chuáº©n thi Ä‘áº¥u FIFA Pro trong nhĂ  phá»©c há»£p thá»ƒ thao Anh Vinh, cĂ¡c dáº£i cá» xanh tÆ°Æ¡i Ä‘an xen hoĂ n má»¹, há»‡ thá»‘ng Ä‘Ă¨n LED thá»ƒ thao chiáº¿u sĂ¡ng dá»‹u máº¯t, khung thĂ nh tráº¯ng sáº¯c nĂ©t trong má»™t khĂ´ng gian má»Ÿ vĂ  thoĂ¡ng Ä‘Ă£ng." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDoDwn08oE9tZogrviid7F5P_CacgaboJS7bWWyraUJL3wdREz7bYwtQnkeFWfKF6L5u0-ZbRX4YFTiwTJkoSkPOKwFEJ4GO8FrcYrrB9fbAlOw7af4UQgwMUGyTf3pu_P7cRB6m7KO7fYkX396X7hyioDVcjaHwPCgRX4rAkkq-FDFFpP7XiaBSHgyCjWxwRzVOSjrkdJnX8nJPCUUGdqJWuXarXGr3i-olTSuIiWHPh8lF5Unq1NeAxrb23ELmucNfGPb8w4XJA"/>
+<div class="absolute top-2.5 left-2.5 flex flex-col gap-1">
+<span class="bg-inverse-surface/85 text-inverse-on-surface text-[11px] font-bold px-2 py-0.5 rounded-md backdrop-blur-sm">
+                  â½ BĂ³ng Ä‘Ă¡ 5 ngÆ°á»i
+                </span>
+<span class="bg-secondary-container text-on-secondary-fixed text-[10px] font-extrabold px-2 py-0.5 rounded-md shadow-sm">
+                  Máº·t cá» FIFA Pro
+                </span>
+</div>
+</div>
+<!-- Right Info & Slots -->
+<div class="flex-grow flex flex-col justify-between">
+<div>
+<div class="flex items-start justify-between pr-28">
+<div>
+<h2 class="text-headline-sm font-headline-sm font-bold text-on-surface">
+                      SĂ¢n bĂ³ng Ä‘Ă¡ sá»‘ 1 <span class="text-outline font-normal text-body-sm">(SĂ¢n cá» nhĂ¢n táº¡o 5 ngÆ°á»i)</span>
+</h2>
+<p class="text-body-sm font-body-sm text-outline flex items-center gap-1 mt-0.5">
+<span class="material-symbols-outlined text-[16px] text-primary">location_on</span>
+                      Khu A - Cá»¥m sĂ¢n thá»ƒ thao trung tĂ¢m Anh Vinh
+                    </p>
+</div>
+<!-- Rating -->
+<div class="flex items-center gap-1 bg-[#fffbe6] text-[#b78103] px-2 py-1 rounded-lg text-label-sm font-bold border border-[#ffe58f]">
+<span class="material-symbols-outlined text-[16px] text-[#faad14]">star</span>
+<span>4.9</span>
+<span class="text-outline font-normal text-[11px]">(128)</span>
+</div>
+</div>
+<!-- Amenity Badges -->
+<div class="flex flex-wrap items-center gap-2 mt-2.5">
+<span class="inline-flex items-center gap-1 bg-[#f0f4f1] text-on-surface-variant text-label-sm px-2.5 py-1 rounded-md">
+<span class="material-symbols-outlined text-[14px] text-primary">lightbulb</span> ÄĂ¨n LED chuáº©n thi Ä‘áº¥u
+                  </span>
+<span class="inline-flex items-center gap-1 bg-[#f0f4f1] text-on-surface-variant text-label-sm px-2.5 py-1 rounded-md">
+<span class="material-symbols-outlined text-[14px] text-primary">roofing</span> Trong nhĂ 
+                  </span>
+<span class="inline-flex items-center gap-1 bg-[#f0f4f1] text-on-surface-variant text-label-sm px-2.5 py-1 rounded-md">
+<span class="material-symbols-outlined text-[14px] text-primary">water_drop</span> Miá»…n phĂ­ nÆ°á»›c Ä‘Ă¡
+                  </span>
+</div>
+<!-- Duration Selector -->
+<div class="mt-3.5 pt-3 border-t border-outline-variant/30 flex flex-wrap items-center justify-between gap-2">
+<div class="flex items-center gap-2">
+<span class="text-label-md font-label-md text-outline">Giá» báº¯t Ä‘áº§u: <strong class="text-on-surface">17:00</strong></span>
+<span class="text-outline-variant">â€¢</span>
+<span class="text-label-md font-label-md text-outline">Thá»i lÆ°á»£ng:</span>
+<div class="inline-flex rounded-lg p-0.5 bg-[#f0f4f1]">
+<button class="px-2.5 py-1 rounded-md text-label-sm text-outline font-medium">60 phĂºt</button>
+<button class="px-2.5 py-1 rounded-md text-label-sm bg-primary text-on-primary font-bold shadow-xs">90 phĂºt</button>
+<button class="px-2.5 py-1 rounded-md text-label-sm text-outline font-medium">120 phĂºt</button>
+</div>
+</div>
+<div class="text-label-md font-label-md text-primary font-semibold bg-surface-container px-2.5 py-1 rounded-md">
+                    17:00 â†’ 18:30 (1.5 giá»)
+                  </div>
+</div>
+</div>
+<!-- Price & Action CTA -->
+<div class="mt-4 pt-3 border-t border-outline-variant/30 flex items-center justify-between">
+<div>
+<span class="text-label-sm text-outline block">Tá»•ng tiá»n ca nĂ y</span>
+<div class="flex items-baseline gap-2">
+<span class="text-headline-sm font-headline-sm font-extrabold text-primary">375.000Ä‘</span>
+<span class="text-body-sm line-through text-outline">390.000Ä‘</span>
+</div>
+</div>
+<!-- Added Status Button -->
+<button class="bg-primary hover:bg-[#0d7654] text-on-primary px-5 py-2.5 rounded-full text-label-lg font-label-lg font-bold flex items-center gap-2 transition-all shadow-sm">
+<span class="material-symbols-outlined text-[18px]">check</span>
+                  ÄĂ£ thĂªm
+                </button>
+</div>
+</div>
+</div>
+</article>
+<!-- ================= CARD 2: Cáº¦U LĂ”NG (ÄĂƒ THĂM) ================= -->
+<article class="bg-surface-container-lowest rounded-2xl border-2 border-primary/20 p-space-md shadow-sm relative overflow-hidden transition-all duration-200 hover:shadow-md">
+<div class="absolute top-0 right-0 bg-primary/10 text-primary font-label-sm font-bold text-[11px] px-3.5 py-1 rounded-bl-xl flex items-center gap-1 border-b border-l border-primary/20">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+            ÄĂƒ THĂM VĂ€O PHIáº¾U
+          </div>
+<div class="flex flex-col md:flex-row gap-space-md">
+<div class="relative w-full md:w-56 h-48 md:h-auto rounded-xl overflow-hidden flex-shrink-0 group">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="SĂ¢n cáº§u lĂ´ng cao cáº¥p trong nhĂ  mĂ¡y láº¡nh vá»›i máº·t tháº£m Yonex mĂ u xanh lá»¥c ngá»c bĂ­ch 5mm chá»‘ng trÆ¡n trÆ°á»£t, váº¡ch káº» line tráº¯ng sáº¯c nĂ©t, dĂ n Ä‘Ă¨n chá»‘ng chĂ³i chuyĂªn dá»¥ng khĂ´ng Ä‘á»• bĂ³ng, báº§u khĂ´ng khĂ­ thá»ƒ thao chuyĂªn nghiá»‡p vĂ  sĂ¡ng sá»§a táº¡i trung tĂ¢m thá»ƒ thao Anh Vinh." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBLROthaFBbLmi4x3Nc1JwDoYyuhOPNQTEuqfd9GPzXqwOOyWAEN-tfbpWFk6vwqd0228CzYYqqc84IeNjXfJtLXDrpGu2GJ9XYIBLiY0g5IAhA6b8VKCneUQXPkCiqkhd2GbMqMna3S9VrE3SnztiycilLruIdDeGhV_ImfdGyYgHQSGW3DxlpUT2HnqVWzxAEdZ_DJBhGuoAvkICF068i7K7DigE4UES0qSQ2bznlvWYPxKA8nwf9u3sKLtbl2jyeG9y_Uolzrg"/>
+<div class="absolute top-2.5 left-2.5 flex flex-col gap-1">
+<span class="bg-inverse-surface/85 text-inverse-on-surface text-[11px] font-bold px-2 py-0.5 rounded-md backdrop-blur-sm">
+                  đŸ¸ Cáº§u lĂ´ng VIP
+                </span>
+<span class="bg-secondary-container text-on-secondary-fixed text-[10px] font-extrabold px-2 py-0.5 rounded-md shadow-sm">
+                  Tháº£m Yonex 5mm
+                </span>
+</div>
+</div>
+<div class="flex-grow flex flex-col justify-between">
+<div>
+<div class="flex items-start justify-between pr-28">
+<div>
+<h2 class="text-headline-sm font-headline-sm font-bold text-on-surface">
+                      SĂ¢n cáº§u lĂ´ng VIP 2 <span class="text-outline font-normal text-body-sm">(Tháº£m Yonex chuyĂªn nghiá»‡p)</span>
+</h2>
+<p class="text-body-sm font-body-sm text-outline flex items-center gap-1 mt-0.5">
+<span class="material-symbols-outlined text-[16px] text-primary">location_on</span>
+                      Khu B - TĂ²a nhĂ  thá»ƒ thao trong nhĂ  mĂ¡y láº¡nh
+                    </p>
+</div>
+<div class="flex items-center gap-1 bg-[#fffbe6] text-[#b78103] px-2 py-1 rounded-lg text-label-sm font-bold border border-[#ffe58f]">
+<span class="material-symbols-outlined text-[16px] text-[#faad14]">star</span>
+<span>5.0</span>
+<span class="text-outline font-normal text-[11px]">(95)</span>
+</div>
+</div>
+<div class="flex flex-wrap items-center gap-2 mt-2.5">
+<span class="inline-flex items-center gap-1 bg-[#f0f4f1] text-on-surface-variant text-label-sm px-2.5 py-1 rounded-md">
+<span class="material-symbols-outlined text-[14px] text-primary">sports_tennis</span> SĂ n Yonex chuáº©n quá»‘c táº¿
+                  </span>
+<span class="inline-flex items-center gap-1 bg-[#f0f4f1] text-on-surface-variant text-label-sm px-2.5 py-1 rounded-md">
+<span class="material-symbols-outlined text-[14px] text-primary">ac_unit</span> Äiá»u hĂ²a mĂ¡t láº¡nh
+                  </span>
+<span class="inline-flex items-center gap-1 bg-[#f0f4f1] text-on-surface-variant text-label-sm px-2.5 py-1 rounded-md">
+<span class="material-symbols-outlined text-[14px] text-primary">chair</span> Gháº¿ nghá»‰ Ä‘á»‡m Ăªm
+                  </span>
+</div>
+<div class="mt-3.5 pt-3 border-t border-outline-variant/30 flex flex-wrap items-center justify-between gap-2">
+<div class="flex items-center gap-2">
+<span class="text-label-md font-label-md text-outline">Giá» báº¯t Ä‘áº§u: <strong class="text-on-surface">19:00</strong></span>
+<span class="text-outline-variant">â€¢</span>
+<span class="text-label-md font-label-md text-outline">Thá»i lÆ°á»£ng:</span>
+<div class="inline-flex rounded-lg p-0.5 bg-[#f0f4f1]">
+<button class="px-2.5 py-1 rounded-md text-label-sm bg-primary text-on-primary font-bold shadow-xs">60 phĂºt</button>
+<button class="px-2.5 py-1 rounded-md text-label-sm text-outline font-medium">90 phĂºt</button>
+<button class="px-2.5 py-1 rounded-md text-label-sm text-outline font-medium">120 phĂºt</button>
+</div>
+</div>
+<div class="text-label-md font-label-md text-primary font-semibold bg-surface-container px-2.5 py-1 rounded-md">
+                    19:00 â†’ 20:00 (1.0 giá»)
+                  </div>
+</div>
+</div>
+<div class="mt-4 pt-3 border-t border-outline-variant/30 flex items-center justify-between">
+<div>
+<span class="text-label-sm text-outline block">ÄÆ¡n giĂ¡ Ă¡p dá»¥ng</span>
+<div class="flex items-baseline gap-1.5">
+<span class="text-headline-sm font-headline-sm font-extrabold text-primary">180.000Ä‘</span>
+<span class="text-body-sm text-outline">/ giá»</span>
+</div>
+</div>
+<button class="bg-primary hover:bg-[#0d7654] text-on-primary px-5 py-2.5 rounded-full text-label-lg font-label-lg font-bold flex items-center gap-2 transition-all shadow-sm">
+<span class="material-symbols-outlined text-[18px]">check</span>
+                  ÄĂ£ thĂªm
+                </button>
+</div>
+</div>
+</div>
+</article>
+<!-- ================= CARD 3: PICKLEBALL (CHÆ¯A THĂM) ================= -->
+<article class="bg-surface-container-lowest rounded-2xl border border-outline-variant/40 p-space-md shadow-sm relative overflow-hidden transition-all duration-200 hover:border-primary/40 hover:shadow-md">
+<div class="flex flex-col md:flex-row gap-space-md">
+<div class="relative w-full md:w-56 h-48 md:h-auto rounded-xl overflow-hidden flex-shrink-0 group">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="ToĂ n cáº£nh sĂ¢n pickleball hiá»‡n Ä‘áº¡i vá»›i máº·t sĂ¢n Decoturf cao cáº¥p hai mĂ u xanh dÆ°Æ¡ng vĂ  xanh lá»¥c sang trá»ng, lÆ°á»›i chuáº©n thi Ä‘áº¥u USA Pickleball cÄƒng tháº³ng, dÆ°á»›i mĂ¡i vĂ²m thĂ´ng giĂ³ thoĂ¡ng mĂ¡t vá»›i Ă¡nh sĂ¡ng tá»± nhiĂªn ban ngĂ y chan hĂ²a táº¡i trung tĂ¢m thá»ƒ thao Anh Vinh." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBiF0GUSRnl_tBBss6Vo5VaDjvrzQ8rPGLxI8T_Dvwwv4dMG1-mrrqLXA-V41VuYOjsL1NiPDILHUUdj4eAut3bNsXUf_Cu3D6prY_cBr1jtrk403KTxMUirybq12hV3ExF-k1g7kAL_2oqT_8gPFSeszQwRKM0AVN9Qr843KqBV6CVo0O8Dy_gVhwvDa_z2SALLYFmwfON_fDww3Y0WIwkt6GMx_igNEw1IfDtlBxzJvQ_EN8Qr6H1lafU8OTids6Ls6OfTAfhoQ"/>
+<div class="absolute top-2.5 left-2.5 flex flex-col gap-1">
+<span class="bg-inverse-surface/85 text-inverse-on-surface text-[11px] font-bold px-2 py-0.5 rounded-md backdrop-blur-sm">
+                  đŸ¾ Pickleball Pro
+                </span>
+<span class="bg-secondary-container text-on-secondary-fixed text-[10px] font-extrabold px-2 py-0.5 rounded-md shadow-sm">
+                  Decoturf USA
+                </span>
+</div>
+</div>
+<div class="flex-grow flex flex-col justify-between">
+<div>
+<div class="flex items-start justify-between">
+<div>
+<h2 class="text-headline-sm font-headline-sm font-bold text-on-surface">
+                      SĂ¢n Pickleball Pro 1 <span class="text-outline font-normal text-body-sm">(Máº·t sĂ¢n Decoturf cao cáº¥p)</span>
+</h2>
+<p class="text-body-sm font-body-sm text-outline flex items-center gap-1 mt-0.5">
+<span class="material-symbols-outlined text-[16px] text-primary">location_on</span>
+                      Khu C - Tá»• há»£p sĂ¢n má»Ÿ cĂ³ mĂ¡i che vĂ²m thĂ©p
+                    </p>
+</div>
+<div class="flex items-center gap-1 bg-[#fffbe6] text-[#b78103] px-2 py-1 rounded-lg text-label-sm font-bold border border-[#ffe58f]">
+<span class="material-symbols-outlined text-[16px] text-[#faad14]">star</span>
+<span>4.8</span>
+<span class="text-outline font-normal text-[11px]">(64)</span>
+</div>
+</div>
+<div class="flex flex-wrap items-center gap-2 mt-2.5">
+<span class="inline-flex items-center gap-1 bg-[#f0f4f1] text-on-surface-variant text-label-sm px-2.5 py-1 rounded-md">
+<span class="material-symbols-outlined text-[14px] text-primary">sports</span> LÆ°á»›i chuáº©n USA Pickleball
+                  </span>
+<span class="inline-flex items-center gap-1 bg-[#f0f4f1] text-on-surface-variant text-label-sm px-2.5 py-1 rounded-md">
+<span class="material-symbols-outlined text-[14px] text-primary">shield</span> Chá»‘ng trÆ°á»£t chuyĂªn dá»¥ng
+                  </span>
+<span class="inline-flex items-center gap-1 bg-[#f0f4f1] text-on-surface-variant text-label-sm px-2.5 py-1 rounded-md">
+<span class="material-symbols-outlined text-[14px] text-primary">wb_incandescent</span> ÄĂ¨n LED 500 Lux
+                  </span>
+</div>
+<!-- Available Slots quick preview -->
+<div class="mt-3.5 pt-3 border-t border-outline-variant/30 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="text-label-md font-label-md text-outline">Khung giá» vĂ ng kháº£ dá»¥ng:</span>
+<span class="bg-[#f0f4f1] text-on-surface px-2.5 py-1 rounded-md text-label-sm font-semibold border border-outline-variant/30">
+                      18:00 â€“ 19:00
+                    </span>
+<span class="bg-[#f0f4f1] text-on-surface px-2.5 py-1 rounded-md text-label-sm font-semibold border border-outline-variant/30">
+                      19:00 â€“ 20:00
+                    </span>
+</div>
+</div>
+</div>
+<div class="mt-4 pt-3 border-t border-outline-variant/30 flex items-center justify-between">
+<div>
+<span class="text-label-sm text-outline block">ÄÆ¡n giĂ¡ ngĂ y thÆ°á»ng</span>
+<div class="flex items-baseline gap-1.5">
+<span class="text-headline-sm font-headline-sm font-extrabold text-on-surface">200.000Ä‘</span>
+<span class="text-body-sm text-outline">/ giá»</span>
+</div>
+</div>
+<button class="border border-primary text-primary hover:bg-surface-container px-5 py-2.5 rounded-full text-label-lg font-label-lg font-bold flex items-center gap-1.5 transition-all">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                  ThĂªm vĂ o phiáº¿u Ä‘áº·t
+                </button>
+</div>
+</div>
+</div>
+</article>
+<!-- ================= CARD 4: BĂ“NG Rá»” (CHÆ¯A THĂM) ================= -->
+<article class="bg-surface-container-lowest rounded-2xl border border-outline-variant/40 p-space-md shadow-sm relative overflow-hidden transition-all duration-200 hover:border-primary/40 hover:shadow-md">
+<div class="flex flex-col md:flex-row gap-space-md">
+<div class="relative w-full md:w-56 h-48 md:h-auto rounded-xl overflow-hidden flex-shrink-0 group">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="NhĂ  thi Ä‘áº¥u bĂ³ng rá»• cao cáº¥p chuáº©n FIBA vá»›i sĂ n gá»— phong Báº¯c Má»¹ sĂ¡ng bĂ³ng pháº£n chiáº¿u Ă¡nh Ä‘Ă¨n neon tráº§n, trá»¥ rá»• thá»§y lá»±c tiĂªu chuáº©n giáº£i Ä‘áº¥u quá»‘c táº¿, cĂ¡c váº¡ch sÆ¡n sáº¯c sáº£o vĂ  khĂ¡n Ä‘Ă i phá»¥ hiá»‡n Ä‘áº¡i trong khu liĂªn há»£p thá»ƒ thao Anh Vinh." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC53JzFvescGuCaMzlslthi23lwsSgwdqEPubaouAIvcGJTHu6iaP-fi9AIYNy8onaXXsoy1Nd-Il6sVKTdu8ec8_808MKXYBO9rk4pU6mcJFPPcUAmPVvQisS1EDjQc3kMV4jUSWzLUjY_Q8eKjtuOS7Q13MRcG-_PgXTQrbUq_OE5hk5elA87f0SuxVSl-GSSXsFMDXj8WRx4obl6Dq1kUQb17d3QRUzd3xVLSBhfxN8heL8ySpkMHseWN9bcLgq1VhUWriilCA"/>
+<div class="absolute top-2.5 left-2.5 flex flex-col gap-1">
+<span class="bg-inverse-surface/85 text-inverse-on-surface text-[11px] font-bold px-2 py-0.5 rounded-md backdrop-blur-sm">
+                  đŸ€ BĂ³ng rá»• FIBA
+                </span>
+<span class="bg-secondary-container text-on-secondary-fixed text-[10px] font-extrabold px-2 py-0.5 rounded-md shadow-sm">
+                  SĂ n gá»— phong Báº¯c Má»¹
+                </span>
+</div>
+</div>
+<div class="flex-grow flex flex-col justify-between">
+<div>
+<div class="flex items-start justify-between">
+<div>
+<h2 class="text-headline-sm font-headline-sm font-bold text-on-surface">
+                      SĂ¢n bĂ³ng rá»• tiĂªu chuáº©n FIBA <span class="text-outline font-normal text-body-sm">(Trong nhĂ  sĂ n gá»— phong)</span>
+</h2>
+<p class="text-body-sm font-body-sm text-outline flex items-center gap-1 mt-0.5">
+<span class="material-symbols-outlined text-[16px] text-primary">location_on</span>
+                      Khu D - NhĂ  thi Ä‘áº¥u Ä‘a nÄƒng cao cáº¥p
+                    </p>
+</div>
+<div class="flex items-center gap-1 bg-[#fffbe6] text-[#b78103] px-2 py-1 rounded-lg text-label-sm font-bold border border-[#ffe58f]">
+<span class="material-symbols-outlined text-[16px] text-[#faad14]">star</span>
+<span>4.9</span>
+<span class="text-outline font-normal text-[11px]">(82)</span>
+</div>
+</div>
+<div class="flex flex-wrap items-center gap-2 mt-2.5">
+<span class="inline-flex items-center gap-1 bg-[#f0f4f1] text-on-surface-variant text-label-sm px-2.5 py-1 rounded-md">
+<span class="material-symbols-outlined text-[14px] text-primary">sports_basketball</span> Trá»¥ rá»• thá»§y lá»±c FIBA
+                  </span>
+<span class="inline-flex items-center gap-1 bg-[#f0f4f1] text-on-surface-variant text-label-sm px-2.5 py-1 rounded-md">
+<span class="material-symbols-outlined text-[14px] text-primary">straighten</span> SĂ n gá»— giáº£m cháº¥n
+                  </span>
+<span class="inline-flex items-center gap-1 bg-[#f0f4f1] text-on-surface-variant text-label-sm px-2.5 py-1 rounded-md">
+<span class="material-symbols-outlined text-[14px] text-primary">scoreboard</span> Báº£ng Ä‘iá»ƒm Ä‘iá»‡n tá»­
+                  </span>
+</div>
+<div class="mt-3.5 pt-3 border-t border-outline-variant/30 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="text-label-md font-label-md text-outline">Khung giá» kháº£ dá»¥ng hĂ´m nay:</span>
+<span class="bg-[#f0f4f1] text-on-surface px-2.5 py-1 rounded-md text-label-sm font-semibold border border-outline-variant/30">
+                      16:00 â€“ 18:00
+                    </span>
+</div>
+</div>
+</div>
+<div class="mt-4 pt-3 border-t border-outline-variant/30 flex items-center justify-between">
+<div>
+<span class="text-label-sm text-outline block">ÄÆ¡n giĂ¡ tiĂªu chuáº©n</span>
+<div class="flex items-baseline gap-1.5">
+<span class="text-headline-sm font-headline-sm font-extrabold text-on-surface">300.000Ä‘</span>
+<span class="text-body-sm text-outline">/ giá»</span>
+</div>
+</div>
+<button class="border border-primary text-primary hover:bg-surface-container px-5 py-2.5 rounded-full text-label-lg font-label-lg font-bold flex items-center gap-1.5 transition-all">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                  ThĂªm vĂ o phiáº¿u Ä‘áº·t
+                </button>
+</div>
+</div>
+</div>
+</article>
+</section>
+<!-- ================= RIGHT COLUMN: STICKY BOOKING SUMMARY (4 COLS) ================= -->
+<aside class="lg:col-span-4 space-y-space-md lg:sticky lg:top-24">
+<!-- Main Booking Receipt Card -->
+<div class="bg-surface-container-lowest border border-outline-variant/40 rounded-2xl p-5 shadow-sm">
+<!-- Header -->
+<div class="flex items-center justify-between pb-3.5 border-b border-outline-variant/30">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[24px]">receipt_long</span>
+<h3 class="text-headline-sm font-headline-sm font-bold text-on-surface">Phiáº¿u Ä‘áº·t sĂ¢n</h3>
+</div>
+<span class="bg-secondary-container text-on-secondary-fixed text-label-sm font-label-sm font-extrabold px-3 py-1 rounded-full">
+              2 sĂ¢n Ä‘Ă£ chá»n
+            </span>
+</div>
+<!-- Dynamic Multi-Court Notice -->
+<div class="mt-3.5 bg-surface-container-low border border-primary/20 p-3 rounded-xl flex items-start gap-2.5 text-body-sm font-body-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-primary text-[18px] flex-shrink-0 mt-0.5">tips_and_updates</span>
+<span>Báº¡n cĂ³ thá»ƒ chá»n thĂªm sĂ¢n mĂ´n khĂ¡c vĂ o phiáº¿u nĂ y Ä‘á»ƒ nháº­n Æ°u Ä‘Ă£i ghĂ©p lá»‹ch tá»± Ä‘á»™ng.</span>
+</div>
+<!-- Selected Courts List -->
+<div class="mt-4 space-y-3">
+<!-- Item 1: Football -->
+<div class="p-3 bg-[#f7f9f4] border border-outline-variant/30 rounded-xl relative group hover:border-primary/40 transition-colors">
+<button class="absolute top-2.5 right-2.5 text-outline hover:text-error transition-colors p-1" title="XĂ³a khá»i phiáº¿u">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+<div class="flex items-start gap-2.5 pr-6">
+<span class="text-xl">â½</span>
+<div>
+<h4 class="text-label-lg font-label-lg font-bold text-on-surface">SĂ¢n 1 (SĂ¢n 5 ngÆ°á»i)</h4>
+<p class="text-label-md font-label-md text-primary font-semibold flex items-center gap-1 mt-0.5">
+<span class="material-symbols-outlined text-[14px]">schedule</span> 17:00 - 18:30 (90 phĂºt)
+                  </p>
+<p class="text-[12px] text-outline mt-0.5">Thá»© Báº£y, 24/05/2025 â€¢ ÄÆ¡n giĂ¡: 250k/h Ă— 1.5h</p>
+</div>
+</div>
+<div class="mt-2 pt-2 border-t border-outline-variant/30 flex justify-between items-center text-label-md font-label-md">
+<span class="text-outline">ThĂ nh tiá»n:</span>
+<span class="font-bold text-on-surface">375.000Ä‘</span>
+</div>
+</div>
+<!-- Item 2: Badminton -->
+<div class="p-3 bg-[#f7f9f4] border border-outline-variant/30 rounded-xl relative group hover:border-primary/40 transition-colors">
+<button class="absolute top-2.5 right-2.5 text-outline hover:text-error transition-colors p-1" title="XĂ³a khá»i phiáº¿u">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+<div class="flex items-start gap-2.5 pr-6">
+<span class="text-xl">đŸ¸</span>
+<div>
+<h4 class="text-label-lg font-label-lg font-bold text-on-surface">SĂ¢n VIP 2</h4>
+<p class="text-label-md font-label-md text-primary font-semibold flex items-center gap-1 mt-0.5">
+<span class="material-symbols-outlined text-[14px]">schedule</span> 19:00 - 20:00 (60 phĂºt)
+                  </p>
+<p class="text-[12px] text-outline mt-0.5">Thá»© Báº£y, 24/05/2025 â€¢ ÄÆ¡n giĂ¡: 180k/h Ă— 1.0h</p>
+</div>
+</div>
+<div class="mt-2 pt-2 border-t border-outline-variant/30 flex justify-between items-center text-label-md font-label-md">
+<span class="text-outline">ThĂ nh tiá»n:</span>
+<span class="font-bold text-on-surface">180.000Ä‘</span>
+</div>
+</div>
+</div>
+<!-- Promo Code Applied -->
+<div class="mt-4 pt-3 border-t border-outline-variant/30">
+<div class="flex items-center justify-between bg-surface-bright border border-primary/30 px-3 py-2 rounded-xl">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]">verified</span>
+<div>
+<span class="text-label-sm font-label-sm font-bold text-primary block leading-tight">ANHVINHVIP</span>
+<span class="text-[11px] text-outline">ÄĂ£ nháº­n diá»‡n mĂ£ thĂ nh viĂªn VIP cá»§a Anh QuĂ¢n</span>
+</div>
+</div>
+<button class="text-outline hover:text-error text-[12px] font-medium">Bá»</button>
+</div>
+</div>
+<!-- Price Calculations -->
+<div class="mt-4 space-y-2 text-body-sm font-body-sm text-on-surface-variant">
+<div class="flex justify-between">
+<span>Táº¡m tĂ­nh (2 sĂ¢n):</span>
+<span class="font-medium text-on-surface">555.000Ä‘</span>
+</div>
+<div class="flex justify-between text-primary font-medium">
+<span>Giáº£m giĂ¡ thĂ nh viĂªn VIP:</span>
+<span>-0Ä‘ (Æ¯u tiĂªn giá»¯ sĂ¢n)</span>
+</div>
+<div class="flex justify-between text-outline">
+<span>PhĂ­ dá»‹ch vá»¥ sĂ¢n &amp; Ä‘Ă¨n chiáº¿u sĂ¡ng:</span>
+<span class="text-primary font-medium">Miá»…n phĂ­</span>
+</div>
+<!-- Dashed Divider -->
+<div class="pt-3 border-t-2 border-dashed border-outline-variant/40 flex justify-between items-baseline">
+<span class="text-body-md font-bold text-on-surface">Tá»”NG Cá»˜NG THANH TOĂN:</span>
+<span class="text-headline-md font-headline-md font-extrabold text-primary">555.000Ä‘</span>
+</div>
+</div>
+<!-- Primary Confirmation Button -->
+<div class="mt-5">
+<button class="w-full bg-primary hover:bg-[#0d7654] active:scale-[0.98] text-on-primary py-3.5 px-4 rounded-full font-label-lg font-bold text-center flex items-center justify-center gap-2 transition-all shadow-md">
+<span>Tiáº¿n hĂ nh xĂ¡c nháº­n Ä‘áº·t sĂ¢n (2 sĂ¢n)</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+<!-- Trust Badges -->
+<div class="mt-3.5 text-center">
+<p class="text-[11px] text-outline flex items-center justify-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-primary">lock</span>
+              Báº£o lÆ°u sĂ¢n trong 15 phĂºt â€¢ Há»— trá»£ hoĂ n há»§y linh hoáº¡t trÆ°á»›c 4 tiáº¿ng
+            </p>
+</div>
+</div>
+<!-- Secondary Support Callout Card -->
+<div class="bg-surface-container-lowest border border-outline-variant/30 rounded-2xl p-4 flex items-center justify-between gap-3 shadow-sm">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary-container/70 flex items-center justify-center text-on-secondary-fixed flex-shrink-0">
+<span class="material-symbols-outlined text-[20px]">support_agent</span>
+</div>
+<div>
+<p class="text-label-sm font-label-sm font-bold text-on-surface">Cáº§n há»— trá»£ Ä‘áº·t sĂ¢n theo Ä‘oĂ n?</p>
+<p class="text-[12px] text-outline">Hotline trá»±c sĂ¢n: <strong class="text-primary">0988 123 456</strong></p>
+</div>
+</div>
+<button class="px-3.5 py-1.5 rounded-full border border-primary text-primary hover:bg-surface-container text-label-sm font-bold transition-all">
+            Gá»i ngay
+          </button>
+</div>
+</aside>
+</div>
+</main>
+<!-- ================= 4. FOOTER (Footer Shared Component Execution) ================= -->
+<footer class="w-full mt-space-xl bg-surface-container-lowest border-t border-outline-variant/30 transition-colors">
+<div class="max-w-7xl mx-auto px-space-xl py-space-xl flex flex-col md:flex-row justify-between items-center gap-space-md">
+<!-- Brand Copyright -->
+<div class="flex flex-col sm:flex-row items-center gap-3 text-center sm:text-left">
+<div class="flex items-center gap-2">
+<div class="w-7 h-7 rounded-lg bg-secondary-container flex items-center justify-center text-on-secondary-fixed font-black text-xs">
+            AV
+          </div>
+<span class="text-headline-sm font-headline-sm font-bold text-primary">Thá»ƒ thao Anh Vinh</span>
+</div>
+<span class="hidden sm:inline text-outline-variant">â€¢</span>
+<p class="text-body-sm font-body-sm text-outline">
+          Â© 2024 Thá»ƒ thao Anh Vinh. Táº¥t cáº£ cĂ¡c quyá»n Ä‘Æ°á»£c báº£o lÆ°u.
+        </p>
+</div>
+<!-- Links (Exact from Shared Components JSON) -->
+<div class="flex flex-wrap justify-center items-center gap-6 text-label-md font-label-md">
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Äiá»u khoáº£n dá»‹ch vá»¥</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#">ChĂ­nh sĂ¡ch hoĂ n tiá»n</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Quy Ä‘á»‹nh sĂ¢n bĂ³ng</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Há»— trá»£ khĂ¡ch hĂ ng</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#">LiĂªn há»‡</a>
+</div>
+</div>
+</footer>
+</body></html>

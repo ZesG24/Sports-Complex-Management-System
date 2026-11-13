@@ -245,7 +245,7 @@
             <h1 class="otp-title">Xác thực mã OTP</h1>
             <p class="otp-subtitle">
                 Chúng tôi đã gửi mã xác thực 6 chữ số đến địa chỉ email<br>
-                <strong>{{ $maskedEmail }}</strong>
+                <strong>{{ $email }}</strong>
             </p>
 
             @if ($errors->any())

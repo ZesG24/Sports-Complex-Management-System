@@ -89,6 +89,7 @@ class AuthController extends Controller
             'HoTen' => ['required', 'string', 'max:255'],
             'SDT' => ['required', 'string', 'regex:/^(0[3|5|7|8|9])[0-9]{8}$/'],
             'Email' => ['required', 'string', 'email', 'max:255', 'unique:khachhang,Email'],
+            'DiaChi' => ['nullable', 'string', 'max:255'],
             'TenDangNhap' => ['required', 'string', 'min:4', 'max:50', 'alpha_dash', 'unique:taikhoan,TenDangNhap'],
             'MatKhau' => ['required', 'string', 'min:6', 'confirmed'],
         ], [
@@ -98,6 +99,7 @@ class AuthController extends Controller
             'Email.required' => 'Vui lòng nhập email.',
             'Email.email' => 'Địa chỉ email không đúng định dạng.',
             'Email.unique' => 'Email này đã được sử dụng bởi tài khoản khác.',
+            'DiaChi.max' => 'Địa chỉ không được vượt quá 255 ký tự.',
             'TenDangNhap.required' => 'Vui lòng nhập tên đăng nhập.',
             'TenDangNhap.min' => 'Tên đăng nhập phải có ít nhất 4 ký tự.',
             'TenDangNhap.max' => 'Tên đăng nhập không được vượt quá 50 ký tự.',
@@ -118,6 +120,7 @@ class AuthController extends Controller
                     'HoTen' => $validated['HoTen'],
                     'SDT' => $validated['SDT'],
                     'Email' => $validated['Email'],
+                    'DiaChi' => $validated['DiaChi'] ?? null,
                     'TenDangNhap' => $validated['TenDangNhap'],
                     'MatKhau' => Hash::make($validated['MatKhau']),
                 ],
@@ -132,12 +135,12 @@ class AuthController extends Controller
         try {
             Mail::to($validated['Email'])->send(new OtpVerificationMail($otp, $validated['HoTen']));
         } catch (\Throwable $e) {
-            Log::error('Lỗi gửi email xác thực OTP: ' . $e->getMessage());
+            Log::error('Lỗi gửi email xác thực OTP: '.$e->getMessage());
         }
 
         $response = redirect()->route('register.verify-otp')->with(
             'success',
-            'Mã xác thực OTP đã được gửi đến email ' . $validated['Email'] . '. Vui lòng kiểm tra hộp thư!'
+            'Mã xác thực OTP đã được gửi đến email '.$validated['Email'].'. Vui lòng kiểm tra hộp thư!'
         );
 
         return $response;
@@ -169,12 +172,11 @@ class AuthController extends Controller
         }
 
         $email = $pending['data']['Email'];
-        $maskedEmail = $this->maskEmail($email);
         $secondsRemaining = max(0, 60 - (now()->timestamp - $pending['last_sent_at']));
 
         return view('auth.verify-otp', [
             'email' => $email,
-            'maskedEmail' => $maskedEmail,
+            'maskedEmail' => $email,
             'secondsRemaining' => $secondsRemaining,
         ]);
     }
@@ -244,13 +246,14 @@ class AuthController extends Controller
                 'HoTen' => $pending['data']['HoTen'],
                 'SDT' => $pending['data']['SDT'],
                 'Email' => $pending['data']['Email'],
+                'DiaChi' => $pending['data']['DiaChi'] ?? null,
                 'MaTK' => $taiKhoan->MaTK,
             ]);
 
             DB::commit();
         } catch (\Throwable $e) {
             DB::rollBack();
-            Log::error('Lỗi tạo tài khoản sau OTP: ' . $e->getMessage());
+            Log::error('Lỗi tạo tài khoản sau OTP: '.$e->getMessage());
 
             return back()->withErrors([
                 'otp' => 'Đã có lỗi kỹ thuật xảy ra trong quá trình tạo tài khoản. Vui lòng thử lại.',
@@ -266,7 +269,7 @@ class AuthController extends Controller
 
         return redirect()->route('home')->with(
             'success',
-            'Đăng ký tài khoản thành công! Chào mừng ' . $pending['data']['HoTen'] . ' đến với Sports Complex.'
+            'Đăng ký tài khoản thành công! Chào mừng '.$pending['data']['HoTen'].' đến với Sports Complex.'
         );
     }
 
@@ -305,7 +308,7 @@ class AuthController extends Controller
         try {
             Mail::to($pending['data']['Email'])->send(new OtpVerificationMail($newOtp, $pending['data']['HoTen']));
         } catch (\Throwable $e) {
-            Log::error('Lỗi gửi lại mã OTP: ' . $e->getMessage());
+            Log::error('Lỗi gửi lại mã OTP: '.$e->getMessage());
         }
 
         $response = back()->with('success', 'Mã OTP mới đã được gửi tới email của bạn!');
@@ -340,11 +343,11 @@ class AuthController extends Controller
         $domain = $parts[1];
 
         if (strlen($name) <= 2) {
-            $maskedName = substr($name, 0, 1) . '*';
+            $maskedName = substr($name, 0, 1).'*';
         } else {
-            $maskedName = substr($name, 0, 2) . str_repeat('*', max(1, strlen($name) - 3)) . substr($name, -1);
+            $maskedName = substr($name, 0, 2).str_repeat('*', max(1, strlen($name) - 3)).substr($name, -1);
         }
 
-        return $maskedName . '@' . $domain;
+        return $maskedName.'@'.$domain;
     }
 }

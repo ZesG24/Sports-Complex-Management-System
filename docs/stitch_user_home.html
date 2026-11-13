@@ -1,0 +1,858 @@
+﻿<!DOCTYPE html><html class="light" lang="vi"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Thá»ƒ thao Anh Vinh - Khu phá»©c há»£p thá»ƒ thao Ä‘a nÄƒng hiá»‡n Ä‘áº¡i</title>
+<!-- Google Fonts: Plus Jakarta Sans -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS with Forms & Container Queries -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration matching the Brand & Style System -->
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-primary-container": "#f5fff7",
+            "on-primary": "#ffffff",
+            "on-secondary-fixed-variant": "#3e4c00",
+            "surface-dim": "#cfddd7",
+            "primary-fixed-dim": "#70daae",
+            "on-secondary": "#ffffff",
+            "background": "#effdf6",
+            "primary-container": "#00855f",
+            "on-tertiary-fixed": "#002114",
+            "on-tertiary": "#ffffff",
+            "surface-bright": "#effdf6",
+            "tertiary-fixed-dim": "#7ed8af",
+            "outline": "#6e7a72",
+            "secondary": "#546500",
+            "on-error-container": "#93000a",
+            "inverse-surface": "#27332f",
+            "primary-fixed": "#8df7c9",
+            "outline-variant": "#bdcac1",
+            "tertiary-fixed": "#9af5ca",
+            "surface-container-highest": "#d8e6df",
+            "tertiary-container": "#248360",
+            "primary": "#00694b",
+            "surface-container-lowest": "#ffffff",
+            "on-surface": "#121e1a",
+            "secondary-fixed-dim": "#b7d250",
+            "on-primary-fixed-variant": "#005139",
+            "secondary-container": "#d3ef69",
+            "surface-container": "#e3f1ea",
+            "surface-tint": "#006c4d",
+            "inverse-on-surface": "#e6f4ed",
+            "on-secondary-fixed": "#171e00",
+            "on-secondary-container": "#596c00",
+            "on-surface-variant": "#3e4943",
+            "surface-container-low": "#e9f7f0",
+            "on-tertiary-fixed-variant": "#005138",
+            "error": "#ba1a1a",
+            "inverse-primary": "#70daae",
+            "surface-container-high": "#ddebe5",
+            "surface-variant": "#d8e6df",
+            "on-error": "#ffffff",
+            "on-primary-fixed": "#002115",
+            "secondary-fixed": "#d3ef69",
+            "surface": "#effdf6",
+            "tertiary": "#00694a",
+            "on-tertiary-container": "#f5fff7",
+            "error-container": "#ffdad6",
+            "on-background": "#121e1a"
+          },
+          "borderRadius": {
+            "DEFAULT": "1rem",
+            "lg": "2rem",
+            "xl": "3rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "margin-mobile": "1.25rem",
+            "gutter-mobile": "1rem",
+            "space-lg": "1.5rem",
+            "space-sm": "0.5rem",
+            "space-xs": "0.25rem",
+            "space-xl": "2.5rem",
+            "gutter": "1.5rem",
+            "space-md": "1rem",
+            "margin": "3rem"
+          },
+          "fontFamily": {
+            "display-hero-mobile": ["Plus Jakarta Sans"],
+            "headline-lg": ["Plus Jakarta Sans"],
+            "headline-sm": ["Plus Jakarta Sans"],
+            "display-hero": ["Plus Jakarta Sans"],
+            "body-sm": ["Plus Jakarta Sans"],
+            "label-md": ["Plus Jakarta Sans"],
+            "headline-md": ["Plus Jakarta Sans"],
+            "headline-lg-mobile": ["Plus Jakarta Sans"],
+            "label-sm": ["Plus Jakarta Sans"],
+            "label-lg": ["Plus Jakarta Sans"],
+            "body-lg": ["Plus Jakarta Sans"],
+            "body-md": ["Plus Jakarta Sans"]
+          },
+          "fontSize": {
+            "display-hero-mobile": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+            "headline-lg": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.015em", "fontWeight": "700" }],
+            "headline-sm": ["20px", { "lineHeight": "28px", "letterSpacing": "-0.005em", "fontWeight": "600" }],
+            "display-hero": ["56px", { "lineHeight": "64px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+            "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+            "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+            "headline-lg-mobile": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+            "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "700" }],
+            "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+            "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+            "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    body {
+      background-color: #f7f9f4;
+      color: #121e1a;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      line-height: 1;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    .pitch-shadow {
+      box-shadow: 0 2px 8px -2px rgba(23, 35, 31, 0.04), 0 1px 3px 0 rgba(23, 35, 31, 0.02);
+    }
+    .interactive-lift {
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .interactive-lift:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 24px -4px rgba(23, 35, 31, 0.06), 0 4px 8px -2px rgba(23, 35, 31, 0.03);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col bg-[#f7f9f4] text-on-surface">
+<!-- ================= 1. HEADER ================= -->
+<header class="sticky top-0 z-50 w-full bg-surface-container-lowest/95 backdrop-blur-md border-b border-outline-variant/30 shadow-sm transition-all">
+<div class="max-w-7xl mx-auto flex items-center justify-between px-space-xl py-space-sm h-20">
+<!-- Brand Logo & Slogan -->
+<a class="flex items-center gap-space-sm group" href="#">
+<div class="w-11 h-11 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-fixed font-display-hero font-black text-xl shadow-sm tracking-tight transition-transform group-hover:scale-105">
+          AV
+        </div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm font-bold text-primary tracking-tight leading-none">
+            Thá»ƒ thao Anh Vinh
+          </span>
+<span class="font-label-sm text-label-sm text-on-surface-variant tracking-normal font-medium mt-1">
+            Khu phá»©c há»£p thá»ƒ thao hĂ ng Ä‘áº§u
+          </span>
+</div>
+</a>
+<!-- Primary Navigation -->
+<nav class="hidden md:flex items-center gap-space-lg">
+<a class="text-primary font-label-lg text-label-lg font-bold border-b-2 border-primary pb-1 transition-colors" href="#">
+          Trang chá»§
+        </a>
+<a class="text-on-surface-variant hover:text-primary font-label-lg text-label-lg font-semibold transition-colors" href="#court-showcase">
+          Danh sĂ¡ch sĂ¢n
+        </a>
+<a class="text-on-surface-variant hover:text-primary font-label-lg text-label-lg font-semibold transition-colors" href="#quick-booking">
+          Äáº·t sĂ¢n
+        </a>
+<a class="text-on-surface-variant hover:text-primary font-label-lg text-label-lg font-semibold transition-colors inline-flex items-center gap-1.5" href="#matchmaking">
+          TĂ¬m báº¡n chÆ¡i
+          <span class="bg-secondary-container text-on-secondary-fixed text-[10px] font-bold px-1.5 py-0.5 rounded-full uppercase tracking-wider">
+            Má»›i
+          </span>
+</a>
+<a class="text-on-surface-variant hover:text-primary font-label-lg text-label-lg font-semibold transition-colors" href="#">
+          Cá»­a hĂ ng
+        </a>
+</nav>
+<!-- Right Action Cluster: User Profile, VIP, Actions -->
+<div class="flex items-center gap-space-md">
+<!-- User Greeting & VIP Badge -->
+<div class="flex items-center gap-2 pl-2">
+<div class="w-9 h-9 rounded-full bg-surface-container-high border border-outline-variant/40 flex items-center justify-center text-primary font-bold text-sm">
+            AQ
+          </div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-bold text-on-surface leading-tight">
+              Xin chĂ o, Anh QuĂ¢n
+            </span>
+<div class="flex items-center gap-1 mt-0.5">
+<span class="inline-flex items-center gap-0.5 bg-secondary-container text-on-secondary-fixed px-1.5 py-0.5 rounded-full text-[10px] font-extrabold tracking-tight">
+<span class="material-symbols-outlined text-[12px]" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+                VIP 2
+              </span>
+</div>
+</div>
+</div>
+<div class="h-6 w-px bg-outline-variant/40"></div>
+<!-- Action Icons -->
+<button class="relative p-2 text-on-surface-variant hover:text-primary hover:bg-surface-container rounded-full transition-all" title="ThĂ´ng bĂ¡o">
+<span class="material-symbols-outlined text-[22px]">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 bg-error rounded-full ring-2 ring-surface-container-lowest"></span>
+</button>
+<button class="relative p-2 text-on-surface-variant hover:text-primary hover:bg-surface-container rounded-full transition-all" title="Phiáº¿u Ä‘áº·t sĂ¢n">
+<span class="material-symbols-outlined text-[22px]">shopping_bag</span>
+<span class="absolute -top-1 -right-1 bg-primary text-on-primary text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
+            2
+          </span>
+</button>
+<!-- Logout Action -->
+<button class="flex items-center gap-1 text-on-surface-variant hover:text-error font-label-md text-label-md font-semibold px-2 py-1.5 rounded-full hover:bg-error-container/20 transition-all">
+<span class="material-symbols-outlined text-[18px]">logout</span>
+<span>ÄÄƒng xuáº¥t</span>
+</button>
+</div>
+</div>
+</header>
+<!-- ================= MAIN CONTENT ================= -->
+<main class="flex-grow">
+<!-- 2. HERO SECTION & QUICK BOOKING BAR -->
+<section class="relative pt-space-xl pb-16 overflow-hidden">
+<!-- Subtle pitch visual cues -->
+<div class="absolute inset-0 pointer-events-none opacity-40">
+<div class="absolute top-0 right-1/4 w-[600px] h-[600px] bg-primary/5 rounded-full blur-3xl"></div>
+<div class="absolute bottom-0 left-10 w-[450px] h-[450px] bg-secondary-container/25 rounded-full blur-2xl"></div>
+</div>
+<div class="max-w-7xl mx-auto px-space-xl relative z-10">
+<!-- Hero Header Text -->
+<div class="text-center max-w-4xl mx-auto mb-10">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-secondary-container/80 border border-secondary-container text-on-secondary-fixed font-label-sm text-label-sm uppercase tracking-wider mb-4 shadow-sm">
+<span class="material-symbols-outlined text-[16px] text-primary" style="font-variation-settings: 'FILL' 1;">verified</span>
+            KHU PHá»¨C Há»¢P THá»‚ THAO ÄA NÄ‚NG HIá»†N Äáº I
+          </div>
+<h1 class="font-display-hero text-display-hero font-extrabold text-on-surface tracking-tight leading-tight mb-5">
+            ChÆ¡i thá»ƒ thao Ä‘á»‰nh cao.<br>
+<span class="text-primary relative inline-block">
+              Äáº·t sĂ¢n &amp; GhĂ©p kĂ¨o
+              <span class="absolute -bottom-1 left-0 w-full h-2 bg-secondary-container -z-10 rounded-full"></span>
+</span> dá»… dĂ ng.
+          </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto leading-relaxed">
+            Há»‡ thá»‘ng sĂ¢n cáº§u lĂ´ng, pickleball, bĂ³ng Ä‘Ă¡ tiĂªu chuáº©n BWF, Decoturf, FIFA. Tráº£i nghiá»‡m dá»‹ch vá»¥ Ä‘áº³ng cáº¥p, tiá»‡n nghi mĂ¡y láº¡nh, Ä‘Ă¨n LED chá»‘ng chĂ³i 24/7.
+          </p>
+</div>
+<!-- Hero Quick Search Bar -->
+<div class="bg-surface-container-lowest p-3.5 rounded-full border border-outline-variant/40 pitch-shadow mx-auto mb-12 max-w-3xl" id="quick-booking"><div class="flex flex-col md:flex-row items-center justify-between gap-3 p-1.5 md:p-2">
+  <div class="flex items-center gap-3 px-5 py-2.5 rounded-full hover:bg-surface-container-low transition-colors cursor-pointer group flex-grow">
+    <div class="w-11 h-11 rounded-full bg-surface-container flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-colors flex-shrink-0">
+      <span class="material-symbols-outlined text-[22px]">calendar_today</span>
+    </div>
+    <div class="flex flex-col text-left">
+      <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider font-semibold">Chá»n ngĂ y Ä‘áº·t</span>
+      <span class="font-headline-sm text-headline-sm font-bold text-on-surface flex items-center gap-2">
+        HĂ´m nay, 24/05/2025
+        <span class="material-symbols-outlined text-[18px] text-outline">expand_more</span>
+      </span>
+      <span class="text-[11px] font-medium text-primary mt-0.5 flex items-center gap-1">
+        <span class="material-symbols-outlined text-[13px]">info</span>
+        Äáº·t nhiá»u sĂ¢n cĂ¹ng lĂºc trong 1 phiáº¿u
+      </span>
+    </div>
+  </div>
+  <a href="#court-showcase" class="w-full md:w-auto px-8 h-14 bg-primary text-on-primary font-headline-sm text-headline-sm font-bold rounded-full hover:bg-primary-container active:scale-[0.98] transition-all flex items-center justify-center gap-2 shadow-sm flex-shrink-0 cursor-pointer">
+    <span>TĂ¬m &amp; Äáº·t sĂ¢n trá»‘ng</span>
+    <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+  </a>
+</div></div>
+<!-- Trust & Performance Stats -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto pt-2">
+<div class="flex items-center justify-center gap-3 p-3 bg-surface-container-lowest/60 rounded-xl border border-outline-variant/20">
+<span class="material-symbols-outlined text-primary text-[24px]">stadium</span>
+<div class="text-left">
+<div class="font-headline-sm text-headline-sm font-bold text-on-surface">16+ SĂ¢n</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant">TiĂªu chuáº©n quá»‘c táº¿</div>
+</div>
+</div>
+<div class="flex items-center justify-center gap-3 p-3 bg-surface-container-lowest/60 rounded-xl border border-outline-variant/20">
+<span class="material-symbols-outlined text-primary text-[24px]">sports_score</span>
+<div class="text-left">
+<div class="font-headline-sm text-headline-sm font-bold text-on-surface">12.000+</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant">LÆ°á»£t Ä‘áº·t má»—i thĂ¡ng</div>
+</div>
+</div>
+<div class="flex items-center justify-center gap-3 p-3 bg-surface-container-lowest/60 rounded-xl border border-outline-variant/20">
+<span class="material-symbols-outlined text-secondary-container text-[24px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<div class="text-left">
+<div class="font-headline-sm text-headline-sm font-bold text-on-surface">4.9 / 5.0</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant">HĂ i lĂ²ng tuyá»‡t Ä‘á»‘i</div>
+</div>
+</div>
+<div class="flex items-center justify-center gap-3 p-3 bg-surface-container-lowest/60 rounded-xl border border-outline-variant/20">
+<span class="material-symbols-outlined text-primary text-[24px]">ac_unit</span>
+<div class="text-left">
+<div class="font-headline-sm text-headline-sm font-bold text-on-surface">100% MĂ¡y láº¡nh</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant">Tháº£m Yonex VIP</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 3. INTERACTIVE COURT SHOWCASE -->
+<section class="py-space-xl bg-[#f7f9f4]" id="court-showcase">
+<div class="max-w-7xl mx-auto px-space-xl">
+<!-- Showcase Header -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+<div>
+<div class="flex items-center gap-2 mb-2">
+<span class="w-2.5 h-2.5 rounded-full bg-primary"></span>
+<span class="font-label-md text-label-md font-bold text-primary uppercase tracking-wider">Danh má»¥c sĂ¢n thá»ƒ thao</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg font-bold text-on-surface tracking-tight">
+              Há»‡ thá»‘ng sĂ¢n bĂ£i Ä‘áº¡t chuáº©n thi Ä‘áº¥u quá»‘c táº¿
+            </h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">
+              Xem chi tiáº¿t hĂ¬nh áº£nh thá»±c táº¿, thĂ´ng sá»‘ máº·t sĂ¢n vĂ  báº£ng giĂ¡ minh báº¡ch tá»«ng sĂ¢n.
+            </p>
+</div>
+<a class="inline-flex items-center gap-1.5 font-label-lg text-label-lg font-bold text-primary hover:text-primary-container group transition-colors" href="#">
+<span>Xem táº¥t cáº£ sĂ¢n trĂªn trang riĂªng</span>
+<span class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</a>
+</div>
+<!-- Sport Tabs -->
+<div class="flex items-center gap-2 overflow-x-auto pb-4 mb-8">
+<button class="px-5 py-2.5 rounded-full bg-primary text-on-primary font-label-lg text-label-lg font-bold shadow-sm flex items-center gap-2">
+<span>đŸ¸</span>
+<span>Cáº§u lĂ´ng (3 sĂ¢n)</span>
+</button>
+<button class="px-5 py-2.5 rounded-full bg-surface-container-lowest text-on-surface-variant border border-outline-variant/40 hover:border-primary/50 font-label-lg text-label-lg font-semibold transition-all flex items-center gap-2">
+<span>đŸ¾</span>
+<span>Pickleball (3 sĂ¢n)</span>
+</button>
+<button class="px-5 py-2.5 rounded-full bg-surface-container-lowest text-on-surface-variant border border-outline-variant/40 hover:border-primary/50 font-label-lg text-label-lg font-semibold transition-all flex items-center gap-2">
+<span>â½</span>
+<span>BĂ³ng Ä‘Ă¡ (2 sĂ¢n)</span>
+</button>
+<button class="px-5 py-2.5 rounded-full bg-surface-container-lowest text-on-surface-variant border border-outline-variant/40 hover:border-primary/50 font-label-lg text-label-lg font-semibold transition-all flex items-center gap-2">
+<span>đŸ€</span>
+<span>BĂ³ng rá»• (1 sĂ¢n)</span>
+</button>
+</div>
+<!-- Cards Grid (4 Column Layout) -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Card 1: SĂ¢n cáº§u lĂ´ng 1 (VIP bĂ¬a) -->
+<div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/40 pitch-shadow overflow-hidden interactive-lift flex flex-col">
+<!-- Court Image with Badges -->
+<div class="relative h-48 w-full overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Modern indoor badminton court featuring vibrant emerald green Yonex professional mat with crisp white boundary lines. The court is illuminated by anti-glare high-bay LED sports lights mounted on industrial ceiling rafters. Sleek spectator benches and premium athletic equipment surround the pristine, light-filled stadium with clean architectural lines." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGhnEfo0YrMYrLIrIT7YRRgxkojspNr8KcrSZP17cGbJ8AgBnnLFXkddByBeBr7sM2uy0pj4x6RVrcQYdAlHdC5pn-bipVZKUa_Ap49hbOi29ZMu2Q5vHerPMm0RnRqRM00nwINxJviR82frVgW9lN8UAw15SlAc69saUthEYCIeaatL40hW5onnIBcGENUCrLutqC4NofSZBkNJ7zDNXDE5559TwpmoWVSzO-zA32a6Xr2fQwF6rkI-zsdK-9IVMWXMUAOYDhEQ">
+<div class="absolute top-3 left-3 bg-secondary-container text-on-secondary-fixed font-label-sm text-label-sm uppercase px-2.5 py-1 rounded-full font-extrabold shadow-sm">
+                VIP BĂ¬a
+              </div>
+<div class="absolute top-3 right-3 bg-surface-container-lowest/90 backdrop-blur-sm text-on-surface font-label-sm text-label-sm px-2 py-0.5 rounded-full font-bold flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[14px] text-yellow-500" style="font-variation-settings: 'FILL' 1;">star</span>
+<span>5.0 (128)</span>
+</div>
+</div>
+<!-- Card Body -->
+<div class="p-5 flex flex-col flex-grow justify-between">
+<div>
+<h3 class="font-headline-sm text-headline-sm font-bold text-on-surface mb-2">
+                  SĂ¢n cáº§u lĂ´ng 1 (VIP bĂ¬a)
+                </h3>
+<!-- Feature Badges -->
+<div class="flex flex-wrap gap-1.5 mb-4">
+<span class="text-[11px] font-semibold bg-surface-container px-2 py-0.5 rounded-md text-on-surface-variant">Tháº£m Yonex 5mm</span>
+<span class="text-[11px] font-semibold bg-surface-container px-2 py-0.5 rounded-md text-on-surface-variant">KhĂ´ng gian riĂªng tÆ°</span>
+<span class="text-[11px] font-semibold bg-surface-container px-2 py-0.5 rounded-md text-on-surface-variant">Gháº¿ nghá»‰ ná»‡m</span>
+<span class="text-[11px] font-semibold bg-surface-container px-2 py-0.5 rounded-md text-on-surface-variant">ÄĂ¨n LED BWF</span>
+</div>
+</div>
+<!-- Price & Actions -->
+<div class="pt-4 border-t border-outline-variant/30">
+<div class="flex items-baseline justify-between mb-4">
+<span class="text-xs text-on-surface-variant font-medium">GiĂ¡ thuĂª sĂ¢n:</span>
+<span class="font-headline-sm text-headline-sm font-extrabold text-primary">
+                    200.000Ä‘<span class="text-xs font-normal text-on-surface-variant">/giá»</span>
+</span>
+</div>
+<div class="grid grid-cols-2 gap-2">
+<button class="py-2.5 px-3 rounded-full border border-outline-variant/50 text-on-surface hover:bg-surface-container font-label-md text-label-md font-bold transition-all text-center">
+                    Xem áº£nh
+                  </button>
+<button class="py-2.5 px-3 rounded-full bg-primary text-on-primary hover:bg-primary-container font-label-md text-label-md font-bold transition-all text-center">
+                    Äáº·t sĂ¢n nĂ y
+                  </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 2: SĂ¢n cáº§u lĂ´ng 2 (TiĂªu chuáº©n giá»¯a) -->
+<div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/40 pitch-shadow overflow-hidden interactive-lift flex flex-col">
+<!-- Court Image -->
+<div class="relative h-48 w-full overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Interior view of a high-ceiling badminton court with official green tournament vinyl flooring and crisp court markings. High illumination overhead daylight lamps provide seamless anti-glare coverage across the net. The sports hall has light-toned wall cladding and professional sports netting, creating an energized competition vibe." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCofyiFgyoxbSIA74Qt8lcosYBMxcSlh3QU6mmOXAM-QAnALspxtHgOxjpAnSIcBRnYcWmf-nLY0cxy46SbgZ0Vf0NNfj_0NoS71cjKybrcEGWY9Fm3qaL8DAqmHLhsNcqzoYXZF8sc_QrVSCab7qqoFN-VE8wvHj-ULiZHY8isfBytmENKF7x1Nyj5spafWv5ypJDbWH07TgcV7xE7OgxRTdEPloeg-9FM1somQ2Qi60E-3UcrXVSGaFX-ePlcusfLAogvW-F-8Q">
+<div class="absolute top-3 left-3 bg-surface-container-highest text-on-surface font-label-sm text-label-sm uppercase px-2.5 py-1 rounded-full font-bold shadow-sm">
+                TiĂªu chuáº©n giá»¯a
+              </div>
+<div class="absolute top-3 right-3 bg-surface-container-lowest/90 backdrop-blur-sm text-on-surface font-label-sm text-label-sm px-2 py-0.5 rounded-full font-bold flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[14px] text-yellow-500" style="font-variation-settings: 'FILL' 1;">star</span>
+<span>4.9 (95)</span>
+</div>
+</div>
+<!-- Card Body -->
+<div class="p-5 flex flex-col flex-grow justify-between">
+<div>
+<h3 class="font-headline-sm text-headline-sm font-bold text-on-surface mb-2">
+                  SĂ¢n cáº§u lĂ´ng 2 (TiĂªu chuáº©n giá»¯a)
+                </h3>
+<!-- Feature Badges -->
+<div class="flex flex-wrap gap-1.5 mb-4">
+<span class="text-[11px] font-semibold bg-surface-container px-2 py-0.5 rounded-md text-on-surface-variant">Tháº£m chuáº©n BWF</span>
+<span class="text-[11px] font-semibold bg-surface-container px-2 py-0.5 rounded-md text-on-surface-variant">ÄĂ¨n chá»‘ng chĂ³i</span>
+<span class="text-[11px] font-semibold bg-surface-container px-2 py-0.5 rounded-md text-on-surface-variant">Miá»…n phĂ­ nÆ°á»›c Ä‘Ă¡</span>
+</div>
+</div>
+<!-- Price & Actions -->
+<div class="pt-4 border-t border-outline-variant/30">
+<div class="flex items-baseline justify-between mb-4">
+<span class="text-xs text-on-surface-variant font-medium">GiĂ¡ thuĂª sĂ¢n:</span>
+<span class="font-headline-sm text-headline-sm font-extrabold text-primary">
+                    150.000Ä‘<span class="text-xs font-normal text-on-surface-variant">/giá»</span>
+</span>
+</div>
+<div class="grid grid-cols-2 gap-2">
+<button class="py-2.5 px-3 rounded-full border border-outline-variant/50 text-on-surface hover:bg-surface-container font-label-md text-label-md font-bold transition-all text-center">
+                    Xem chi tiáº¿t
+                  </button>
+<button class="py-2.5 px-3 rounded-full bg-primary text-on-primary hover:bg-primary-container font-label-md text-label-md font-bold transition-all text-center">
+                    Äáº·t sĂ¢n
+                  </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 3: SĂ¢n cáº§u lĂ´ng 3 (TiĂªu chuáº©n bĂ¬a) -->
+<div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/40 pitch-shadow overflow-hidden interactive-lift flex flex-col">
+<!-- Court Image -->
+<div class="relative h-48 w-full overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Wide perspective shot of a side badminton court in a spacious athletic sports facility. The green court surface has broad run-off zones on both sides for safe play. Industrial ventilation fans and high ceilings enhance air circulation. Natural daylight blends harmoniously with warm white directional sports lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxEHqgxZBRAEZRPOimo0xzBTxsIoKJ2L78qFHdQYZx-8q4lM-6cgRHEVqGOWyQTM4nCeMSKxDOIkpifhHVma8OOx2OAeBy0X61G07C_P03U4rd7iaUh7DFSt_qkQ-K8SSFB7j67orC_GXopEwFl5Py7GpLqew17uUC7iyxXvCqinlFoh-zpYeu4FXLHf-BuQFzov71rEYpscn9tRlGo0Aa2YyOy7wvT6mZSBvJayqOLitMQH97aPFgIpBcZbbq38JIPq4eD4ohKg">
+<div class="absolute top-3 left-3 bg-surface-container-highest text-on-surface font-label-sm text-label-sm uppercase px-2.5 py-1 rounded-full font-bold shadow-sm">
+                TiĂªu chuáº©n bĂ¬a
+              </div>
+<div class="absolute top-3 right-3 bg-surface-container-lowest/90 backdrop-blur-sm text-on-surface font-label-sm text-label-sm px-2 py-0.5 rounded-full font-bold flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[14px] text-yellow-500" style="font-variation-settings: 'FILL' 1;">star</span>
+<span>4.8 (84)</span>
+</div>
+</div>
+<!-- Card Body -->
+<div class="p-5 flex flex-col flex-grow justify-between">
+<div>
+<h3 class="font-headline-sm text-headline-sm font-bold text-on-surface mb-2">
+                  SĂ¢n cáº§u lĂ´ng 3 (TiĂªu chuáº©n bĂ¬a)
+                </h3>
+<!-- Feature Badges -->
+<div class="flex flex-wrap gap-1.5 mb-4">
+<span class="text-[11px] font-semibold bg-surface-container px-2 py-0.5 rounded-md text-on-surface-variant">Vá»‹ trĂ­ bĂ¬a thoĂ¡ng mĂ¡t</span>
+<span class="text-[11px] font-semibold bg-surface-container px-2 py-0.5 rounded-md text-on-surface-variant">BiĂªn an toĂ n rá»™ng</span>
+<span class="text-[11px] font-semibold bg-surface-container px-2 py-0.5 rounded-md text-on-surface-variant">Quáº¡t mĂ¡t cĂ´ng suáº¥t lá»›n</span>
+</div>
+</div>
+<!-- Price & Actions -->
+<div class="pt-4 border-t border-outline-variant/30">
+<div class="flex items-baseline justify-between mb-4">
+<span class="text-xs text-on-surface-variant font-medium">GiĂ¡ thuĂª sĂ¢n:</span>
+<span class="font-headline-sm text-headline-sm font-extrabold text-primary">
+                    170.000Ä‘<span class="text-xs font-normal text-on-surface-variant">/giá»</span>
+</span>
+</div>
+<div class="grid grid-cols-2 gap-2">
+<button class="py-2.5 px-3 rounded-full border border-outline-variant/50 text-on-surface hover:bg-surface-container font-label-md text-label-md font-bold transition-all text-center">
+                    Xem chi tiáº¿t
+                  </button>
+<button class="py-2.5 px-3 rounded-full bg-primary text-on-primary hover:bg-primary-container font-label-md text-label-md font-bold transition-all text-center">
+                    Äáº·t sĂ¢n
+                  </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 4: SĂ¢n Pickleball 3 (VIP bĂ¬a) - Gá»£i Ă½ thĂªm -->
+<div class="bg-surface-container-lowest rounded-2xl border-2 border-primary/20 pitch-shadow overflow-hidden interactive-lift flex flex-col relative">
+<div class="absolute -right-12 top-6 bg-secondary-container text-on-secondary-fixed text-[10px] font-extrabold px-12 py-1 rotate-45 z-10 shadow-sm uppercase tracking-wider">
+              Hot Gá»£i Ă½
+            </div>
+<!-- Court Image -->
+<div class="relative h-48 w-full overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Pristine professional pickleball court featuring two-tone Decoturf acrylic surface in deep navy blue and vibrant forest green. A taut official tournament net stands precisely centered. Sleek modern covered steel structure protects the arena while letting ample ambient daylight filter through, highlighting the premium sports facility." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDz-bEzzvAZUhGfxOA921WxZij7PkpWYPTHXfFWoYHelzfZdT33EQDkQG_7OwOISNguEqhAV--5r5qKlb6zniwtZKWhTQn-Kbl2Quwz1N8PT2cnUeR1D5u8RYO0_ExhhF0EiMDE6FBrprxJvqqvmFpCHLITOrSC-W4TSCHBGCXDAJJ0f9lnT7zWQ2KC3eV2_Jsw7zVg86CQE-YDL2XkjtK2iFVesmcQC2W2jXJlJCOapHkvp4mE3NjK4Q6pdwoCnNShoNZaX5zkHg">
+<div class="absolute top-3 left-3 bg-secondary-container text-on-secondary-fixed font-label-sm text-label-sm uppercase px-2.5 py-1 rounded-full font-extrabold shadow-sm">
+                VIP BĂ¬a Decoturf USA
+              </div>
+<div class="absolute top-3 right-3 bg-surface-container-lowest/90 backdrop-blur-sm text-on-surface font-label-sm text-label-sm px-2 py-0.5 rounded-full font-bold flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[14px] text-yellow-500" style="font-variation-settings: 'FILL' 1;">star</span>
+<span>5.0 (110)</span>
+</div>
+</div>
+<!-- Card Body -->
+<div class="p-5 flex flex-col flex-grow justify-between">
+<div>
+<h3 class="font-headline-sm text-headline-sm font-bold text-on-surface mb-2">
+                  SĂ¢n Pickleball 3 (VIP bĂ¬a)
+                </h3>
+<!-- Feature Badges -->
+<div class="flex flex-wrap gap-1.5 mb-4">
+<span class="text-[11px] font-semibold bg-surface-container px-2 py-0.5 rounded-md text-on-surface-variant">SÆ¡n Decoturf giáº£m cháº¥n</span>
+<span class="text-[11px] font-semibold bg-surface-container px-2 py-0.5 rounded-md text-on-surface-variant">MĂ¡i che vĂ²m thĂ©p</span>
+<span class="text-[11px] font-semibold bg-surface-container px-2 py-0.5 rounded-md text-on-surface-variant">MÆ°á»£n 2 vá»£t miá»…n phĂ­</span>
+</div>
+</div>
+<!-- Price & Actions -->
+<div class="pt-4 border-t border-outline-variant/30">
+<div class="flex items-baseline justify-between mb-4">
+<span class="text-xs text-on-surface-variant font-medium">GiĂ¡ thuĂª sĂ¢n:</span>
+<span class="font-headline-sm text-headline-sm font-extrabold text-primary">
+                    220.000Ä‘<span class="text-xs font-normal text-on-surface-variant">/giá»</span>
+</span>
+</div>
+<div class="grid grid-cols-2 gap-2">
+<button class="py-2.5 px-3 rounded-full border border-outline-variant/50 text-on-surface hover:bg-surface-container font-label-md text-label-md font-bold transition-all text-center">
+                    Xem chi tiáº¿t
+                  </button>
+<button class="py-2.5 px-3 rounded-full bg-primary text-on-primary hover:bg-primary-container font-label-md text-label-md font-bold transition-all text-center">
+                    Äáº·t sĂ¢n
+                  </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 4. SECTION TĂNH NÄ‚NG Má»I: TĂŒM Báº N CHÆ I CĂ™NG (Matchmaking Community Banner) -->
+<section class="py-space-xl" id="matchmaking">
+<div class="max-w-7xl mx-auto px-space-xl">
+<div class="relative bg-gradient-to-br from-primary-container via-primary to-[#094d36] rounded-3xl p-8 md:p-12 text-on-primary overflow-hidden shadow-xl">
+<!-- Decorative Sports Elements -->
+<div class="absolute -right-16 -bottom-16 w-80 h-80 rounded-full bg-secondary-container/15 blur-2xl pointer-events-none"></div>
+<div class="absolute top-0 right-1/3 w-64 h-64 rounded-full bg-on-primary/10 blur-xl pointer-events-none"></div>
+<div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+<!-- Left Info Block -->
+<div class="lg:col-span-7">
+<div class="inline-flex items-center gap-2 bg-secondary-container text-on-secondary-fixed text-label-sm font-label-sm uppercase px-3 py-1 rounded-full font-black mb-4 shadow-sm">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">groups</span>
+                TĂNH NÄ‚NG Má»I Äá»˜C QUYá»€N
+              </div>
+<h2 class="font-headline-lg text-headline-lg font-black text-on-primary mb-4 leading-tight">
+                KhĂ´ng lo thiáº¿u ngÆ°á»i chÆ¡i cĂ¹ng!
+              </h2>
+<p class="font-body-md text-body-md text-on-primary-container mb-6 max-w-xl leading-relaxed">
+                ÄÄƒng bĂ i tĂ¬m Ä‘á»‘i, ghĂ©p kĂ¨o giao lÆ°u trĂ¬nh Ä‘á»™ (Newbie / Trung bĂ¬nh / BĂ¡n chuyĂªn) hoáº·c xin vĂ o cĂ¡c nhĂ³m thá»ƒ thao sĂ´i Ä‘á»™ng quanh báº¡n chá»‰ vá»›i 1 click.
+              </p>
+<!-- CTA Button -->
+<button class="inline-flex items-center gap-2 bg-secondary-container text-on-secondary-fixed font-headline-sm text-headline-sm font-extrabold px-8 py-4 rounded-full hover:bg-secondary-fixed-dim hover:scale-[1.02] active:scale-[0.98] transition-all shadow-md">
+<span>Tham gia ghĂ©p kĂ¨o ngay</span>
+<span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+</div>
+<!-- Right Interactive Matchmaking Feed Cards -->
+<div class="lg:col-span-5 flex flex-col gap-3">
+<!-- Hot Match 1 -->
+<div class="bg-surface-container-lowest text-on-surface p-4 rounded-2xl shadow-lg border border-outline-variant/30 flex items-center justify-between gap-3 transform hover:-translate-y-1 transition-all">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center font-bold text-xl flex-shrink-0">
+                    đŸ¸
+                  </div>
+<div>
+<div class="flex items-center gap-1.5">
+<span class="font-label-lg text-label-lg font-bold text-on-surface">KĂ¨o Cáº§u lĂ´ng Ä‘Ă´i nam</span>
+<span class="bg-error-container text-on-error-container font-label-sm text-[10px] px-1.5 py-0.2 rounded-full font-bold">Cáº§n 1 ngÆ°á»i</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant font-label-sm text-label-sm mt-0.5">
+<span class="flex items-center gap-0.5"><span class="material-symbols-outlined text-[13px]">schedule</span> 18:30 hĂ´m nay</span>
+<span>â€¢</span>
+<span>TrĂ¬nh: Trung bĂ¬nh khĂ¡</span>
+</div>
+</div>
+</div>
+<button class="bg-primary text-on-primary font-label-sm text-label-sm font-bold px-3.5 py-2 rounded-full hover:bg-primary-container transition-all flex-shrink-0">
+                  VĂ o kĂ¨o
+                </button>
+</div>
+<!-- Hot Match 2 -->
+<div class="bg-surface-container-lowest text-on-surface p-4 rounded-2xl shadow-lg border border-outline-variant/30 flex items-center justify-between gap-3 transform hover:-translate-y-1 transition-all">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-xl bg-secondary-container/40 text-on-secondary-fixed flex items-center justify-center font-bold text-xl flex-shrink-0">
+                    đŸ¾
+                  </div>
+<div>
+<div class="flex items-center gap-1.5">
+<span class="font-label-lg text-label-lg font-bold text-on-surface">KĂ¨o Pickleball vui váº»</span>
+<span class="bg-secondary-container text-on-secondary-fixed font-label-sm text-[10px] px-1.5 py-0.2 rounded-full font-bold">Cáº§n 2 ngÆ°á»i</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant font-label-sm text-label-sm mt-0.5">
+<span class="flex items-center gap-0.5"><span class="material-symbols-outlined text-[13px]">schedule</span> 19:00 tá»‘i nay</span>
+<span>â€¢</span>
+<span>TrĂ¬nh: Má»i cáº¥p Ä‘á»™ (Newbie ok)</span>
+</div>
+</div>
+</div>
+<button class="bg-primary text-on-primary font-label-sm text-label-sm font-bold px-3.5 py-2 rounded-full hover:bg-primary-container transition-all flex-shrink-0">
+                  VĂ o kĂ¨o
+                </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 5. SECTION CHĂNH SĂCH Há»˜I VIĂN VIP -->
+<section class="py-space-xl bg-[#f7f9f4]">
+<div class="max-w-7xl mx-auto px-space-xl">
+<!-- Header -->
+<div class="text-center max-w-3xl mx-auto mb-12">
+<div class="inline-flex items-center gap-1.5 text-primary font-label-md text-label-md font-bold uppercase tracking-wider mb-2">
+<span class="material-symbols-outlined text-[18px]">loyalty</span>
+<span>CHÆ¯Æ NG TRĂŒNH KHĂCH HĂ€NG THĂ‚N THIáº¾T</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg font-extrabold text-on-surface tracking-tight mb-3">
+            Äáº·c quyá»n Há»™i viĂªn Thá»ƒ thao Anh Vinh
+          </h2>
+<p class="font-body-md text-body-md text-on-surface-variant">
+            CĂ ng táº­p luyá»‡n nhiá»u, Æ°u Ä‘Ă£i cĂ ng lá»›n vá»›i cĂ¡c háº¡ng thĂ nh viĂªn VIP tĂ­ch lÅ©y tá»± Ä‘á»™ng theo chi tiĂªu.
+          </p>
+</div>
+<!-- 3 VIP Cards Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
+<!-- Card VIP 1: Äá»“ng / Báº¡c -->
+<div class="bg-surface-container-lowest rounded-3xl p-8 border border-outline-variant/40 pitch-shadow flex flex-col justify-between interactive-lift">
+<div>
+<div class="flex items-center justify-between mb-4">
+<span class="w-12 h-12 rounded-2xl bg-surface-container flex items-center justify-center text-outline">
+<span class="material-symbols-outlined text-[28px]">military_tech</span>
+</span>
+<span class="font-label-sm text-label-sm bg-surface-container text-on-surface-variant px-3 py-1 rounded-full font-bold">
+                  Háº¡ng Äá»“ng
+                </span>
+</div>
+<h3 class="font-headline-sm text-headline-sm font-extrabold text-on-surface mb-1">
+                VIP 1 - ThĂ nh viĂªn ThĂ¢n thiáº¿t
+              </h3>
+<p class="font-label-md text-label-md text-on-surface-variant mb-6">
+                Äiá»u kiá»‡n: Chi tiĂªu tĂ­ch lÅ©y tá»« <strong class="text-on-surface font-bold">1.000.000Ä‘</strong>
+</p>
+<!-- Privileges List -->
+<ul class="space-y-3 pt-4 border-t border-outline-variant/20">
+<li class="flex items-start gap-2.5 text-body-sm font-body-sm text-on-surface">
+<span class="material-symbols-outlined text-primary text-[18px] mt-0.5">check_circle</span>
+<span>Giáº£m <strong>5%</strong> giĂ¡ thuĂª má»i loáº¡i sĂ¢n</span>
+</li>
+<li class="flex items-start gap-2.5 text-body-sm font-body-sm text-on-surface">
+<span class="material-symbols-outlined text-primary text-[18px] mt-0.5">check_circle</span>
+<span>Giáº£m <strong>5%</strong> khi mua sáº¯m Ä‘á»“ uá»‘ng &amp; phá»¥ kiá»‡n</span>
+</li>
+<li class="flex items-start gap-2.5 text-body-sm font-body-sm text-on-surface">
+<span class="material-symbols-outlined text-primary text-[18px] mt-0.5">check_circle</span>
+<span>Äáº·t lá»‹ch trÆ°á»›c tá»‘i Ä‘a <strong>7 ngĂ y</strong></span>
+</li>
+</ul>
+</div>
+<div class="pt-8">
+<button class="w-full py-3 rounded-full border border-outline-variant text-on-surface font-label-md text-label-md font-bold hover:bg-surface-container transition-all">
+                Xem Ä‘iá»u khoáº£n chi tiáº¿t
+              </button>
+</div>
+</div>
+<!-- Card VIP 2: Highlighted (Current Tier of Anh QuĂ¢n) -->
+<div class="bg-surface-container-lowest rounded-3xl p-8 border-2 border-primary pitch-shadow flex flex-col justify-between relative transform lg:-translate-y-2 shadow-xl ring-4 ring-primary/10">
+<!-- Badge Current Status -->
+<div class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-secondary-container text-on-secondary-fixed font-label-sm text-label-sm font-black px-4 py-1 rounded-full uppercase tracking-wider shadow-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">check</span>
+              Háº¡ng hiá»‡n táº¡i cá»§a báº¡n
+            </div>
+<div>
+<div class="flex items-center justify-between mb-4">
+<span class="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+</span>
+<span class="font-label-sm text-label-sm bg-primary/10 text-primary px-3 py-1 rounded-full font-extrabold">
+                  Háº¡ng Tinh Anh
+                </span>
+</div>
+<h3 class="font-headline-sm text-headline-sm font-extrabold text-on-surface mb-1">
+                VIP 2 - ThĂ nh viĂªn Tinh anh
+              </h3>
+<p class="font-label-md text-label-md text-on-surface-variant mb-6">
+                Äiá»u kiá»‡n: Chi tiĂªu tĂ­ch lÅ©y tá»« <strong class="text-primary font-bold">5.000.000Ä‘</strong>
+</p>
+<!-- Privileges List -->
+<ul class="space-y-3.5 pt-4 border-t border-outline-variant/30">
+<li class="flex items-start gap-2.5 text-body-sm font-body-sm text-on-surface">
+<span class="material-symbols-outlined text-primary text-[18px] mt-0.5" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span><strong>Giáº£m 10%</strong> toĂ n bá»™ tiá»n thuĂª sĂ¢n</span>
+</li>
+<li class="flex items-start gap-2.5 text-body-sm font-body-sm text-on-surface">
+<span class="material-symbols-outlined text-primary text-[18px] mt-0.5" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span><strong>Miá»…n phĂ­ nÆ°á»›c suá»‘i</strong> Ä‘Ă³ng chai má»—i ca chÆ¡i</span>
+</li>
+<li class="flex items-start gap-2.5 text-body-sm font-body-sm text-on-surface">
+<span class="material-symbols-outlined text-primary text-[18px] mt-0.5" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span>Giá»¯ chá»— Æ°u tiĂªn trong <strong>khung giá» vĂ ng (17h-20h)</strong></span>
+</li>
+<li class="flex items-start gap-2.5 text-body-sm font-body-sm text-on-surface">
+<span class="material-symbols-outlined text-primary text-[18px] mt-0.5" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span>Há»— trá»£ há»§y/Ä‘á»•i lá»‹ch linh hoáº¡t <strong>trÆ°á»›c 4 tiáº¿ng</strong></span>
+</li>
+</ul>
+</div>
+<div class="pt-8">
+<button class="w-full py-3.5 rounded-full bg-primary text-on-primary font-label-md text-label-md font-bold shadow-md hover:bg-primary-container transition-all flex items-center justify-center gap-1.5">
+<span>Quáº£n lĂ½ Æ°u Ä‘Ă£i cá»§a tĂ´i</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Card VIP 3: Gold VIP -->
+<div class="bg-surface-container-lowest rounded-3xl p-8 border border-outline-variant/40 pitch-shadow flex flex-col justify-between interactive-lift">
+<div>
+<div class="flex items-center justify-between mb-4">
+<span class="w-12 h-12 rounded-2xl bg-yellow-100 flex items-center justify-center text-yellow-700">
+<span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 1;">diamond</span>
+</span>
+<span class="font-label-sm text-label-sm bg-yellow-50 text-yellow-800 border border-yellow-200 px-3 py-1 rounded-full font-bold">
+                  Gold VIP
+                </span>
+</div>
+<h3 class="font-headline-sm text-headline-sm font-extrabold text-on-surface mb-1">
+                VIP 3 - KhĂ¡ch hĂ ng Danh dá»±
+              </h3>
+<p class="font-label-md text-label-md text-on-surface-variant mb-6">
+                Äiá»u kiá»‡n: Chi tiĂªu tĂ­ch lÅ©y tá»« <strong class="text-on-surface font-bold">15.000.000Ä‘</strong>
+</p>
+<!-- Privileges List -->
+<ul class="space-y-3 pt-4 border-t border-outline-variant/20">
+<li class="flex items-start gap-2.5 text-body-sm font-body-sm text-on-surface">
+<span class="material-symbols-outlined text-primary text-[18px] mt-0.5">check_circle</span>
+<span><strong>Giáº£m 15%</strong> táº¥t cáº£ dá»‹ch vá»¥ sĂ¢n &amp; mua sáº¯m</span>
+</li>
+<li class="flex items-start gap-2.5 text-body-sm font-body-sm text-on-surface">
+<span class="material-symbols-outlined text-primary text-[18px] mt-0.5">check_circle</span>
+<span>Miá»…n phĂ­ <strong>nÆ°á»›c suá»‘i &amp; khÄƒn láº¡nh cao cáº¥p</strong></span>
+</li>
+<li class="flex items-start gap-2.5 text-body-sm font-body-sm text-on-surface">
+<span class="material-symbols-outlined text-primary text-[18px] mt-0.5">check_circle</span>
+<span>Äáº·c quyá»n Ä‘áº·t trÆ°á»›c <strong>1 thĂ¡ng</strong> xuyĂªn suá»‘t</span>
+</li>
+<li class="flex items-start gap-2.5 text-body-sm font-body-sm text-on-surface">
+<span class="material-symbols-outlined text-primary text-[18px] mt-0.5">check_circle</span>
+<span><strong>Miá»…n phĂ­ giá»¯ xe Ă´ tĂ´</strong> &amp; Locker riĂªng tÆ°</span>
+</li>
+</ul>
+</div>
+<div class="pt-8">
+<button class="w-full py-3 rounded-full border border-outline-variant text-on-surface font-label-md text-label-md font-bold hover:bg-surface-container transition-all">
+                NĂ¢ng háº¡ng ngay
+              </button>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- ================= 6. FOOTER ================= -->
+<footer class="bg-surface-container-low border-t border-outline-variant/30 text-on-surface-variant transition-colors">
+<div class="max-w-7xl mx-auto px-space-xl py-12 md:py-16">
+<!-- Top Grid Section -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
+<!-- Brand Info & Vision -->
+<div class="lg:col-span-2">
+<div class="flex items-center gap-space-sm mb-4">
+<div class="w-9 h-9 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-fixed font-black text-base shadow-sm">
+              AV
+            </div>
+<span class="font-headline-sm text-headline-sm font-bold text-primary">
+              Thá»ƒ thao Anh Vinh
+            </span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-6 max-w-sm leading-relaxed">
+            Khu phá»©c há»£p thá»ƒ thao Ä‘a nÄƒng - NÆ¡i gáº¯n káº¿t Ä‘am mĂª thá»ƒ thao phong trĂ o vĂ  nĂ¢ng táº§m thá»ƒ lá»±c váº­n Ä‘á»™ng viĂªn hĂ ng Ä‘áº§u.
+          </p>
+<div class="space-y-2.5 font-body-sm text-body-sm">
+<div class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[18px] text-primary mt-0.5">location_on</span>
+<span>Khu phá»©c há»£p thá»ƒ thao Anh Vinh, Sá»‘ 123 ÄÆ°á»ng Thá»ƒ Thao, Quáº­n Trung TĂ¢m, TP.HCM</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-primary">call</span>
+<span class="font-bold text-on-surface">Hotline: 0988 123 456 - (028) 3899 9999</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-primary">schedule</span>
+<span>Má»Ÿ cá»­a: <strong>05:00 - 23:00</strong> táº¥t cáº£ cĂ¡c ngĂ y (Ká»ƒ cáº£ Lá»…, Táº¿t)</span>
+</div>
+</div>
+</div>
+<!-- Quick Links -->
+<div>
+<h4 class="font-label-lg text-label-lg font-bold text-on-surface uppercase tracking-wider mb-4">
+            Dá»‹ch vá»¥ &amp; SĂ¢n bĂ£i
+          </h4>
+<ul class="space-y-2.5 font-label-md text-label-md">
+<li><a class="hover:text-primary transition-colors" href="#">SĂ¢n cáº§u lĂ´ng mĂ¡y láº¡nh</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">SĂ¢n Pickleball Decoturf</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">SĂ¢n bĂ³ng Ä‘Ă¡ cá» nhĂ¢n táº¡o</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">SĂ¢n bĂ³ng rá»• tiĂªu chuáº©n</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Dá»‹ch vá»¥ cÄƒng cÆ°á»›c &amp; quáº¥n cĂ¡n</a></li>
+</ul>
+</div>
+<!-- Community & Events -->
+<div>
+<h4 class="font-label-lg text-label-lg font-bold text-on-surface uppercase tracking-wider mb-4">
+            Cá»™ng Ä‘á»“ng &amp; Giáº£i Ä‘áº¥u
+          </h4>
+<ul class="space-y-2.5 font-label-md text-label-md">
+<li><a class="hover:text-primary transition-colors" href="#matchmaking">GhĂ©p kĂ¨o giao lÆ°u</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Lá»‹ch giáº£i Ä‘áº¥u thĂ¡ng 5</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Báº£ng xáº¿p háº¡ng cĂ¢u láº¡c bá»™</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">ÄÄƒng kĂ½ lá»›p huáº¥n luyá»‡n</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Cá»­a hĂ ng thá»ƒ thao online</a></li>
+</ul>
+</div>
+<!-- Legal & Policies -->
+<div>
+<h4 class="font-label-lg text-label-lg font-bold text-on-surface uppercase tracking-wider mb-4">
+            ChĂ­nh sĂ¡ch &amp; Há»— trá»£
+          </h4>
+<ul class="space-y-2.5 font-label-md text-label-md">
+<li><a class="hover:text-primary transition-colors" href="#">Äiá»u khoáº£n dá»‹ch vá»¥</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">ChĂ­nh sĂ¡ch hoĂ n tiá»n</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Quy Ä‘á»‹nh sĂ¢n bĂ³ng</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Há»— trá»£ khĂ¡ch hĂ ng</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">LiĂªn há»‡ ban quáº£n lĂ½</a></li>
+</ul>
+</div>
+</div>
+<!-- Bottom Copyright & Compliance -->
+<div class="pt-8 border-t border-outline-variant/30 flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+          Â© 2025 Thá»ƒ thao Anh Vinh. Thiáº¿t káº¿ phá»¥c vá»¥ váº­n Ä‘á»™ng viĂªn &amp; phong trĂ o thá»ƒ thao Ä‘á»‰nh cao. Táº¥t cáº£ cĂ¡c quyá»n Ä‘Æ°á»£c báº£o lÆ°u.
+        </p>
+<div class="flex items-center gap-4 text-on-surface-variant">
+<a class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center hover:text-primary hover:bg-surface-container-highest transition-colors" href="#">
+<span class="font-bold text-xs">FB</span>
+</a>
+<a class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center hover:text-primary hover:bg-surface-container-highest transition-colors" href="#">
+<span class="font-bold text-xs">YT</span>
+</a>
+<a class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center hover:text-primary hover:bg-surface-container-highest transition-colors" href="#">
+<span class="font-bold text-xs">TT</span>
+</a>
+</div>
+</div>
+</div>
+</footer>
+
+
+</body></html>

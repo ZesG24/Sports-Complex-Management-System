@@ -323,6 +323,20 @@
                     </div>
                 </div>
 
+                <!-- Địa chỉ -->
+                <div class="mb-3">
+                    <label for="DiaChi" class="form-label">Địa chỉ</label>
+                    <input type="text"
+                        class="form-control @error('DiaChi') is-invalid @enderror"
+                        id="DiaChi"
+                        name="DiaChi"
+                        value="{{ old('DiaChi') }}"
+                        placeholder="Số nhà, tên đường, phường/xã, quận/huyện...">
+                    @error('DiaChi')
+                    <div class="text-danger mt-1" style="font-size: 0.78rem;">{{ $message }}</div>
+                    @enderror
+                </div>
+
                 <!-- Tên đăng nhập -->
                 <div class="mb-3">
                     <label for="TenDangNhap" class="form-label">Tên đăng nhập <span class="required-dot">*</span></label>

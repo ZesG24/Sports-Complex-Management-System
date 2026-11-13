@@ -1,11 +1,12 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BookingController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/danh-sach-san', [HomeController::class, 'danhSachSan'])->name('courts.index');
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
@@ -20,9 +21,9 @@ Route::middleware('guest')->group(function () {
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
 
-Route::get('/dat-san', function () {
-    return view('booking');
-})->name('booking');
+Route::get('/dat-san', [BookingController::class, 'index'])->name('booking');
+Route::get('/dat-san/booked-slots', [BookingController::class, 'getBookedSlots'])->name('booking.slots');
+Route::post('/dat-san', [BookingController::class, 'store'])->name('booking.store');
 
 Route::get('/cua-hang', function () {
     $categories = [

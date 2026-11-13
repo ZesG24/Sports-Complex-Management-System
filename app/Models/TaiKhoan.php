@@ -93,4 +93,20 @@ class TaiKhoan extends Authenticatable
             default => 'Người dùng',
         };
     }
+
+    /**
+     * Lấy tên hạng thành viên hoặc vai trò để hiển thị trên badge header
+     */
+    public function getTenHangThanhVienAttribute(): string
+    {
+        if ($this->isOwner()) {
+            return 'Chủ sân';
+        }
+
+        if ($this->isAdmin()) {
+            return 'Admin';
+        }
+
+        return $this->khachHang?->hangThanhVien?->TenHang ?? 'Thành viên';
+    }
 }
