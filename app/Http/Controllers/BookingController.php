@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\ChiTietPhieuDatSan;
 use App\Models\HangThanhVien;
+use App\Models\HoaDon;
 use App\Models\KhachHang;
 use App\Models\LoaiSan;
+use App\Models\LuotGiuCho;
 use App\Models\PhieuDatSan;
 use App\Models\San;
 use Carbon\Carbon;
@@ -20,7 +22,22 @@ use Illuminate\View\View;
 class BookingController extends Controller
 {
     /**
-     * Hiển thị giao diện đặt sân đa môn với quy tắc Anti-Orphan Gap
+     * Chuyển đổi giờ thành số phút theo chu kỳ hoạt động 05:00 sáng -> 03:00 khuya
+     */
+    private function toOperatingMinutes(string $timeStr): int
+    {
+        $parts = explode(':', $timeStr);
+        $h = (int) $parts[0];
+        $m = (int) ($parts[1] ?? 0);
+        if ($h < 5) {
+            $h += 24;
+        }
+
+        return $h * 60 + $m;
+    }
+
+    /**
+     * Hiển thị giao diện đặt sân đa môn với quy tắc Anti-Orphan Gap & Giữ chỗ tạm thời
      */
     public function index(Request $request): View
     {
@@ -28,8 +45,12 @@ class BookingController extends Controller
         $allSan = San::with('loaiSan')->orderBy('MaLoai')->orderBy('MaSan')->get();
 
         $selectedDate = $request->input('date', date('Y-m-d'));
+        $sessionId = $request->session()->getId();
 
-        // Lấy danh sách các ca đã đặt trong ngày để kiểm tra trên timeline
+        // Tự động dọn dẹp các lượt giữ chỗ đã hết hạn
+        LuotGiuCho::where('HetHanLuc', '<=', Carbon::now())->delete();
+
+        // Lấy danh sách các ca đã đặt chính thức trong ngày
         $bookedSlots = ChiTietPhieuDatSan::whereHas('phieuDatSan', function ($q) use ($selectedDate) {
             $q->where('NgayDat', $selectedDate)
                 ->whereNotIn('TrangThai', ['da_huy', 'huy']);
@@ -40,6 +61,22 @@ class BookingController extends Controller
                 return [
                     'start' => substr((string) $item->GioBatDau, 0, 5),
                     'end' => substr((string) $item->GioKetThuc, 0, 5),
+                ];
+            })->values();
+        });
+
+        // Lấy danh sách các ca đang được giữ chỗ tạm thời (Holding slots)
+        $holdingSlots = LuotGiuCho::where('NgayDat', $selectedDate)
+            ->where('HetHanLuc', '>', Carbon::now())
+            ->get(['MaSan', 'GioBatDau', 'GioKetThuc', 'SessionId', 'HetHanLuc']);
+
+        $holdingSlotsByCourt = $holdingSlots->groupBy('MaSan')->map(function ($items) use ($sessionId) {
+            return $items->map(function ($item) use ($sessionId) {
+                return [
+                    'start' => substr((string) $item->GioBatDau, 0, 5),
+                    'end' => substr((string) $item->GioKetThuc, 0, 5),
+                    'is_mine' => ($item->SessionId === $sessionId),
+                    'remaining_seconds' => max(0, Carbon::now()->diffInSeconds($item->HetHanLuc, false)),
                 ];
             })->values();
         });
@@ -57,11 +94,12 @@ class BookingController extends Controller
             }
         }
 
-        return view('booking', compact(
+        return view('booking.index', compact(
             'loaiSanList',
             'allSan',
             'bookedSlots',
             'bookedSlotsByCourt',
+            'holdingSlotsByCourt',
             'selectedDate',
             'userKhachHang',
             'discountPercent'
@@ -69,11 +107,15 @@ class BookingController extends Controller
     }
 
     /**
-     * API trả về các khung giờ đã đặt của một ngày cụ thể (để client AJAX check)
+     * API trả về các khung giờ đã đặt và đang giữ chỗ của một ngày cụ thể (để client AJAX check)
      */
     public function getBookedSlots(Request $request): JsonResponse
     {
         $date = $request->input('date', date('Y-m-d'));
+        $sessionId = $request->session()->getId();
+
+        // Dọn dẹp giữ chỗ hết hạn
+        LuotGiuCho::where('HetHanLuc', '<=', Carbon::now())->delete();
 
         $bookedSlots = ChiTietPhieuDatSan::whereHas('phieuDatSan', function ($q) use ($date) {
             $q->where('NgayDat', $date)
@@ -89,9 +131,161 @@ class BookingController extends Controller
             })->values();
         });
 
+        $holdingSlots = LuotGiuCho::where('NgayDat', $date)
+            ->where('HetHanLuc', '>', Carbon::now())
+            ->get(['MaSan', 'GioBatDau', 'GioKetThuc', 'SessionId', 'HetHanLuc']);
+
+        $groupedHolds = $holdingSlots->groupBy('MaSan')->map(function ($items) use ($sessionId) {
+            return $items->map(function ($item) use ($sessionId) {
+                return [
+                    'start' => substr((string) $item->GioBatDau, 0, 5),
+                    'end' => substr((string) $item->GioKetThuc, 0, 5),
+                    'is_mine' => ($item->SessionId === $sessionId),
+                    'remaining_seconds' => max(0, Carbon::now()->diffInSeconds($item->HetHanLuc, false)),
+                ];
+            })->values();
+        });
+
         return response()->json([
             'date' => $date,
             'booked_slots' => $grouped,
+            'holding_slots' => $groupedHolds,
+        ]);
+    }
+
+    /**
+     * Giữ chỗ tạm thời trong 5 phút (TTL) - Giống hệ thống CGV / Vé máy bay
+     */
+    public function holdSlot(Request $request): JsonResponse
+    {
+        $validated = $request->validate([
+            'MaSan' => ['required', 'exists:san,MaSan'],
+            'NgayDat' => ['required', 'date', 'after_or_equal:today'],
+            'GioBatDau' => ['required', 'date_format:H:i'],
+            'GioKetThuc' => ['required', 'date_format:H:i'],
+        ]);
+
+        $san = San::find($validated['MaSan']);
+        if (! $san || mb_strtolower(trim($san->TinhTrang ?? '')) !== 'hoạt động') {
+            return response()->json([
+                'success' => false,
+                'message' => 'Sân đang bảo trì, không thể giữ chỗ.',
+            ], 422);
+        }
+
+        $sessionId = $request->session()->getId();
+        $reqStart = $this->toOperatingMinutes($validated['GioBatDau']);
+        $reqEnd = $this->toOperatingMinutes($validated['GioKetThuc']);
+
+        // Kiểm tra thời gian thực nếu là ngày hôm nay
+        if ($validated['NgayDat'] === date('Y-m-d') && $reqStart <= $this->toOperatingMinutes(date('H:i'))) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Khung giờ này đã trôi qua so với thời gian hiện tại.',
+            ], 422);
+        }
+
+        // Xóa các lượt giữ chỗ đã hết hạn
+        LuotGiuCho::where('HetHanLuc', '<=', Carbon::now())->delete();
+
+        // 1. Kiểm tra xem đã có người đặt chính thức chưa
+        $existingBookings = ChiTietPhieuDatSan::where('MaSan', $validated['MaSan'])
+            ->whereHas('phieuDatSan', function ($query) use ($validated) {
+                $query->whereDate('NgayDat', $validated['NgayDat'])
+                    ->whereNotIn('TrangThai', ['da_huy', 'huy']);
+            })
+            ->get(['GioBatDau', 'GioKetThuc']);
+
+        foreach ($existingBookings as $eb) {
+            $bStart = $this->toOperatingMinutes(substr((string) $eb->GioBatDau, 0, 5));
+            $bEnd = $this->toOperatingMinutes(substr((string) $eb->GioKetThuc, 0, 5));
+            if (max($reqStart, $bStart) < min($reqEnd, $bEnd)) {
+                return response()->json([
+                    'success' => false,
+                    'message' => "Sân \"{$san->TenSan}\" đã có người đặt trong khung giờ {$validated['GioBatDau']} - {$validated['GioKetThuc']}.",
+                ], 422);
+            }
+        }
+
+        // 2. Kiểm tra xem có người khác đang giữ chỗ không
+        $existingHolds = LuotGiuCho::where('MaSan', $validated['MaSan'])
+            ->where('NgayDat', $validated['NgayDat'])
+            ->where('HetHanLuc', '>', Carbon::now())
+            ->get();
+
+        foreach ($existingHolds as $hold) {
+            $hStart = $this->toOperatingMinutes(substr((string) $hold->GioBatDau, 0, 5));
+            $hEnd = $this->toOperatingMinutes(substr((string) $hold->GioKetThuc, 0, 5));
+
+            if (max($reqStart, $hStart) < min($reqEnd, $hEnd)) {
+                if ($hold->SessionId === $sessionId) {
+                    // Của chính người này -> Gia hạn thêm 5 phút
+                    $hold->update([
+                        'HetHanLuc' => Carbon::now()->addMinutes(5),
+                    ]);
+
+                    return response()->json([
+                        'success' => true,
+                        'message' => 'Đã gia hạn giữ chỗ sân.',
+                        'remaining_seconds' => 300,
+                    ]);
+                }
+
+                $remain = max(0, Carbon::now()->diffInSeconds($hold->HetHanLuc, false));
+                $remainMin = floor($remain / 60);
+                $remainSec = $remain % 60;
+                $remainStr = sprintf('%02d:%02d', $remainMin, $remainSec);
+
+                return response()->json([
+                    'success' => false,
+                    'is_holding' => true,
+                    'message' => "Sân \"{$san->TenSan}\" đang có khách khác giữ chỗ (còn {$remainStr}). Vui lòng chọn sân hoặc khung giờ khác!",
+                ], 422);
+            }
+        }
+
+        // Tạo lượt giữ chỗ mới có thời hạn 5 phút (300 giây)
+        LuotGiuCho::create([
+            'MaSan' => $validated['MaSan'],
+            'NgayDat' => $validated['NgayDat'],
+            'GioBatDau' => $validated['GioBatDau'],
+            'GioKetThuc' => $validated['GioKetThuc'],
+            'SessionId' => $sessionId,
+            'MaKH' => Auth::check() ? Auth::user()->khachHang?->MaKH : null,
+            'HetHanLuc' => Carbon::now()->addMinutes(5),
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Đã giữ chỗ sân tạm thời trong 5 phút.',
+            'remaining_seconds' => 300,
+        ]);
+    }
+
+    /**
+     * Nhả giữ chỗ khi khách xóa sân khỏi phiếu đặt
+     */
+    public function releaseSlot(Request $request): JsonResponse
+    {
+        $validated = $request->validate([
+            'MaSan' => ['required', 'exists:san,MaSan'],
+            'NgayDat' => ['required', 'date'],
+            'GioBatDau' => ['required', 'date_format:H:i'],
+            'GioKetThuc' => ['required', 'date_format:H:i'],
+        ]);
+
+        $sessionId = $request->session()->getId();
+
+        LuotGiuCho::where('MaSan', $validated['MaSan'])
+            ->where('NgayDat', $validated['NgayDat'])
+            ->where('GioBatDau', $validated['GioBatDau'])
+            ->where('GioKetThuc', $validated['GioKetThuc'])
+            ->where('SessionId', $sessionId)
+            ->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Đã nhả giữ chỗ thành công.',
         ]);
     }
 
@@ -182,6 +376,24 @@ class BookingController extends Controller
                 $reqStart = $toOperatingMinutes($item['GioBatDau']);
                 $reqEnd = $toOperatingMinutes($item['GioKetThuc']);
 
+                // Kiểm tra xem khung giờ đặt có nằm trong quá khứ so với thời gian thực tế không
+                $isBookingDateToday = $validated['NgayDat'] === date('Y-m-d');
+                $currentOperatingMins = $toOperatingMinutes(date('H:i'));
+
+                if ($isBookingDateToday && $reqStart <= $currentOperatingMins) {
+                    DB::rollBack();
+
+                    $msg = "Khung giờ {$item['GioBatDau']} của sân \"{$san->TenSan}\" đã trôi qua so với thời gian hiện tại.";
+                    if ($request->wantsJson() || $request->ajax()) {
+                        return response()->json([
+                            'success' => false,
+                            'message' => $msg,
+                        ], 422);
+                    }
+
+                    return back()->withErrors(['general' => $msg])->withInput();
+                }
+
                 // Lấy tất cả ca đã đặt của sân trong ngày để kiểm tra trùng giờ chính xác (bao gồm ca đêm)
                 $existingBookings = ChiTietPhieuDatSan::where('MaSan', $item['MaSan'])
                     ->whereHas('phieuDatSan', function ($query) use ($validated) {
@@ -247,8 +459,18 @@ class BookingController extends Controller
                 'MaKH' => $khachHang->MaKH,
                 'NgayDat' => $validated['NgayDat'],
                 'TongTien' => $tongTien,
-                'TrangThai' => 'cho_xac_nhan',
+                'TrangThai' => 'da_dat',
                 'GhiChu' => $validated['GhiChu'] ?? 'Đặt trực tuyến qua hệ thống Sports Complex',
+            ]);
+
+            // Tạo hóa đơn tương ứng với trạng thái chưa thanh toán
+            HoaDon::create([
+                'MaDatSan' => $phieuDatSan->MaDatSan,
+                'NgayLap' => now()->toDateString(),
+                'TongTien' => $tongTien,
+                'TenPhuongThuc' => 'tai_san',
+                'TrangThai' => 'chua_thanh_toan',
+                'GhiChu' => 'Hóa đơn khởi tạo khi đặt sân trực tuyến',
             ]);
 
             // Tạo chi tiết đặt sân
@@ -260,6 +482,16 @@ class BookingController extends Controller
                     'GioKetThuc' => $itemData['GioKetThuc'],
                     'DonGia' => $itemData['DonGia'],
                 ]);
+            }
+
+            // Xóa các lượt giữ chỗ tạm thời của phiên này vì đã hoàn tất đặt sân
+            $sessionId = $request->session()->getId();
+            foreach ($itemsToCreate as $itemData) {
+                LuotGiuCho::where('MaSan', $itemData['MaSan'])
+                    ->where('NgayDat', $validated['NgayDat'])
+                    ->where('GioBatDau', $itemData['GioBatDau'])
+                    ->where('SessionId', $sessionId)
+                    ->delete();
             }
 
             DB::commit();

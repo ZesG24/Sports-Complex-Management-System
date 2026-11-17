@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class PhieuDatSan extends Model
 {
@@ -39,5 +40,10 @@ class PhieuDatSan extends Model
     public function chiTiet(): HasMany
     {
         return $this->hasMany(ChiTietPhieuDatSan::class, 'MaDatSan', 'MaDatSan');
+    }
+
+    public function hoaDon(): HasOne
+    {
+        return $this->hasOne(HoaDon::class, 'MaDatSan', 'MaDatSan');
     }
 }

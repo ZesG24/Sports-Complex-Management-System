@@ -20,31 +20,4 @@ class HomeController extends Controller
 
         return view('welcome', compact('loaiSanList', 'allSan', 'hangThanhVienList', 'keoHot'));
     }
-
-    public function danhSachSan(Request $request): View
-    {
-        $loaiSanList = LoaiSan::withCount('san')->get();
-
-        $query = San::with('loaiSan');
-
-        if ($request->filled('loai')) {
-            $query->where('MaLoai', $request->input('loai'));
-        }
-
-        if ($request->filled('search')) {
-            $query->where('TenSan', 'like', '%'.$request->input('search').'%');
-        }
-
-        $courts = $query->paginate(9)->withQueryString();
-
-        return view('courts', compact('courts', 'loaiSanList'));
-    }
-
-    public function booking(Request $request): View
-    {
-        $loaiSanList = LoaiSan::withCount('san')->get();
-        $allSan = San::with('loaiSan')->get();
-
-        return view('booking', compact('loaiSanList', 'allSan'));
-    }
 }

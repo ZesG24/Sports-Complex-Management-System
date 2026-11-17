@@ -2,11 +2,11 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/danh-sach-san', [HomeController::class, 'danhSachSan'])->name('courts.index');
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
@@ -21,8 +21,13 @@ Route::middleware('guest')->group(function () {
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
 
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');
+Route::get('/ho-so', [DashboardController::class, 'index'])->name('profile')->middleware('auth');
+
 Route::get('/dat-san', [BookingController::class, 'index'])->name('booking');
 Route::get('/dat-san/booked-slots', [BookingController::class, 'getBookedSlots'])->name('booking.slots');
+Route::post('/dat-san/giu-cho', [BookingController::class, 'holdSlot'])->name('booking.hold');
+Route::post('/dat-san/nha-cho', [BookingController::class, 'releaseSlot'])->name('booking.release');
 Route::post('/dat-san', [BookingController::class, 'store'])->name('booking.store');
 
 Route::get('/cua-hang', function () {
@@ -44,5 +49,5 @@ Route::get('/cua-hang', function () {
         ['name' => 'Nước Bù Điện Giải Pocari Sweat (500ml)', 'category' => 'food-drink', 'category_label' => 'Đồ ăn & thức uống', 'price' => '15.000đ', 'old_price' => null, 'badge' => 'Nạp năng lượng', 'icon' => '🍋', 'tone' => 'yellow'],
     ];
 
-    return view('store', compact('categories', 'products'));
+    return view('store.index', compact('categories', 'products'));
 })->name('store');
