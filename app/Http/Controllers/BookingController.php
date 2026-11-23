@@ -10,6 +10,7 @@ use App\Models\LoaiSan;
 use App\Models\LuotGiuCho;
 use App\Models\PhieuDatSan;
 use App\Models\San;
+use App\Services\ZaloPayService;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -21,6 +22,20 @@ use Illuminate\View\View;
 
 class BookingController extends Controller
 {
+    public function __construct(public ZaloPayService $zaloPayService) {}
+
+    /**
+     * Kiểm tra sân có đang ở trạng thái bảo trì hay không
+     */
+    private function isCourtMaintenance(San $san): bool
+    {
+        $status = mb_strtolower(trim((string) ($san->TinhTrang ?? '')));
+
+        return str_contains($status, 'bảo trì')
+            || str_contains($status, 'baotri')
+            || str_contains($status, 'bao_tri');
+    }
+
     /**
      * Chuyển đổi giờ thành số phút theo chu kỳ hoạt động 05:00 sáng -> 03:00 khuya
      */
@@ -166,7 +181,7 @@ class BookingController extends Controller
         ]);
 
         $san = San::find($validated['MaSan']);
-        if (! $san || mb_strtolower(trim($san->TinhTrang ?? '')) !== 'hoạt động') {
+        if (! $san || $this->isCourtMaintenance($san)) {
             return response()->json([
                 'success' => false,
                 'message' => 'Sân đang bảo trì, không thể giữ chỗ.',
@@ -300,6 +315,7 @@ class BookingController extends Controller
             'HoTen' => ['required_without:user', 'nullable', 'string', 'max:255'],
             'SDT' => ['required_without:user', 'nullable', 'string', 'max:20'],
             'Email' => ['nullable', 'email', 'max:255'],
+            'PhuongThucThanhToan' => ['nullable', 'in:tai_san,zalopay'],
             'items' => ['required', 'array', 'min:1'],
             'items.*.MaSan' => ['required', 'exists:san,MaSan'],
             'items.*.GioBatDau' => ['required', 'date_format:H:i'],
@@ -349,6 +365,7 @@ class BookingController extends Controller
                 if ($h < 5) {
                     $h += 24;
                 }
+
                 return $h * 60 + $m;
             };
 
@@ -359,7 +376,7 @@ class BookingController extends Controller
                 }
 
                 // Kiểm tra tình trạng sân trong cơ sở dữ liệu
-                if (mb_strtolower(trim($san->TinhTrang ?? '')) !== 'hoạt động') {
+                if ($this->isCourtMaintenance($san)) {
                     DB::rollBack();
 
                     $msg = "Sân \"{$san->TenSan}\" đang bảo trì, không thể đặt sân.";
@@ -454,6 +471,8 @@ class BookingController extends Controller
                 }
             }
 
+            $paymentMethod = $validated['PhuongThucThanhToan'] ?? 'tai_san';
+
             // Tạo phiếu đặt sân
             $phieuDatSan = PhieuDatSan::create([
                 'MaKH' => $khachHang->MaKH,
@@ -464,13 +483,15 @@ class BookingController extends Controller
             ]);
 
             // Tạo hóa đơn tương ứng với trạng thái chưa thanh toán
-            HoaDon::create([
+            $hoaDon = HoaDon::create([
                 'MaDatSan' => $phieuDatSan->MaDatSan,
                 'NgayLap' => now()->toDateString(),
                 'TongTien' => $tongTien,
-                'TenPhuongThuc' => 'tai_san',
+                'TenPhuongThuc' => $paymentMethod,
                 'TrangThai' => 'chua_thanh_toan',
-                'GhiChu' => 'Hóa đơn khởi tạo khi đặt sân trực tuyến',
+                'GhiChu' => $paymentMethod === 'zalopay'
+                    ? 'Hóa đơn khởi tạo chờ thanh toán ZaloPay'
+                    : 'Hóa đơn khởi tạo khi đặt sân trực tuyến',
             ]);
 
             // Tạo chi tiết đặt sân
@@ -495,6 +516,41 @@ class BookingController extends Controller
             }
 
             DB::commit();
+
+            if ($paymentMethod === 'zalopay') {
+                $zaloResult = $this->zaloPayService->createOrder($phieuDatSan, $hoaDon, route('zalopay.return'));
+
+                if ($zaloResult['success'] && ! empty($zaloResult['order_url'])) {
+                    $hoaDon->update(['MaGiaoDich' => $zaloResult['app_trans_id']]);
+
+                    if ($request->wantsJson() || $request->ajax()) {
+                        return response()->json([
+                            'success' => true,
+                            'message' => 'Đang chuyển đến cổng thanh toán ZaloPay...',
+                            'booking_id' => $phieuDatSan->MaDatSan,
+                            'total' => $tongTien,
+                            'payment_url' => $zaloResult['order_url'],
+                        ]);
+                    }
+
+                    return redirect()->away($zaloResult['order_url']);
+                }
+
+                $zaloError = $zaloResult['sub_return_message'] ?: $zaloResult['return_message'];
+                if ($request->wantsJson() || $request->ajax()) {
+                    return response()->json([
+                        'success' => true,
+                        'message' => 'Đã tạo phiếu #MDS-'.$phieuDatSan->MaDatSan.' nhưng chưa mở được ZaloPay ('.$zaloError.'). Bạn có thể thanh toán lại trong Hồ sơ.',
+                        'booking_id' => $phieuDatSan->MaDatSan,
+                        'total' => $tongTien,
+                    ]);
+                }
+
+                return redirect()->route('booking')->with(
+                    'error',
+                    'Đã tạo phiếu #MDS-'.$phieuDatSan->MaDatSan.' nhưng không thể kết nối ZaloPay: '.$zaloError
+                );
+            }
 
             if ($request->wantsJson() || $request->ajax()) {
                 return response()->json([

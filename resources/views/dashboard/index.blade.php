@@ -58,6 +58,30 @@
     <!-- ================= MAIN DASHBOARD CONTAINER ================= -->
     <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 pb-20">
 
+        @if (session('success'))
+            <div class="mb-6 bg-emerald-50 border border-emerald-300 text-emerald-900 px-4 py-3 rounded-2xl flex items-center justify-between gap-3">
+                <div class="flex items-center gap-2 text-sm font-bold">
+                    <span class="material-symbols-outlined text-emerald-600">check_circle</span>
+                    <span>{{ session('success') }}</span>
+                </div>
+                <button type="button" onclick="this.parentElement.remove()" class="text-emerald-700 hover:text-emerald-900 cursor-pointer" aria-label="Đóng thông báo">
+                    <span class="material-symbols-outlined text-[18px]">close</span>
+                </button>
+            </div>
+        @endif
+
+        @if (session('error'))
+            <div class="mb-6 bg-red-50 border border-red-300 text-red-900 px-4 py-3 rounded-2xl flex items-center justify-between gap-3">
+                <div class="flex items-center gap-2 text-sm font-bold">
+                    <span class="material-symbols-outlined text-red-600">error</span>
+                    <span>{{ session('error') }}</span>
+                </div>
+                <button type="button" onclick="this.parentElement.remove()" class="text-red-700 hover:text-red-900 cursor-pointer" aria-label="Đóng thông báo">
+                    <span class="material-symbols-outlined text-[18px]">close</span>
+                </button>
+            </div>
+        @endif
+
         <!-- Breadcrumb -->
         <nav class="flex items-center gap-2 text-xs text-muted mb-6">
             <a href="{{ route('home') }}" class="hover:text-primary transition-colors flex items-center gap-1">
@@ -282,8 +306,17 @@
                                     <span class="text-base font-extrabold text-primary">{{ number_format($booking->TongTien, 0, ',', '.') }}đ</span>
                                 </div>
 
-                                <div class="flex items-center gap-2">
-                                    <button type="button" onclick="openQrModal('{{ $booking->MaDatSan }}', 'BK-{{ str_pad($booking->MaDatSan, 5, '0', STR_PAD_LEFT) }}', '{{ $booking->NgayDat ? $booking->NgayDat->format('d/m/Y') : '' }}')" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-primary-light hover:bg-primary/20 text-primary text-xs font-bold transition-all">
+                                <div class="flex flex-wrap items-center gap-2">
+                                    @if(!$booking->hoaDon || $booking->hoaDon->TrangThai !== 'da_thanh_toan')
+                                        <form action="{{ route('zalopay.pay', $booking->MaDatSan) }}" method="POST" class="inline">
+                                            @csrf
+                                            <button type="submit" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#0068FF] hover:bg-[#0054cc] text-white text-xs font-bold shadow-sm transition-all cursor-pointer">
+                                                <span class="material-symbols-outlined text-[17px]">account_balance_wallet</span>
+                                                <span>Thanh toán ZaloPay</span>
+                                            </button>
+                                        </form>
+                                    @endif
+                                    <button type="button" onclick="openQrModal('{{ $booking->MaDatSan }}', 'BK-{{ str_pad($booking->MaDatSan, 5, '0', STR_PAD_LEFT) }}', '{{ $booking->NgayDat ? $booking->NgayDat->format('d/m/Y') : '' }}')" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-primary-light hover:bg-primary/20 text-primary text-xs font-bold transition-all cursor-pointer">
                                         <span class="material-symbols-outlined text-[17px]">qr_code_2</span>
                                         <span>Mã QR Check-in</span>
                                     </button>

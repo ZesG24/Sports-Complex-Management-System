@@ -74,6 +74,22 @@
         </div>
     @endif
 
+    @if (session('error'))
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 w-full">
+            <div class="bg-white border-2 border-clay text-clay px-4 py-3 rounded-[6px] flex items-center justify-between">
+                <div class="flex items-center gap-2.5">
+                    <span class="w-2.5 h-2.5 rounded-full bg-clay shrink-0"></span>
+                    <span class="font-semibold text-sm">{{ session('error') }}</span>
+                </div>
+                <button type="button" onclick="this.parentElement.remove()" class="text-subtle hover:text-ink p-1 cursor-pointer" aria-label="Đóng thông báo">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    @endif
+
     <!-- ==================== MAIN CONTENT ==================== -->
     <main class="grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
 
@@ -241,7 +257,7 @@
                     $sportCode = $san->MaLoai == 1 ? 'bong-da' : ($san->MaLoai == 2 ? 'cau-long' : 'pickleball');
                     $sportName = $san->loaiSan->TenLoai ?? ($san->MaLoai == 1 ? 'Bóng đá' : ($san->MaLoai == 2 ? 'Cầu lông' : 'Pickleball'));
                     $rawStatus = mb_strtolower(trim($san->TinhTrang ?? 'hoạt động'));
-                    $isMaintenance = in_array($rawStatus, ['bảo trì', 'baotri', 'bao_tri'], true);
+                    $isMaintenance = str_contains($rawStatus, 'bảo trì') || str_contains($rawStatus, 'baotri') || str_contains($rawStatus, 'bao_tri');
                 @endphp
                 <article class="court-card bg-white border border-line rounded-[6px] p-4 flex flex-col lg:flex-row gap-5 transition-colors"
                          data-court-id="{{ $san->MaSan }}"
@@ -493,6 +509,28 @@
                                placeholder="Ghi chú thêm nếu có..."
                                class="w-full bg-stone-canvas border border-line rounded-[4px] px-3.5 py-2 text-sm font-medium focus:ring-1 focus:ring-turf focus:border-turf">
                     </div>
+
+                    <div>
+                        <span class="block font-display text-xs font-bold text-turf uppercase mb-1.5">
+                            Phương thức thanh toán
+                        </span>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                            <label class="flex items-start gap-2.5 p-2.5 rounded-[4px] border border-line bg-stone-canvas cursor-pointer has-[:checked]:border-turf has-[:checked]:bg-emerald-50/60 transition-colors">
+                                <input type="radio" name="PhuongThucThanhToan" value="tai_san" checked class="mt-0.5 text-turf focus:ring-turf">
+                                <span class="text-xs">
+                                    <strong class="block font-display text-turf">Thanh toán tại sân</strong>
+                                    <span class="text-subtle">Trả tiền mặt hoặc QR khi check-in</span>
+                                </span>
+                            </label>
+                            <label class="flex items-start gap-2.5 p-2.5 rounded-[4px] border border-line bg-stone-canvas cursor-pointer has-[:checked]:border-[#0068FF] has-[:checked]:bg-blue-50/70 transition-colors">
+                                <input type="radio" name="PhuongThucThanhToan" value="zalopay" class="mt-0.5 text-[#0068FF] focus:ring-[#0068FF]">
+                                <span class="text-xs">
+                                    <strong class="block font-display text-[#0068FF]">Ví ZaloPay</strong>
+                                    <span class="text-subtle">Thanh toán ngay qua cổng ZaloPay</span>
+                                </span>
+                            </label>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Danh sách sân tóm tắt trong modal -->
@@ -593,7 +631,7 @@
 
             function isCourtOperating(statusStr) {
                 const normalized = String(statusStr || 'hoạt động').trim().toLowerCase();
-                return !['bảo trì', 'baotri', 'bao_tri'].includes(normalized);
+                return !(normalized.includes('bảo trì') || normalized.includes('baotri') || normalized.includes('bao_tri'));
             }
 
             // Khôi phục các ca giữ chỗ của chính phiên hiện tại (nếu tải lại trang) với đúng thời gian đếm ngược riêng từng sân
@@ -1460,6 +1498,12 @@
                     .then(res => res.json())
                     .then(data => {
                         if (data.success) {
+                            if (data.payment_url) {
+                                btnSubmit.innerHTML = '<span>Đang chuyển sang ZaloPay...</span>';
+                                window.location.href = data.payment_url;
+                                return;
+                            }
+
                             closeModal();
                             cart = [];
                             renderReceipt();

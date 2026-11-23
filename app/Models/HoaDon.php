@@ -21,6 +21,7 @@ class HoaDon extends Model
         'GhiChu',
         'TenPhuongThuc',
         'TrangThai',
+        'MaGiaoDich',
         'MaBaoCao',
     ];
 

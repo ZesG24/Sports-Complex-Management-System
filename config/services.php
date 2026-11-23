@@ -35,4 +35,14 @@ return [
         ],
     ],
 
+    'zalopay' => [
+        'app_id' => (int) env('ZALOPAY_APP_ID', 554),
+        'key1' => env('ZALOPAY_KEY1', ''),
+        'key2' => env('ZALOPAY_KEY2', ''),
+        'create_url' => env('ZALOPAY_CREATE_URL', 'https://sb-openapi.zalopay.vn/v2/create'),
+        'query_url' => env('ZALOPAY_QUERY_URL', 'https://sb-openapi.zalopay.vn/v2/query'),
+        'callback_url' => env('ZALOPAY_CALLBACK_URL'),
+        'verify_ssl' => env('ZALOPAY_VERIFY_SSL', true),
+    ],
+
 ];

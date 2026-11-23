@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ZaloPayController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -29,6 +30,10 @@ Route::get('/dat-san/booked-slots', [BookingController::class, 'getBookedSlots']
 Route::post('/dat-san/giu-cho', [BookingController::class, 'holdSlot'])->name('booking.hold');
 Route::post('/dat-san/nha-cho', [BookingController::class, 'releaseSlot'])->name('booking.release');
 Route::post('/dat-san', [BookingController::class, 'store'])->name('booking.store');
+
+Route::get('/thanh-toan/zalopay/return', [ZaloPayController::class, 'handleReturn'])->name('zalopay.return');
+Route::post('/thanh-toan/zalopay/callback', [ZaloPayController::class, 'handleCallback'])->name('zalopay.callback');
+Route::post('/thanh-toan/zalopay/{maDatSan}', [ZaloPayController::class, 'pay'])->whereNumber('maDatSan')->name('zalopay.pay')->middleware('auth');
 
 Route::get('/cua-hang', function () {
     $categories = [

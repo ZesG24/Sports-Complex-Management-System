@@ -68,8 +68,8 @@
             <div class="space-y-6">
                 <div class="relative h-44 w-full rounded-[4px] border border-white/15 overflow-hidden bg-turf-hover hidden sm:block">
                     <img src="https://i.ibb.co/KpNpqgfx/Gemini-Generated-Image-3iuonn3iuonn3iuo.png"
-                         alt="Khu phức hợp Thể thao Anh Vinh"
-                         class="w-full h-full object-cover">
+                        alt="Khu phức hợp Thể thao Anh Vinh"
+                        class="w-full h-full object-cover">
                 </div>
 
                 <!-- Tiến trình 2 bước -->
@@ -133,14 +133,14 @@
             </div>
 
             @if ($errors->any())
-                <div role="alert" tabindex="-1" id="registerErrorSummary" class="mb-5 p-3.5 rounded-[4px] bg-[#ffdad6]/50 border border-clay text-[#93000a] text-xs space-y-1">
-                    <div class="font-display font-bold uppercase tracking-wide">Vui lòng kiểm tra lại thông tin:</div>
-                    <ul class="list-disc pl-4 space-y-0.5">
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
+            <div role="alert" tabindex="-1" id="registerErrorSummary" class="mb-5 p-3.5 rounded-[4px] bg-[#ffdad6]/50 border border-clay text-[#93000a] text-xs space-y-1">
+                <div class="font-display font-bold uppercase tracking-wide">Vui lòng kiểm tra lại thông tin:</div>
+                <ul class="list-disc pl-4 space-y-0.5">
+                    @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
             @endif
 
             <form action="{{ route('register') }}" method="POST" class="space-y-4" novalidate>
@@ -152,18 +152,18 @@
                         Họ và tên <span class="text-clay font-bold">*</span>
                     </label>
                     <input type="text"
-                           id="HoTen"
-                           name="HoTen"
-                           value="{{ old('HoTen') }}"
-                           autocomplete="name"
-                           placeholder="Ví dụ: Nguyễn Văn A"
-                           required
-                           autofocus
-                           aria-invalid="{{ $errors->has('HoTen') ? 'true' : 'false' }}"
-                           @error('HoTen') aria-describedby="HoTen-error" @enderror
-                           class="w-full h-[44px] bg-stone-canvas border {{ $errors->has('HoTen') ? 'border-clay' : 'border-line' }} focus:border-turf focus:ring-1 focus:ring-turf focus:bg-white rounded-[4px] px-3.5 text-sm text-ink placeholder:text-subtle transition-colors">
+                        id="HoTen"
+                        name="HoTen"
+                        value="{{ old('HoTen') }}"
+                        autocomplete="name"
+                        placeholder="Ví dụ: Nguyễn Văn A"
+                        required
+                        autofocus
+                        aria-invalid="{{ $errors->has('HoTen') ? 'true' : 'false' }}"
+                        @error('HoTen') aria-describedby="HoTen-error" @enderror
+                        class="w-full h-[44px] bg-stone-canvas border {{ $errors->has('HoTen') ? 'border-clay' : 'border-line' }} focus:border-turf focus:ring-1 focus:ring-turf focus:bg-white rounded-[4px] px-3.5 text-sm text-ink placeholder:text-subtle transition-colors">
                     @error('HoTen')
-                        <p id="HoTen-error" class="mt-1 text-xs text-clay font-medium">{{ $message }}</p>
+                    <p id="HoTen-error" class="mt-1 text-xs text-clay font-medium">{{ $message }}</p>
                     @enderror
                 </div>
 
@@ -175,17 +175,17 @@
                                 Số điện thoại <span class="text-clay font-bold">*</span>
                             </label>
                             <input type="tel"
-                                   id="SDT"
-                                   name="SDT"
-                                   value="{{ old('SDT') }}"
-                                   autocomplete="tel"
-                                   placeholder="0912345678"
-                                   required
-                                   aria-invalid="{{ $errors->has('SDT') ? 'true' : 'false' }}"
-                                   @error('SDT') aria-describedby="SDT-error" @enderror
-                                   class="w-full h-[44px] bg-stone-canvas border {{ $errors->has('SDT') ? 'border-clay' : 'border-line' }} focus:border-turf focus:ring-1 focus:ring-turf focus:bg-white rounded-[4px] px-3.5 text-sm text-ink placeholder:text-subtle transition-colors">
+                                id="SDT"
+                                name="SDT"
+                                value="{{ old('SDT') }}"
+                                autocomplete="tel"
+                                placeholder="0912345678"
+                                required
+                                aria-invalid="{{ $errors->has('SDT') ? 'true' : 'false' }}"
+                                @error('SDT') aria-describedby="SDT-error" @enderror
+                                class="w-full h-[44px] bg-stone-canvas border {{ $errors->has('SDT') ? 'border-clay' : 'border-line' }} focus:border-turf focus:ring-1 focus:ring-turf focus:bg-white rounded-[4px] px-3.5 text-sm text-ink placeholder:text-subtle transition-colors">
                             @error('SDT')
-                                <p id="SDT-error" class="mt-1 text-xs text-clay font-medium">{{ $message }}</p>
+                            <p id="SDT-error" class="mt-1 text-xs text-clay font-medium">{{ $message }}</p>
                             @enderror
                         </div>
 
@@ -194,17 +194,17 @@
                                 Email <span class="text-clay font-bold">*</span>
                             </label>
                             <input type="email"
-                                   id="Email"
-                                   name="Email"
-                                   value="{{ old('Email') }}"
-                                   autocomplete="email"
-                                   placeholder="email@example.com"
-                                   required
-                                   aria-describedby="Email-hint{{ $errors->has('Email') ? ' Email-error' : '' }}"
-                                   aria-invalid="{{ $errors->has('Email') ? 'true' : 'false' }}"
-                                   class="w-full h-[44px] bg-stone-canvas border {{ $errors->has('Email') ? 'border-clay' : 'border-line' }} focus:border-turf focus:ring-1 focus:ring-turf focus:bg-white rounded-[4px] px-3.5 text-sm text-ink placeholder:text-subtle transition-colors">
+                                id="Email"
+                                name="Email"
+                                value="{{ old('Email') }}"
+                                autocomplete="email"
+                                placeholder="email@example.com"
+                                required
+                                aria-describedby="Email-hint{{ $errors->has('Email') ? ' Email-error' : '' }}"
+                                aria-invalid="{{ $errors->has('Email') ? 'true' : 'false' }}"
+                                class="w-full h-[44px] bg-stone-canvas border {{ $errors->has('Email') ? 'border-clay' : 'border-line' }} focus:border-turf focus:ring-1 focus:ring-turf focus:bg-white rounded-[4px] px-3.5 text-sm text-ink placeholder:text-subtle transition-colors">
                             @error('Email')
-                                <p id="Email-error" class="mt-1 text-xs text-clay font-medium">{{ $message }}</p>
+                            <p id="Email-error" class="mt-1 text-xs text-clay font-medium">{{ $message }}</p>
                             @enderror
                         </div>
                     </div>
@@ -223,16 +223,16 @@
                         Địa chỉ
                     </label>
                     <input type="text"
-                           id="DiaChi"
-                           name="DiaChi"
-                           value="{{ old('DiaChi') }}"
-                           autocomplete="street-address"
-                           placeholder="Số nhà, tên đường, phường/xã, quận/huyện..."
-                           aria-invalid="{{ $errors->has('DiaChi') ? 'true' : 'false' }}"
-                           @error('DiaChi') aria-describedby="DiaChi-error" @enderror
-                           class="w-full h-[44px] bg-stone-canvas border {{ $errors->has('DiaChi') ? 'border-clay' : 'border-line' }} focus:border-turf focus:ring-1 focus:ring-turf focus:bg-white rounded-[4px] px-3.5 text-sm text-ink placeholder:text-subtle transition-colors">
+                        id="DiaChi"
+                        name="DiaChi"
+                        value="{{ old('DiaChi') }}"
+                        autocomplete="street-address"
+                        placeholder="Số nhà, tên đường, phường/xã, quận/huyện..."
+                        aria-invalid="{{ $errors->has('DiaChi') ? 'true' : 'false' }}"
+                        @error('DiaChi') aria-describedby="DiaChi-error" @enderror
+                        class="w-full h-[44px] bg-stone-canvas border {{ $errors->has('DiaChi') ? 'border-clay' : 'border-line' }} focus:border-turf focus:ring-1 focus:ring-turf focus:bg-white rounded-[4px] px-3.5 text-sm text-ink placeholder:text-subtle transition-colors">
                     @error('DiaChi')
-                        <p id="DiaChi-error" class="mt-1 text-xs text-clay font-medium">{{ $message }}</p>
+                    <p id="DiaChi-error" class="mt-1 text-xs text-clay font-medium">{{ $message }}</p>
                     @enderror
                 </div>
 
@@ -242,17 +242,17 @@
                         Tên đăng nhập <span class="text-clay font-bold">*</span>
                     </label>
                     <input type="text"
-                           id="TenDangNhap"
-                           name="TenDangNhap"
-                           value="{{ old('TenDangNhap') }}"
-                           autocomplete="username"
-                           placeholder="Chọn tên đăng nhập (chữ và số, không dấu)"
-                           required
-                           aria-invalid="{{ $errors->has('TenDangNhap') ? 'true' : 'false' }}"
-                           @error('TenDangNhap') aria-describedby="TenDangNhap-error" @enderror
-                           class="w-full h-[44px] bg-stone-canvas border {{ $errors->has('TenDangNhap') ? 'border-clay' : 'border-line' }} focus:border-turf focus:ring-1 focus:ring-turf focus:bg-white rounded-[4px] px-3.5 text-sm text-ink placeholder:text-subtle transition-colors">
+                        id="TenDangNhap"
+                        name="TenDangNhap"
+                        value="{{ old('TenDangNhap') }}"
+                        autocomplete="username"
+                        placeholder="Chọn tên đăng nhập (chữ và số, không dấu)"
+                        required
+                        aria-invalid="{{ $errors->has('TenDangNhap') ? 'true' : 'false' }}"
+                        @error('TenDangNhap') aria-describedby="TenDangNhap-error" @enderror
+                        class="w-full h-[44px] bg-stone-canvas border {{ $errors->has('TenDangNhap') ? 'border-clay' : 'border-line' }} focus:border-turf focus:ring-1 focus:ring-turf focus:bg-white rounded-[4px] px-3.5 text-sm text-ink placeholder:text-subtle transition-colors">
                     @error('TenDangNhap')
-                        <p id="TenDangNhap-error" class="mt-1 text-xs text-clay font-medium">{{ $message }}</p>
+                    <p id="TenDangNhap-error" class="mt-1 text-xs text-clay font-medium">{{ $message }}</p>
                     @enderror
                 </div>
 
@@ -264,18 +264,18 @@
                         </label>
                         <div class="relative">
                             <input type="password"
-                                   id="MatKhau"
-                                   name="MatKhau"
-                                   autocomplete="new-password"
-                                   placeholder="Ít nhất 6 ký tự"
-                                   required
-                                   aria-invalid="{{ $errors->has('MatKhau') ? 'true' : 'false' }}"
-                                   @error('MatKhau') aria-describedby="MatKhau-error" @enderror
-                                   class="w-full h-[44px] bg-stone-canvas border {{ $errors->has('MatKhau') ? 'border-clay' : 'border-line' }} focus:border-turf focus:ring-1 focus:ring-turf focus:bg-white rounded-[4px] pl-3.5 pr-10 text-sm text-ink placeholder:text-subtle transition-colors">
+                                id="MatKhau"
+                                name="MatKhau"
+                                autocomplete="new-password"
+                                placeholder="Ít nhất 6 ký tự"
+                                required
+                                aria-invalid="{{ $errors->has('MatKhau') ? 'true' : 'false' }}"
+                                @error('MatKhau') aria-describedby="MatKhau-error" @enderror
+                                class="w-full h-[44px] bg-stone-canvas border {{ $errors->has('MatKhau') ? 'border-clay' : 'border-line' }} focus:border-turf focus:ring-1 focus:ring-turf focus:bg-white rounded-[4px] pl-3.5 pr-10 text-sm text-ink placeholder:text-subtle transition-colors">
                             <button type="button"
-                                    data-toggle-password="MatKhau"
-                                    aria-label="Hiện hoặc ẩn mật khẩu"
-                                    class="absolute right-2.5 top-1/2 -translate-y-1/2 p-1 text-subtle hover:text-turf transition-colors cursor-pointer">
+                                data-toggle-password="MatKhau"
+                                aria-label="Hiện hoặc ẩn mật khẩu"
+                                class="absolute right-2.5 top-1/2 -translate-y-1/2 p-1 text-subtle hover:text-turf transition-colors cursor-pointer">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -283,7 +283,7 @@
                             </button>
                         </div>
                         @error('MatKhau')
-                            <p id="MatKhau-error" class="mt-1 text-xs text-clay font-medium">{{ $message }}</p>
+                        <p id="MatKhau-error" class="mt-1 text-xs text-clay font-medium">{{ $message }}</p>
                         @enderror
                     </div>
 
@@ -293,16 +293,16 @@
                         </label>
                         <div class="relative">
                             <input type="password"
-                                   id="MatKhau_confirmation"
-                                   name="MatKhau_confirmation"
-                                   autocomplete="new-password"
-                                   placeholder="Nhập lại mật khẩu"
-                                   required
-                                   class="w-full h-[44px] bg-stone-canvas border border-line focus:border-turf focus:ring-1 focus:ring-turf focus:bg-white rounded-[4px] pl-3.5 pr-10 text-sm text-ink placeholder:text-subtle transition-colors">
+                                id="MatKhau_confirmation"
+                                name="MatKhau_confirmation"
+                                autocomplete="new-password"
+                                placeholder="Nhập lại mật khẩu"
+                                required
+                                class="w-full h-[44px] bg-stone-canvas border border-line focus:border-turf focus:ring-1 focus:ring-turf focus:bg-white rounded-[4px] pl-3.5 pr-10 text-sm text-ink placeholder:text-subtle transition-colors">
                             <button type="button"
-                                    data-toggle-password="MatKhau_confirmation"
-                                    aria-label="Hiện hoặc ẩn xác nhận mật khẩu"
-                                    class="absolute right-2.5 top-1/2 -translate-y-1/2 p-1 text-subtle hover:text-turf transition-colors cursor-pointer">
+                                data-toggle-password="MatKhau_confirmation"
+                                aria-label="Hiện hoặc ẩn xác nhận mật khẩu"
+                                class="absolute right-2.5 top-1/2 -translate-y-1/2 p-1 text-subtle hover:text-turf transition-colors cursor-pointer">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -335,9 +335,9 @@
     </main>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             document.querySelectorAll('[data-toggle-password]').forEach(btn => {
-                btn.addEventListener('click', function () {
+                btn.addEventListener('click', function() {
                     const input = document.getElementById(this.getAttribute('data-toggle-password'));
                     if (!input) return;
                     input.type = input.type === 'password' ? 'text' : 'password';

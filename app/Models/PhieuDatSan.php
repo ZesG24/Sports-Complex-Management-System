@@ -46,4 +46,9 @@ class PhieuDatSan extends Model
     {
         return $this->hasOne(HoaDon::class, 'MaDatSan', 'MaDatSan');
     }
+
+    public function phieuThue(): HasMany
+    {
+        return $this->hasMany(PhieuThue::class, 'MaDatSan', 'MaDatSan');
+    }
 }

@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
             TaiKhoanSeeder::class,
             HangThanhVienSeeder::class,
             SanSeeder::class,
+            PhuKienThueSeeder::class,
         ]);
     }
 }

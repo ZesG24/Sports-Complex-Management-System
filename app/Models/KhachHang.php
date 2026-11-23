@@ -60,4 +60,9 @@ class KhachHang extends Model
     {
         return $this->hasMany(PhieuDatSan::class, 'MaKH', 'MaKH');
     }
+
+    public function phieuThue(): HasMany
+    {
+        return $this->hasMany(PhieuThue::class, 'MaKH', 'MaKH');
+    }
 }
