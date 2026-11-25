@@ -262,6 +262,7 @@
                 <article class="court-card bg-white border border-line rounded-[6px] p-4 flex flex-col lg:flex-row gap-5 transition-colors"
                          data-court-id="{{ $san->MaSan }}"
                          data-sport="{{ $sportCode }}"
+                         data-sport-id="{{ $san->MaLoai }}"
                          data-sport-label="{{ $sportName }}"
                          data-court-name="{{ $san->TenSan }}"
                          data-court-price="{{ $san->GiaThue }}"
@@ -417,11 +418,37 @@
             <!-- Lưới các ca sân đã chọn (Mỗi sân đếm ngược độc lập) -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 hidden" id="receiptCourtList"></div>
 
+            <!-- Khối Thuê thêm phụ kiện đi kèm (chỉ hiển thị khi đã chọn ít nhất 1 sân) -->
+            <div id="rentalAccessoriesSection" class="hidden pt-4 border-t border-line space-y-3">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                    <div>
+                        <h3 class="font-display text-sm sm:text-base font-bold text-turf flex items-center gap-2">
+                            <span>Thuê thêm phụ kiện đi kèm</span>
+                            <span class="text-[11px] font-semibold px-2 py-0.5 rounded-[3px] bg-stone-low border border-line text-muted">Tùy chọn</span>
+                        </h3>
+                        <p class="text-xs text-subtle mt-0.5">
+                            Chỉ áp dụng khi đặt sân. Không cần đặt cọc — nhận và trả đồ trực tiếp tại quầy.
+                        </p>
+                    </div>
+                    <div class="flex items-center gap-1.5">
+                        <button type="button" id="btnRentalFilterMatch" class="px-3 py-1 rounded-[4px] font-display text-xs font-bold bg-turf text-white border border-turf transition-colors cursor-pointer">
+                            Theo môn đang đặt
+                        </button>
+                        <button type="button" id="btnRentalFilterAll" class="px-3 py-1 rounded-[4px] font-display text-xs font-semibold bg-stone-canvas text-turf border border-line hover:bg-stone-high transition-colors cursor-pointer">
+                            Xem tất cả
+                        </button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3" id="rentalAccessoriesGrid"></div>
+            </div>
+
             <!-- Chân phiếu: Tổng tiền & CTA -->
             <div class="pt-4 border-t border-line flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div class="space-y-1">
                     <div class="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-muted">
-                        <span>Tạm tính (<span id="summaryCourtCount">0</span> sân): <strong class="font-display text-turf" id="summarySubtotal">0đ</strong></span>
+                        <span>Tiền sân (<span id="summaryCourtCount">0</span> ca): <strong class="font-display text-turf" id="summarySubtotal">0đ</strong></span>
+                        <span>Phụ kiện thuê (<span id="summaryRentalCount">0</span> món): <strong class="font-display text-turf" id="summaryRentalSubtotal">0đ</strong></span>
                         @if($discountPercent > 0)
                             <span>Hội viên VIP giảm {{ rtrim(rtrim(number_format((float) $discountPercent, 2, '.', ''), '0'), '.') }}%: <strong class="font-display text-clay" id="summaryDiscount">-0đ</strong></span>
                         @endif
@@ -515,11 +542,10 @@
                             Phương thức thanh toán
                         </span>
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                            <label class="flex items-start gap-2.5 p-2.5 rounded-[4px] border border-line bg-stone-canvas cursor-pointer has-[:checked]:border-turf has-[:checked]:bg-emerald-50/60 transition-colors">
-                                <input type="radio" name="PhuongThucThanhToan" value="tai_san" checked class="mt-0.5 text-turf focus:ring-turf">
+                            <label class="flex items-center gap-2.5 p-2.5 rounded-[4px] border border-line bg-stone-canvas cursor-pointer has-[:checked]:border-turf has-[:checked]:bg-emerald-50/60 transition-colors">
+                                <input type="radio" name="PhuongThucThanhToan" value="tai_san" checked class="text-turf focus:ring-turf">
                                 <span class="text-xs">
                                     <strong class="block font-display text-turf">Thanh toán tại sân</strong>
-                                    <span class="text-subtle">Trả tiền mặt hoặc QR khi check-in</span>
                                 </span>
                             </label>
                             <label class="flex items-start gap-2.5 p-2.5 rounded-[4px] border border-line bg-stone-canvas cursor-pointer has-[:checked]:border-[#0068FF] has-[:checked]:bg-blue-50/70 transition-colors">
@@ -558,6 +584,7 @@
     <script>
         window.dbBookedSlots = @json($bookedSlotsByCourt ?? []);
         window.dbHoldingSlots = @json($holdingSlotsByCourt ?? []);
+        window.rentalAccessories = @json($rentalAccessoriesData ?? []);
         window.serverCurrentTime = "{{ date('H:i') }}";
         window.serverCurrentDate = "{{ date('Y-m-d') }}";
         window.holdSlotUrl = "{{ route('booking.hold') }}";
@@ -580,6 +607,9 @@
 
             // Giỏ hàng: mỗi phần tử giữ expiresAt độc lập riêng của sân đó
             let cart = [];
+            // Giỏ phụ kiện thuê đi kèm: { [id]: { qty: number, note: string } }
+            let rentalCart = {};
+            let rentalFilterMode = 'match'; // 'match' | 'all'
 
             const ICON_TRASH = '<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"/></svg>';
             const ICON_CLOCK = '<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>';
@@ -644,6 +674,7 @@
 
                     const cName = card.getAttribute('data-court-name');
                     const cSport = card.getAttribute('data-sport');
+                    const cSportId = parseInt(card.getAttribute('data-sport-id'), 10) || null;
                     const cSportLabel = card.getAttribute('data-sport-label') || 'THỂ THAO';
                     const cPrice = parseFloat(card.getAttribute('data-court-price'));
 
@@ -663,6 +694,7 @@
                             courtId: String(cId),
                             courtName: cName,
                             sport: cSport,
+                            sportId: cSportId,
                             sportLabel: cSportLabel,
                             date: selectedDate,
                             startTime: h.start,
@@ -1142,15 +1174,126 @@
                 }, 1000);
             }
 
+            // ================= QUẢN LÝ PHỤ KIỆN THUÊ ĐI KÈM =================
+            function getSelectedRentalsList() {
+                const accessories = window.rentalAccessories || [];
+                return Object.keys(rentalCart)
+                    .map(idStr => {
+                        const entry = rentalCart[idStr];
+                        if (!entry || entry.qty <= 0) return null;
+                        const acc = accessories.find(a => String(a.id) === String(idStr));
+                        if (!acc) return null;
+                        return {
+                            ...acc,
+                            qty: entry.qty,
+                            note: entry.note || '',
+                            total: Math.round(acc.price * entry.qty)
+                        };
+                    })
+                    .filter(Boolean);
+            }
+
+            function getRentalTotals() {
+                const list = getSelectedRentalsList();
+                return list.reduce((acc, item) => {
+                    acc.count += item.qty;
+                    acc.amount += item.total;
+                    return acc;
+                }, { count: 0, amount: 0 });
+            }
+
+            function updateSummaryTotals() {
+                const summaryCourtCount = document.getElementById('summaryCourtCount');
+                const summarySubtotal = document.getElementById('summarySubtotal');
+                const summaryRentalCount = document.getElementById('summaryRentalCount');
+                const summaryRentalSubtotal = document.getElementById('summaryRentalSubtotal');
+                const summaryDiscount = document.getElementById('summaryDiscount');
+                const summaryTotal = document.getElementById('summaryTotal');
+
+                const subtotal = cart.reduce((sum, item) => sum + item.total, 0);
+                const discountAmount = Math.round(subtotal * (discountPercent / 100));
+                const rentals = getRentalTotals();
+                const finalTotal = (subtotal - discountAmount) + rentals.amount;
+
+                summaryCourtCount.textContent = String(cart.length);
+                summarySubtotal.textContent = formatVnd(subtotal);
+                if (summaryRentalCount) summaryRentalCount.textContent = String(rentals.count);
+                if (summaryRentalSubtotal) summaryRentalSubtotal.textContent = formatVnd(rentals.amount);
+                if (summaryDiscount) summaryDiscount.textContent = `-${formatVnd(discountAmount)}`;
+                summaryTotal.textContent = formatVnd(finalTotal);
+            }
+
+            function renderRentalAccessories() {
+                const section = document.getElementById('rentalAccessoriesSection');
+                const grid = document.getElementById('rentalAccessoriesGrid');
+                const accessories = window.rentalAccessories || [];
+
+                if (cart.length === 0 || accessories.length === 0) {
+                    section.classList.add('hidden');
+                    if (cart.length === 0) {
+                        rentalCart = {};
+                    }
+                    return;
+                }
+
+                section.classList.remove('hidden');
+
+                const activeSportIds = [...new Set(cart.map(item => item.sportId).filter(Boolean))];
+                const filtered = rentalFilterMode === 'all' || activeSportIds.length === 0
+                    ? accessories
+                    : accessories.filter(acc => acc.sport_id === null || activeSportIds.includes(acc.sport_id) || (rentalCart[acc.id] && rentalCart[acc.id].qty > 0));
+
+                grid.innerHTML = '';
+
+                filtered.forEach(acc => {
+                    const entry = rentalCart[acc.id] || { qty: 0, note: '' };
+                    const isSelected = entry.qty > 0;
+                    const notePlaceholder = acc.category === 'giay'
+                        ? 'Nhập size giày (VD: 1 đôi 41, 1 đôi 42)...'
+                        : 'Ghi chú thêm (tùy chọn)...';
+
+                    const card = document.createElement('div');
+                    card.className = `p-3.5 rounded-[4px] border transition-colors flex flex-col justify-between gap-2.5 ${isSelected ? 'bg-emerald-50/50 border-turf' : 'bg-stone-canvas border-line'}`;
+                    card.innerHTML = `
+                        <div class="space-y-1">
+                            <div class="flex items-center justify-between gap-2">
+                                <span class="font-display text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-[3px] bg-white border border-line text-muted">
+                                    ${acc.sport_name}
+                                </span>
+                                <span class="text-[11px] font-medium text-subtle">Còn ${acc.stock}</span>
+                            </div>
+                            <h4 class="font-display text-sm font-bold text-turf leading-snug">${acc.name}</h4>
+                            ${acc.description ? `<p class="text-[11px] text-subtle line-clamp-2">${acc.description}</p>` : ''}
+                        </div>
+
+                        <div class="space-y-2 pt-2 border-t border-line/60">
+                            <div class="flex items-center justify-between gap-2">
+                                <span class="font-display text-sm font-bold text-clay">${formatVnd(acc.price)}<span class="text-[11px] font-normal text-subtle">/lượt</span></span>
+                                <div class="inline-flex items-center gap-1.5">
+                                    <button type="button" data-rental-dec="${acc.id}" class="w-7 h-7 rounded-[4px] border border-line bg-white hover:bg-stone-high text-turf font-bold text-sm flex items-center justify-center cursor-pointer disabled:opacity-40" ${entry.qty <= 0 ? 'disabled' : ''}>−</button>
+                                    <span class="w-6 text-center font-display text-xs font-bold text-turf">${entry.qty}</span>
+                                    <button type="button" data-rental-inc="${acc.id}" class="w-7 h-7 rounded-[4px] border border-turf bg-turf hover:bg-turf-hover text-white font-bold text-sm flex items-center justify-center cursor-pointer disabled:opacity-40" ${entry.qty >= acc.stock ? 'disabled' : ''}>+</button>
+                                </div>
+                            </div>
+                            ${isSelected ? `
+                                <input type="text"
+                                       data-rental-note="${acc.id}"
+                                       value="${String(entry.note || '').replace(/"/g, '&quot;')}"
+                                       maxlength="255"
+                                       placeholder="${notePlaceholder}"
+                                       class="w-full px-2.5 py-1.5 text-xs bg-white border border-line rounded-[4px] focus:ring-1 focus:ring-turf focus:border-turf text-ink placeholder:text-subtle">
+                            ` : ''}
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                });
+            }
+
             // ================= RENDER PHIẾU ĐẶT SÂN TRÊN FOOTER =================
             function renderReceipt() {
                 const listContainer = document.getElementById('receiptCourtList');
                 const emptyPlaceholder = document.getElementById('receiptEmptyPlaceholder');
                 const receiptBadgeCount = document.getElementById('receiptBadgeCount');
-                const summaryCourtCount = document.getElementById('summaryCourtCount');
-                const summarySubtotal = document.getElementById('summarySubtotal');
-                const summaryDiscount = document.getElementById('summaryDiscount');
-                const summaryTotal = document.getElementById('summaryTotal');
                 const btnOpenCheckout = document.getElementById('btnOpenCheckoutModal');
 
                 if (cart.length === 0) {
@@ -1159,11 +1302,9 @@
                     emptyPlaceholder.classList.remove('hidden');
 
                     receiptBadgeCount.textContent = '0 sân đã chọn';
-                    summaryCourtCount.textContent = '0';
-                    summarySubtotal.textContent = '0đ';
-                    if (summaryDiscount) summaryDiscount.textContent = '-0đ';
-                    summaryTotal.textContent = '0đ';
                     btnOpenCheckout.disabled = true;
+                    renderRentalAccessories();
+                    updateSummaryTotals();
                     return;
                 }
 
@@ -1172,11 +1313,7 @@
                 btnOpenCheckout.disabled = false;
                 listContainer.innerHTML = '';
 
-                let subtotal = 0;
-
                 cart.forEach((item, index) => {
-                    subtotal += item.total;
-
                     const itemCard = document.createElement('div');
                     itemCard.className = 'p-4 bg-stone-canvas border border-line rounded-[4px] flex flex-col justify-between space-y-3';
                     itemCard.innerHTML = `
@@ -1213,14 +1350,9 @@
                     listContainer.appendChild(itemCard);
                 });
 
-                const discountAmount = Math.round(subtotal * (discountPercent / 100));
-                const finalTotal = subtotal - discountAmount;
-
                 receiptBadgeCount.textContent = `${cart.length} sân đã chọn`;
-                summaryCourtCount.textContent = String(cart.length);
-                summarySubtotal.textContent = formatVnd(subtotal);
-                if (summaryDiscount) summaryDiscount.textContent = `-${formatVnd(discountAmount)}`;
-                summaryTotal.textContent = formatVnd(finalTotal);
+                renderRentalAccessories();
+                updateSummaryTotals();
             }
 
             window.removeItemFromReceipt = function (index) {
@@ -1337,6 +1469,7 @@
                 const card = document.getElementById(`court-card-${cId}`);
                 const cName = card.getAttribute('data-court-name');
                 const cSport = card.getAttribute('data-sport');
+                const cSportId = parseInt(card.getAttribute('data-sport-id'), 10) || null;
                 const cSportLabel = card.getAttribute('data-sport-label') || 'THỂ THAO';
                 const cPrice = parseFloat(card.getAttribute('data-court-price'));
 
@@ -1397,6 +1530,7 @@
                                 courtId: String(cId),
                                 courtName: cName,
                                 sport: cSport,
+                                sportId: cSportId,
                                 sportLabel: cSportLabel,
                                 date: selectedDate,
                                 startTime: selectedStartTime,
@@ -1423,6 +1557,64 @@
                         btn.disabled = false;
                     });
             });
+
+            // Sự kiện lọc & chọn số lượng phụ kiện thuê
+            const btnRentalFilterMatch = document.getElementById('btnRentalFilterMatch');
+            const btnRentalFilterAll = document.getElementById('btnRentalFilterAll');
+            const rentalGrid = document.getElementById('rentalAccessoriesGrid');
+
+            if (btnRentalFilterMatch && btnRentalFilterAll) {
+                btnRentalFilterMatch.addEventListener('click', function () {
+                    rentalFilterMode = 'match';
+                    btnRentalFilterMatch.className = 'px-3 py-1 rounded-[4px] font-display text-xs font-bold bg-turf text-white border border-turf transition-colors cursor-pointer';
+                    btnRentalFilterAll.className = 'px-3 py-1 rounded-[4px] font-display text-xs font-semibold bg-stone-canvas text-turf border border-line hover:bg-stone-high transition-colors cursor-pointer';
+                    renderRentalAccessories();
+                });
+
+                btnRentalFilterAll.addEventListener('click', function () {
+                    rentalFilterMode = 'all';
+                    btnRentalFilterAll.className = 'px-3 py-1 rounded-[4px] font-display text-xs font-bold bg-turf text-white border border-turf transition-colors cursor-pointer';
+                    btnRentalFilterMatch.className = 'px-3 py-1 rounded-[4px] font-display text-xs font-semibold bg-stone-canvas text-turf border border-line hover:bg-stone-high transition-colors cursor-pointer';
+                    renderRentalAccessories();
+                });
+            }
+
+            if (rentalGrid) {
+                rentalGrid.addEventListener('click', function (e) {
+                    const incBtn = e.target.closest('[data-rental-inc]');
+                    const decBtn = e.target.closest('[data-rental-dec]');
+                    if (!incBtn && !decBtn) return;
+
+                    const accId = (incBtn || decBtn).getAttribute(incBtn ? 'data-rental-inc' : 'data-rental-dec');
+                    const acc = (window.rentalAccessories || []).find(a => String(a.id) === String(accId));
+                    if (!acc) return;
+
+                    if (!rentalCart[accId]) {
+                        rentalCart[accId] = { qty: 0, note: '' };
+                    }
+
+                    if (incBtn && rentalCart[accId].qty < acc.stock) {
+                        rentalCart[accId].qty += 1;
+                    } else if (decBtn && rentalCart[accId].qty > 0) {
+                        rentalCart[accId].qty -= 1;
+                        if (rentalCart[accId].qty === 0) {
+                            delete rentalCart[accId];
+                        }
+                    }
+
+                    renderRentalAccessories();
+                    updateSummaryTotals();
+                });
+
+                rentalGrid.addEventListener('input', function (e) {
+                    const noteInput = e.target.closest('[data-rental-note]');
+                    if (!noteInput) return;
+                    const accId = noteInput.getAttribute('data-rental-note');
+                    if (rentalCart[accId]) {
+                        rentalCart[accId].note = noteInput.value;
+                    }
+                });
+            }
 
             // ================= MODAL XÁC NHẬN & GỬI FORM =================
             const checkoutModal = document.getElementById('checkoutModal');
@@ -1466,8 +1658,44 @@
                     `;
                 });
 
+                const selectedRentals = getSelectedRentalsList();
+                let rentalTotal = 0;
+
+                selectedRentals.forEach((rental, rIndex) => {
+                    rentalTotal += rental.total;
+
+                    const pkInput = document.createElement('input');
+                    pkInput.type = 'hidden';
+                    pkInput.name = `rentals[${rIndex}][MaPKThue]`;
+                    pkInput.value = rental.id;
+                    formHiddenItems.appendChild(pkInput);
+
+                    const qtyInput = document.createElement('input');
+                    qtyInput.type = 'hidden';
+                    qtyInput.name = `rentals[${rIndex}][SoLuong]`;
+                    qtyInput.value = rental.qty;
+                    formHiddenItems.appendChild(qtyInput);
+
+                    const noteInput = document.createElement('input');
+                    noteInput.type = 'hidden';
+                    noteInput.name = `rentals[${rIndex}][GhiChu]`;
+                    noteInput.value = rental.note || '';
+                    formHiddenItems.appendChild(noteInput);
+
+                    const safeNote = (rental.note || '').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+                    modalItemList.innerHTML += `
+                        <div class="flex items-center justify-between gap-3 text-xs py-2 border-b border-line/60 last:border-0">
+                            <div>
+                                <span class="font-display font-bold text-turf block">+ ${rental.name} <span class="text-clay">×${rental.qty}</span></span>
+                                <span class="text-muted">Phụ kiện thuê${safeNote ? ` · Ghi chú: ${safeNote}` : ''}</span>
+                            </div>
+                            <span class="font-display font-bold text-turf shrink-0">${formatVnd(rental.total)}</span>
+                        </div>
+                    `;
+                });
+
                 const discountAmount = Math.round(subtotal * (discountPercent / 100));
-                modalTotalAmount.textContent = formatVnd(subtotal - discountAmount);
+                modalTotalAmount.textContent = formatVnd((subtotal - discountAmount) + rentalTotal);
                 checkoutModal.classList.remove('hidden');
             });
 
@@ -1506,6 +1734,7 @@
 
                             closeModal();
                             cart = [];
+                            rentalCart = {};
                             renderReceipt();
                             fetchLatestSlots();
 

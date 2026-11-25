@@ -31,13 +31,15 @@ class DashboardController extends Controller
         $discountSaved = 0;
 
         if ($khachHang) {
-            $allBookings = PhieuDatSan::with(['chiTiet.san.loaiSan', 'hoaDon'])
+            $allBookings = PhieuDatSan::with(['chiTiet.san.loaiSan', 'hoaDon', 'phieuThue.phuKienThue'])
                 ->where('MaKH', $khachHang->MaKH)
                 ->orderBy('NgayDat', 'desc')
                 ->get();
 
             $totalBookingsCount = $allBookings->count();
-            $totalSpent = $allBookings->where('TrangThai', '!=', 'DaHuy')->sum('TongTien');
+            $totalSpent = $allBookings
+                ->whereNotIn('TrangThai', ['DaHuy', 'da_huy', 'huy'])
+                ->sum(fn ($booking) => (float) ($booking->hoaDon?->TongTien ?? $booking->TongTien));
 
             // Tính tổng số giờ đã chơi & ước tính tiền tiết kiệm
             foreach ($allBookings as $booking) {
@@ -63,11 +65,13 @@ class DashboardController extends Controller
             $today = now()->toDateString();
             $upcomingBookings = $allBookings->filter(function ($b) use ($today) {
                 $dateStr = $b->NgayDat ? $b->NgayDat->toDateString() : '';
+
                 return $dateStr >= $today && $b->TrangThai !== 'DaHuy';
             })->values();
 
             $pastBookings = $allBookings->filter(function ($b) use ($today) {
                 $dateStr = $b->NgayDat ? $b->NgayDat->toDateString() : '';
+
                 return $dateStr < $today || $b->TrangThai === 'DaHuy';
             })->values();
 

@@ -28,4 +28,9 @@ class LoaiSan extends Model
     {
         return $this->hasMany(BaiDangTimBan::class, 'MaLoaiSan', 'MaLoai');
     }
+
+    public function phuKienThue(): HasMany
+    {
+        return $this->hasMany(PhuKienThue::class, 'MaLoai', 'MaLoai');
+    }
 }

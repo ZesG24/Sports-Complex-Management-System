@@ -182,7 +182,6 @@
                     <div class="text-2xl font-extrabold text-primary">
                         {{ number_format($totalSpent, 0, ',', '.') }}<span class="text-xs font-normal text-muted ml-0.5">đ</span>
                     </div>
-                    <span class="text-[11px] text-muted mt-0.5 block">Tổng phí thuê sân bãi</span>
                 </div>
             </div>
         </section>
@@ -297,13 +296,36 @@
                                         </div>
                                     </div>
                                 @endforeach
+
+                                @if($booking->phieuThue && $booking->phieuThue->isNotEmpty())
+                                    <div class="p-3 bg-blue-50/50 rounded-xl border border-blue-200/80 space-y-1.5">
+                                        <div class="text-[11px] font-extrabold uppercase tracking-wider text-blue-900 flex items-center gap-1">
+                                            <span class="material-symbols-outlined text-[15px]">sports_handball</span>
+                                            <span>Phụ kiện thuê đi kèm</span>
+                                        </div>
+                                        @foreach($booking->phieuThue as $pt)
+                                            @foreach($pt->phuKienThue as $pk)
+                                                <div class="flex items-center justify-between gap-3 text-xs">
+                                                    <div class="text-ink">
+                                                        <span class="font-bold">{{ $pk->TenPhuKien }}</span>
+                                                        <span class="text-muted">×{{ $pk->pivot->SoLuong }}</span>
+                                                        @if(!empty($pk->pivot->GhiChu))
+                                                            <span class="text-muted italic">({{ $pk->pivot->GhiChu }})</span>
+                                                        @endif
+                                                    </div>
+                                                    <span class="font-bold text-primary shrink-0">{{ number_format((float) $pk->pivot->DonGiaThue * (int) $pk->pivot->SoLuong, 0, ',', '.') }}đ</span>
+                                                </div>
+                                            @endforeach
+                                        @endforeach
+                                    </div>
+                                @endif
                             </div>
 
                             <!-- Card Footer: Tổng tiền & Nút xem QR Check-in -->
                             <div class="pt-3 border-t border-line flex flex-wrap items-center justify-between gap-3">
                                 <div>
                                     <span class="text-[11px] text-muted block">Tổng thanh toán:</span>
-                                    <span class="text-base font-extrabold text-primary">{{ number_format($booking->TongTien, 0, ',', '.') }}đ</span>
+                                    <span class="text-base font-extrabold text-primary">{{ number_format((float) ($booking->hoaDon?->TongTien ?? $booking->TongTien), 0, ',', '.') }}đ</span>
                                 </div>
 
                                 <div class="flex flex-wrap items-center gap-2">

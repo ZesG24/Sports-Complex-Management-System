@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class PhuKienThue extends Model
@@ -15,11 +16,10 @@ class PhuKienThue extends Model
     protected $primaryKey = 'MaPKThue';
 
     protected $fillable = [
+        'MaLoai',
         'TenPhuKien',
         'PhanLoai',
-        'KichThuoc',
         'GiaThue',
-        'TienCoc',
         'TongSoLuong',
         'SoLuongKhaDung',
         'HinhAnh',
@@ -31,15 +31,19 @@ class PhuKienThue extends Model
     {
         return [
             'GiaThue' => 'decimal:2',
-            'TienCoc' => 'decimal:2',
             'TongSoLuong' => 'integer',
             'SoLuongKhaDung' => 'integer',
         ];
     }
 
+    public function loaiSan(): BelongsTo
+    {
+        return $this->belongsTo(LoaiSan::class, 'MaLoai', 'MaLoai');
+    }
+
     public function phieuThue(): BelongsToMany
     {
         return $this->belongsToMany(PhieuThue::class, 'chitietphieuthue', 'MaPKThue', 'MaPhieuThue')
-            ->withPivot(['SoLuong', 'DonGiaThue', 'TienCoc']);
+            ->withPivot(['SoLuong', 'DonGiaThue', 'GhiChu']);
     }
 }

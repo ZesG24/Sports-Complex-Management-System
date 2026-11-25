@@ -9,6 +9,8 @@ use App\Models\KhachHang;
 use App\Models\LoaiSan;
 use App\Models\LuotGiuCho;
 use App\Models\PhieuDatSan;
+use App\Models\PhieuThue;
+use App\Models\PhuKienThue;
 use App\Models\San;
 use App\Services\ZaloPayService;
 use Carbon\Carbon;
@@ -109,6 +111,26 @@ class BookingController extends Controller
             }
         }
 
+        $phuKienThueList = PhuKienThue::with('loaiSan')
+            ->where('TinhTrang', 'hoat_dong')
+            ->where('SoLuongKhaDung', '>', 0)
+            ->orderBy('MaLoai')
+            ->orderBy('MaPKThue')
+            ->get();
+
+        $rentalAccessoriesData = $phuKienThueList->map(function (PhuKienThue $pk): array {
+            return [
+                'id' => $pk->MaPKThue,
+                'sport_id' => $pk->MaLoai,
+                'sport_name' => $pk->loaiSan?->TenLoai ?? 'Dùng chung',
+                'name' => $pk->TenPhuKien,
+                'category' => $pk->PhanLoai,
+                'price' => (float) $pk->GiaThue,
+                'stock' => (int) $pk->SoLuongKhaDung,
+                'description' => $pk->MoTa,
+            ];
+        })->values();
+
         return view('booking.index', compact(
             'loaiSanList',
             'allSan',
@@ -117,7 +139,9 @@ class BookingController extends Controller
             'holdingSlotsByCourt',
             'selectedDate',
             'userKhachHang',
-            'discountPercent'
+            'discountPercent',
+            'phuKienThueList',
+            'rentalAccessoriesData'
         ));
     }
 
@@ -321,6 +345,10 @@ class BookingController extends Controller
             'items.*.GioBatDau' => ['required', 'date_format:H:i'],
             'items.*.GioKetThuc' => ['required', 'date_format:H:i', 'after:items.*.GioBatDau'],
             'items.*.DonGia' => ['required', 'numeric', 'min:0'],
+            'rentals' => ['nullable', 'array'],
+            'rentals.*.MaPKThue' => ['required', 'exists:phukienthue,MaPKThue'],
+            'rentals.*.SoLuong' => ['required', 'integer', 'min:1'],
+            'rentals.*.GhiChu' => ['nullable', 'string', 'max:255'],
         ], [
             'NgayDat.required' => 'Vui lòng chọn ngày đặt sân.',
             'NgayDat.after_or_equal' => 'Ngày đặt sân không thể ở quá khứ.',
@@ -463,7 +491,7 @@ class BookingController extends Controller
                 ];
             }
 
-            // Áp dụng giảm giá thành viên nếu có
+            // Áp dụng giảm giá thành viên cho tiền sân nếu có
             if ($khachHang && $khachHang->MaHang) {
                 $hang = HangThanhVien::find($khachHang->MaHang);
                 if ($hang && $hang->PhanTramGiamGia > 0) {
@@ -471,6 +499,64 @@ class BookingController extends Controller
                 }
             }
 
+            // Xử lý phụ kiện thuê đi kèm (chỉ cho thuê kèm phiếu đặt sân)
+            $tongTienThue = 0;
+            $rentalsToAttach = [];
+            $lockedAccessories = [];
+
+            foreach ($validated['rentals'] ?? [] as $rental) {
+                $maPK = (int) $rental['MaPKThue'];
+                $qty = (int) $rental['SoLuong'];
+
+                if ($qty <= 0) {
+                    continue;
+                }
+
+                $phuKien = $lockedAccessories[$maPK] ?? PhuKienThue::where('MaPKThue', $maPK)->lockForUpdate()->first();
+                if (! $phuKien || $phuKien->TinhTrang !== 'hoat_dong') {
+                    DB::rollBack();
+
+                    $msg = 'Phụ kiện bạn chọn hiện không còn cho thuê.';
+                    if ($request->wantsJson() || $request->ajax()) {
+                        return response()->json(['success' => false, 'message' => $msg], 422);
+                    }
+
+                    return back()->withErrors(['general' => $msg])->withInput();
+                }
+
+                $lockedAccessories[$maPK] = $phuKien;
+                $alreadyRequested = $rentalsToAttach[$maPK]['SoLuong'] ?? 0;
+
+                if ($phuKien->SoLuongKhaDung < ($alreadyRequested + $qty)) {
+                    DB::rollBack();
+
+                    $msg = "Phụ kiện \"{$phuKien->TenPhuKien}\" chỉ còn {$phuKien->SoLuongKhaDung} cái khả dụng.";
+                    if ($request->wantsJson() || $request->ajax()) {
+                        return response()->json(['success' => false, 'message' => $msg], 422);
+                    }
+
+                    return back()->withErrors(['general' => $msg])->withInput();
+                }
+
+                $donGiaThue = (float) $phuKien->GiaThue;
+                $tongTienThue += round($donGiaThue * $qty);
+                $note = isset($rental['GhiChu']) ? trim((string) $rental['GhiChu']) : null;
+
+                if (isset($rentalsToAttach[$maPK])) {
+                    $rentalsToAttach[$maPK]['SoLuong'] += $qty;
+                    if ($note !== null && $note !== '') {
+                        $rentalsToAttach[$maPK]['GhiChu'] = trim(($rentalsToAttach[$maPK]['GhiChu'] ? $rentalsToAttach[$maPK]['GhiChu'].'; ' : '').$note);
+                    }
+                } else {
+                    $rentalsToAttach[$maPK] = [
+                        'SoLuong' => $qty,
+                        'DonGiaThue' => $donGiaThue,
+                        'GhiChu' => $note !== '' ? $note : null,
+                    ];
+                }
+            }
+
+            $tongThanhToan = $tongTien + $tongTienThue;
             $paymentMethod = $validated['PhuongThucThanhToan'] ?? 'tai_san';
 
             // Tạo phiếu đặt sân
@@ -482,16 +568,41 @@ class BookingController extends Controller
                 'GhiChu' => $validated['GhiChu'] ?? 'Đặt trực tuyến qua hệ thống Sports Complex',
             ]);
 
-            // Tạo hóa đơn tương ứng với trạng thái chưa thanh toán
+            // Tạo phiếu thuê phụ kiện gắn liền với phiếu đặt sân nếu khách có chọn thuê đồ
+            if (! empty($rentalsToAttach)) {
+                $phieuThue = PhieuThue::create([
+                    'MaKH' => $khachHang->MaKH,
+                    'MaDatSan' => $phieuDatSan->MaDatSan,
+                    'TenKhachThue' => $khachHang->HoTen,
+                    'SDTKhachThue' => $khachHang->SDT,
+                    'NgayThue' => $validated['NgayDat'],
+                    'TongTienThue' => $tongTienThue,
+                    'TrangThai' => 'dat_truoc',
+                    'GhiChu' => 'Thuê kèm phiếu đặt sân #MDS-'.$phieuDatSan->MaDatSan,
+                ]);
+
+                $phieuThue->phuKienThue()->attach($rentalsToAttach);
+
+                foreach ($rentalsToAttach as $maPK => $pivotData) {
+                    $lockedAccessories[$maPK]->decrement('SoLuongKhaDung', $pivotData['SoLuong']);
+                }
+            }
+
+            // Tạo hóa đơn tương ứng với trạng thái chưa thanh toán (gộp tiền sân + tiền thuê phụ kiện)
+            $hoaDonNote = $paymentMethod === 'zalopay'
+                ? 'Hóa đơn khởi tạo chờ thanh toán ZaloPay'
+                : 'Hóa đơn khởi tạo khi đặt sân trực tuyến';
+            if ($tongTienThue > 0) {
+                $hoaDonNote .= ' (đã bao gồm phụ kiện thuê)';
+            }
+
             $hoaDon = HoaDon::create([
                 'MaDatSan' => $phieuDatSan->MaDatSan,
                 'NgayLap' => now()->toDateString(),
-                'TongTien' => $tongTien,
+                'TongTien' => $tongThanhToan,
                 'TenPhuongThuc' => $paymentMethod,
                 'TrangThai' => 'chua_thanh_toan',
-                'GhiChu' => $paymentMethod === 'zalopay'
-                    ? 'Hóa đơn khởi tạo chờ thanh toán ZaloPay'
-                    : 'Hóa đơn khởi tạo khi đặt sân trực tuyến',
+                'GhiChu' => $hoaDonNote,
             ]);
 
             // Tạo chi tiết đặt sân
@@ -528,7 +639,7 @@ class BookingController extends Controller
                             'success' => true,
                             'message' => 'Đang chuyển đến cổng thanh toán ZaloPay...',
                             'booking_id' => $phieuDatSan->MaDatSan,
-                            'total' => $tongTien,
+                            'total' => $tongThanhToan,
                             'payment_url' => $zaloResult['order_url'],
                         ]);
                     }
@@ -542,7 +653,7 @@ class BookingController extends Controller
                         'success' => true,
                         'message' => 'Đã tạo phiếu #MDS-'.$phieuDatSan->MaDatSan.' nhưng chưa mở được ZaloPay ('.$zaloError.'). Bạn có thể thanh toán lại trong Hồ sơ.',
                         'booking_id' => $phieuDatSan->MaDatSan,
-                        'total' => $tongTien,
+                        'total' => $tongThanhToan,
                     ]);
                 }
 
@@ -557,7 +668,7 @@ class BookingController extends Controller
                     'success' => true,
                     'message' => 'Đặt sân thành công! Mã phiếu: #MDS-'.$phieuDatSan->MaDatSan,
                     'booking_id' => $phieuDatSan->MaDatSan,
-                    'total' => $tongTien,
+                    'total' => $tongThanhToan,
                 ]);
             }
 

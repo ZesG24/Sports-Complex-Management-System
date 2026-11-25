@@ -24,7 +24,6 @@ class PhieuThue extends Model
         'ThoiGianMuon',
         'ThoiGianTra',
         'TongTienThue',
-        'TongTienCoc',
         'TrangThai',
         'GhiChu',
     ];
@@ -36,7 +35,6 @@ class PhieuThue extends Model
             'ThoiGianMuon' => 'datetime',
             'ThoiGianTra' => 'datetime',
             'TongTienThue' => 'decimal:2',
-            'TongTienCoc' => 'decimal:2',
         ];
     }
 
@@ -53,6 +51,6 @@ class PhieuThue extends Model
     public function phuKienThue(): BelongsToMany
     {
         return $this->belongsToMany(PhuKienThue::class, 'chitietphieuthue', 'MaPhieuThue', 'MaPKThue')
-            ->withPivot(['SoLuong', 'DonGiaThue', 'TienCoc']);
+            ->withPivot(['SoLuong', 'DonGiaThue', 'GhiChu']);
     }
 }
